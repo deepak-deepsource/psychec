@@ -72,16 +72,16 @@ public:
     void addSyntaxTrees(std::vector<const SyntaxTree*> trees);
 
     /**
-     * The SyntaxTree associated to \c this Compilation.
+     * The SyntaxTrees in \c this Compilation.
      */
-    std::vector<const SyntaxTree*> syntaxTree() const;
+    std::vector<const SyntaxTree*> syntaxTrees() const;
 
     /**
-     * The SemanticModel associated to the SyntaxTree \p tree of \c this Compilation.
+     * The SemanticModel for the SyntaxTree \p tree in \c this Compilation.
      */
     const SemanticModel* semanticModel(const SyntaxTree* tree) const;
 
-PSY_INTERNAL:
+PSY_INTERNAL_AND_RESTRICTED:
     PSY_GRANT_ACCESS(SemanticModel);
 
     Assembly* assembly();

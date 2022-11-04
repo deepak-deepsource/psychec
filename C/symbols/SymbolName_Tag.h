@@ -49,22 +49,36 @@ public:
     //!@}
 
     /**
-     * The TagSymbolNameKind of \c this TagSymbolName.
+     * The choice of a tag.
+     *
+     * \remark \remark 6.7.2.3-2
      */
-    TagSymbolNameKind kind() const;
+    enum class TagChoice : std::uint8_t
+    {
+        UNSPECIFIED = 0,
+
+        Struct,
+        Union,
+        Enum
+    };
+
+    /**
+     * The TagChoice of \c this TagSymbolName.
+     */
+    TagChoice tagChoice() const;
 
     /**
      * The text of \c this TagSymbolName.
      */
     virtual std::string text() const override;
 
-PSY_INTERNAL:
+PSY_INTERNAL_AND_RESTRICTED:
     PSY_GRANT_ACCESS(NamedTypeSymbol);
 
-    TagSymbolName(TagSymbolNameKind tagK, std::string tag);
+    TagSymbolName(TagChoice tagK, std::string tag);
 
 private:
-    TagSymbolNameKind tagK_;
+    TagChoice tagChoice_;
     std::string tag_;
 };
 

@@ -51,7 +51,7 @@ class PSY_C_NON_API Binder final : protected SyntaxVisitor
 {
     friend class BinderTester;
 
-PSY_INTERNAL:
+PSY_INTERNAL_AND_RESTRICTED:
     PSY_GRANT_ACCESS(SemanticModel);
     PSY_GRANT_ACCESS(ConstraintsInDeclarations);
     PSY_GRANT_ACCESS(ConstraintsInTypeSpecifiers);
@@ -139,10 +139,10 @@ private:
     Action visitFieldDeclaration_AtDeclarators(const FieldDeclarationSyntax*);
     Action visitFieldDeclaration_DONE(const FieldDeclarationSyntax*);
 
-    virtual Action visitEnumMemberDeclaration(const EnumMemberDeclarationSyntax*) override;
-    Action visitEnumMemberDeclaration_AtImplicitSpecifier(const EnumMemberDeclarationSyntax*);
-    Action visitEnumMemberDeclaration_AtDeclarator(const EnumMemberDeclarationSyntax*);
-    Action visitEnumMemberDeclaration_DONE(const EnumMemberDeclarationSyntax*);
+    virtual Action visitEnumeratorDeclaration(const EnumeratorDeclarationSyntax*) override;
+    Action visitEnumeratorDeclaration_AtImplicitSpecifier(const EnumeratorDeclarationSyntax*);
+    Action visitEnumeratorDeclaration_AtDeclarator(const EnumeratorDeclarationSyntax*);
+    Action visitEnumeratorDeclaration_DONE(const EnumeratorDeclarationSyntax*);
 
     virtual Action visitParameterDeclaration(const ParameterDeclarationSyntax*) override;
     Action visitParameterDeclaration_AtSpecifiers(const ParameterDeclarationSyntax*);
@@ -174,7 +174,7 @@ private:
     Action nameSymAtTop(const char* s);
     Action typeSymAtTopAndPopIt();
 
-    template <class DeclT> Action determineContextAndMakeSym(const DeclT* node);
+    template <class DecltrT> Action determineContextAndMakeSym(const DecltrT* node);
 
     //------------//
     // Statements //

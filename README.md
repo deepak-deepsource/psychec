@@ -3,30 +3,33 @@
 
 ![](https://docs.google.com/drawings/d/e/2PACX-1vT-pCvcuO4U63ERkXWfBzOfVKwMQ_kh-ntzANYyNrnkt8FUV2wRHd5fN6snq33u5hWmnNQR3E3glsnH/pub?w=375&h=150)
 
-Check the [open bounties and tasks](https://docs.google.com/document/d/1_xVLVXnrEJKGOXcJcy78NqdK2vnmIiJO33iOY7xaSGQ/edit?usp=sharing)!
-
 # Psyche-C
 
-Psyche is a compiler frontend for the C programming language that is specifically designed for the implementation of static analysis tools.  
-This is what makes Psyche-C unique:
+Psyche is a rather unique compiler frontend for the C programming language that is specifically designed for the implementation of static analysis tools. This is where the "uniqueness" of Psyche-C comes from:
 
 - Clean separation between the syntactic and semantic compiler phases.
-- Algorithmic- and heuristic-based syntax disambiguation.
-- Type inference for missing `struct`, `union`, `enum`, and `typedef` (i.e., tolerance and "recovery" against `#include` failures).
+- Algorithmic and heuristic syntax disambiguation.
+- Type inference of missing `struct`, `union`, `enum`, and `typedef`  
+  (i.e., tolerance and "recovery" against `#include` failures).
 - API inspired by that of the [Roslyn .NET compiler](https://github.com/dotnet/roslyn).
 - AST resembling that of the [LLVM's Clang frontend](https://clang.llvm.org/).
 
 ## Library and API
 
-Psyche-C is implemented as a library. Its native API is in C++; APIs for other languages are [on the way](https://github.com/ltcmelo/psychec/issues/112).
+Psyche-C is implemented as a library. Its native API is in C++ (APIs for other languages are [on the way](https://github.com/ltcmelo/psychec/issues/112)).
 
 ```cpp
-void analyse(const FileInfo& fi)
+void analyse(const SourceText& srcText, const FileInfo& fi)
 {
+    ParseOptions parseOpts;
+    parseOpts.setTreatmentOfAmbiguities(ParseOptions::TreatmentOfAmbiguities::DisambiguateAlgorithmically);
+    
     auto tree = SyntaxTree::parseText(srcText,
                                       TextPreprocessingState::Preprocessed,
-                                      ParseOptions(),
+                                      TextCompleteness::Fragment,
+                                      parseOpts,
                                       fi.fileName());
+
     auto compilation = Compilation::create("code-analysis");
     compilation->addSyntaxTree(tree.get());
 
@@ -72,9 +75,9 @@ int ;
 
 NOTE: Semantic analysis isn't yet complete.
 
-### Type Inference
+## Type Inference
 
-*cnippet* understands code snippets (a.k.a. as incomplete programs or program fragments) through Psyche-C's type inference. 
+Psyche-C can infer the missing types of a code snippet (a.k.a. as an incomplete program or program fragment).
 
 ```c
 void f()

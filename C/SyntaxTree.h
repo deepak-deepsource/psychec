@@ -28,6 +28,7 @@
 #include "parser/LexedTokens.h"
 #include "parser/LineDirective.h"
 #include "parser/ParseOptions.h"
+#include "parser/TextCompleteness.h"
 #include "parser/TextPreprocessingState.h"
 #include "syntax/SyntaxToken.h"
 
@@ -71,6 +72,7 @@ public:
     enum class SyntaxCategory : uint8_t
     {
         UNSPECIFIED = 0,
+
         Declarations,
         Expressions,
         Statements,
@@ -82,8 +84,9 @@ public:
      */
     static std::unique_ptr<SyntaxTree> parseText(SourceText text,
                                                  TextPreprocessingState textPPState,
+                                                 TextCompleteness textCompleteness,
                                                  ParseOptions parseOptions = ParseOptions(),
-                                                 const std::string& path = "",
+                                                 const std::string& filePath = "",
                                                  SyntaxCategory syntaxCategory = SyntaxCategory::UNSPECIFIED);
 
     /**
@@ -116,7 +119,7 @@ public:
      */
     std::vector<Diagnostic> diagnostics() const;
 
-PSY_INTERNAL:
+PSY_INTERNAL_AND_RESTRICTED:
     PSY_GRANT_ACCESS(SyntaxNode);
     PSY_GRANT_ACCESS(SyntaxNodeList);
     PSY_GRANT_ACCESS(Lexer);
@@ -124,7 +127,8 @@ PSY_INTERNAL:
     PSY_GRANT_ACCESS(Binder);
     PSY_GRANT_ACCESS(Symbol);
     PSY_GRANT_ACCESS(Compilation);
-    PSY_GRANT_ACCESS(SyntaxWriterDOTFormat); // TODO: Remove this friend.
+    PSY_GRANT_ACCESS(InternalsTestSuite);
+    PSY_GRANT_ACCESS(SyntaxWriterDOTFormat); // TODO: Remove this grant.
 
     MemoryPool* unitPool() const;
 
@@ -138,6 +142,8 @@ PSY_INTERNAL:
     const SyntaxToken& tokenAt(LexedTokens::IndexType tkIdx) const;
     TokenSequenceType::size_type tokenCount() const;
     LexedTokens::IndexType freeTokenSlot() const;
+
+    bool parseExitedEarly() const;
 
     const Identifier* identifier(const char* s, unsigned int size);
     const IntegerConstant* integerConstant(const char* s, unsigned int size);
@@ -165,6 +171,8 @@ PSY_INTERNAL:
 
 private:
     SyntaxTree(SourceText text,
+               TextPreprocessingState textPPState,
+               TextCompleteness textCompleteness,
                ParseOptions parseOptions,
                const std::string& path);
 
@@ -174,7 +182,7 @@ private:
 
     DECL_PIMPL(SyntaxTree)
 
-    void buildTree(SyntaxCategory syntaxCat);
+    void buildFor(SyntaxCategory syntaxCategory);
 
     LinePosition computePosition(unsigned int offset) const;
     unsigned int searchForLineno(unsigned int offset) const;

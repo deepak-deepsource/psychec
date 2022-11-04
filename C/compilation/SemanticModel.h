@@ -47,33 +47,53 @@ public:
     ~SemanticModel();
 
     /**
-     * The Compilation which \c this SemanticModel was computed from.
+     * The SyntaxTree from which \c this SemanticModel was computed.
+     */
+    const SyntaxTree* syntaxTree() const;
+
+    /**
+     * The Compilation from which \c this SemanticModel was computed.
      */
     const Compilation* compilation() const;
 
     //!@{
     /**
-     * The Symbol declared by the given by DeclaratorSyntax \p node.
+     * The Symbol declared by TranslationUnitSyntax \p node.
+     */
+    const LibrarySymbol* declaredSymbol(const TranslationUnitSyntax* node) const;
+
+    /**
+     * The Symbol declared by DeclarationSyntax \p node.
+     */
+    const FunctionSymbol* declaredSymbol(const FunctionDefinitionSyntax* node) const;
+    const ParameterSymbol* declaredSymbol(const ParameterDeclarationSyntax* node) const;
+    const NamedTypeSymbol* declaredSymbol(const TypeDeclarationSyntax* node) const;
+    const EnumeratorSymbol* declaredSymbol(const EnumeratorDeclarationSyntax* node) const;
+
+    /**
+     * The Symbol(s) declared by DeclarationSyntax \p node.
+     */
+    std::vector<const Symbol*> declaredSymbols(const VariableAndOrFunctionDeclarationSyntax* node) const;
+    std::vector<const FieldSymbol*> declaredSymbols(const FieldDeclarationSyntax* node) const;
+
+    /**
+     * The Symbol declared by DeclaratorSyntax \p node.
      */
     const Symbol* declaredSymbol(const DeclaratorSyntax* node) const;
     //!@}
 
-    //!@{
-    /**
-     * The Symbol(s) declared by the given DeclarationSyntax \p node.
-     */
-    std::vector<const Symbol*> declaredSymbols(const VariableAndOrFunctionDeclarationSyntax* node) const;
-    const Symbol* declaredSymbol(const FunctionDefinitionSyntax* node) const;
-    //!@}
-
-PSY_INTERNAL:
+PSY_INTERNAL_AND_RESTRICTED:
     PSY_GRANT_ACCESS(Binder);
     PSY_GRANT_ACCESS(Compilation);
 
-    SemanticModel(Compilation* compilation, const SyntaxTree* tree);
+    SemanticModel(const SyntaxTree* tree, Compilation* compilation);
 
     Symbol* storeDeclaredSym(const SyntaxNode* node, std::unique_ptr<Symbol> sym);
     Symbol* storeUsedSym(std::unique_ptr<Symbol> sym);
+
+    template <class SymCastT, class SymOriT> const SymCastT* castSym(
+            const SymOriT* sym,
+            const SymCastT* (SymOriT::*cast)() const) const;
 
 private:
     // Unavailable

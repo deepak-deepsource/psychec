@@ -120,13 +120,13 @@ SyntaxVisitor::Action Binder::visitFieldDeclaration_AtDeclarators(const FieldDec
                 &Binder::visitFieldDeclaration_DONE);
 }
 
-SyntaxVisitor::Action Binder::visitEnumMemberDeclaration_AtDeclarator(const EnumMemberDeclarationSyntax* node)
+SyntaxVisitor::Action Binder::visitEnumeratorDeclaration_AtDeclarator(const EnumeratorDeclarationSyntax* node)
 {
     determineContextAndMakeSym(node);
     nameSymAtTop(node->identifierToken().valueText_c_str());
     typeSymAtTopAndPopIt();
 
-    return visitEnumMemberDeclaration_DONE(node);
+    return visitEnumeratorDeclaration_DONE(node);
 }
 
 SyntaxVisitor::Action Binder::visitParameterDeclaration_AtDeclarator(const ParameterDeclarationSyntax* node)
@@ -245,8 +245,8 @@ SyntaxVisitor::Action Binder::visitParenthesizedDeclarator(const ParenthesizedDe
     return Action::Skip;
 }
 
-template <class DeclT>
-SyntaxVisitor::Action Binder::determineContextAndMakeSym(const DeclT* node)
+template <class DecltrT>
+SyntaxVisitor::Action Binder::determineContextAndMakeSym(const DecltrT* node)
 {
     switch (scopes_.top()->kind()) {
         case ScopeKind::File:
@@ -268,13 +268,13 @@ SyntaxVisitor::Action Binder::determineContextAndMakeSym(const DeclT* node)
                                             && sym->asType()->asNamedType()->name()->asTagSymbolName(),
                                        return Action::Quit);
 
-                            switch (sym->asType()->asNamedType()->name()->asTagSymbolName()->kind()) {
-                                case TagSymbolNameKind::Union:
-                                case TagSymbolNameKind::Structure:
+                            switch (sym->asType()->asNamedType()->name()->asTagSymbolName()->tagChoice()) {
+                                case TagSymbolName::TagChoice::Union:
+                                case TagSymbolName::TagChoice::Struct:
                                     makeSymAndPushIt<FieldSymbol>(node);
                                     break;
 
-                                case TagSymbolNameKind::Enumeration:
+                                case TagSymbolName::TagChoice::Enum:
                                     makeSymAndPushIt<EnumeratorSymbol>(node);
                                     break;
 
