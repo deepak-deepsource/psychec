@@ -36,15 +36,14 @@ namespace C {
  * This API is inspired by that of \c Microsoft.CodeAnalysis.Accessibility
  * from Roslyn, the .NET Compiler Platform.
  */
-enum class PSY_C_API Accessibility : std::uint8_t
-{
-    Unknown,
-    Private,
-    Protected,
-    Public
+enum class PSY_C_API Accessibility : std::uint8_t {
+  Unknown,
+  Private,
+  Protected,
+  Public
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

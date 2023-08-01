@@ -34,36 +34,34 @@ namespace psy {
  * An abstraction representation of a line within a file.
  *
  * \note
- * This API is inspired by that of \c Microsoft.CodeAnalysis.Text.LinePositionSpan
- * from Roslyn, the .NET Compiler Platform.
+ * This API is inspired by that of \c
+ * Microsoft.CodeAnalysis.Text.LinePositionSpan from Roslyn, the .NET Compiler
+ * Platform.
  */
-class PSY_API LinePositionSpan
-{
+class PSY_API LinePositionSpan {
 public:
-    LinePositionSpan(const LinePosition& start, const LinePosition& end)
-        : start_(start)
-        , end_(end)
-    {}
+  LinePositionSpan(const LinePosition &start, const LinePosition &end)
+      : start_(start), end_(end) {}
 
-    /**
-     * The start position of \c this span.
-     */
-    LinePosition start() const { return start_; }
+  /**
+   * The start position of \c this span.
+   */
+  LinePosition start() const { return start_; }
 
-    /**
-     * The end position of \c this span.
-     */
-    LinePosition end() const { return end_; }
+  /**
+   * The end position of \c this span.
+   */
+  LinePosition end() const { return end_; }
 
 private:
-    LinePosition start_;
-    LinePosition end_;
+  LinePosition start_;
+  LinePosition end_;
 };
 
-bool operator==(const LinePositionSpan& a, const LinePositionSpan& b);
+bool operator==(const LinePositionSpan &a, const LinePositionSpan &b);
 
-std::ostream& operator<<(std::ostream& os, const LinePositionSpan& span);
+std::ostream &operator<<(std::ostream &os, const LinePositionSpan &span);
 
-} // psy
+} // namespace psy
 
 #endif

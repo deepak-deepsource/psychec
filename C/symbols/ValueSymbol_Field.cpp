@@ -20,37 +20,31 @@
 
 #include "ValueSymbol_Field.h"
 
-#include "symbols/Symbol_ALL.h"
 #include "binder/Scope.h"
+#include "symbols/Symbol_ALL.h"
 
 #include <sstream>
 
 using namespace psy;
 using namespace C;
 
-FieldSymbol::FieldSymbol(const SyntaxTree* tree,
-                         const Scope* scope,
-                         const Symbol* containingSym)
-    : ValueSymbol(tree,
-                  scope,
-                  containingSym,
-                  ValueKind::Field)
-{}
+FieldSymbol::FieldSymbol(const SyntaxTree *tree, const Scope *scope,
+                         const Symbol *containingSym)
+    : ValueSymbol(tree, scope, containingSym, ValueKind::Field) {}
 
 namespace psy {
 namespace C {
 
-std::string to_string(const FieldSymbol& sym)
-{
-    std::ostringstream oss;
-    oss << "{%field |";
-    oss << " " << (sym.name() ? to_string(*sym.name()) : "name:NULL");
-    oss << " " << (sym.type() ? to_string(*sym.type()) : "type:NULL");
-    oss << " " << (sym.scope() ? to_string(sym.scope()->kind()) : "scope:NULL");
-    oss << " %}";
+std::string to_string(const FieldSymbol &sym) {
+  std::ostringstream oss;
+  oss << "{%field |";
+  oss << " " << (sym.name() ? to_string(*sym.name()) : "name:NULL");
+  oss << " " << (sym.type() ? to_string(*sym.type()) : "type:NULL");
+  oss << " " << (sym.scope() ? to_string(sym.scope()->kind()) : "scope:NULL");
+  oss << " %}";
 
-    return oss.str();
+  return oss.str();
 }
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy

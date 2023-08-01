@@ -23,7 +23,7 @@
 using namespace psy;
 using namespace C;
 
-std::vector<std::string> StdLibInspector::detectRequiredHeaders(const std::string& source)
-{
-    return { };
+std::vector<std::string>
+StdLibInspector::detectRequiredHeaders(const std::string &source) {
+  return {};
 }

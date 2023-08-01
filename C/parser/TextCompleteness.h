@@ -31,15 +31,13 @@ namespace C {
 /**
  * \brief The alternatives for the TextCompleteness of the parsed text.
  */
-enum class PSY_C_API TextCompleteness : std::uint8_t
-{
-    Unknown,
-    Full,
-    Fragment
+enum class PSY_C_API TextCompleteness : std::uint8_t {
+  Unknown,
+  Full,
+  Fragment
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif
-

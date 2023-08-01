@@ -1,5 +1,4 @@
-int f()
-{
+int f() {
   const int x;
   return x;
 }

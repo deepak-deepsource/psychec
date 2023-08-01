@@ -57,145 +57,143 @@ namespace C {
  * This API is inspired by that of \c Microsoft.CodeAnalysis.SyntaxTree
  * from Roslyn, the .NET Compiler Platform.
  */
-class PSY_C_API SyntaxTree
-{
+class PSY_C_API SyntaxTree {
 public:
-    ~SyntaxTree();
+  ~SyntaxTree();
 
-    /**
-     * \brief The SyntaxCategory enumeration.
-     *
-     * The possible categories of syntax that a SyntaxTree
-     * may represent. If unspecified, it is assumed that
-     * a SyntaxTree represents a \a translation-unit.
-     */
-    enum class SyntaxCategory : uint8_t
-    {
-        UNSPECIFIED = 0,
+  /**
+   * \brief The SyntaxCategory enumeration.
+   *
+   * The possible categories of syntax that a SyntaxTree
+   * may represent. If unspecified, it is assumed that
+   * a SyntaxTree represents a \a translation-unit.
+   */
+  enum class SyntaxCategory : uint8_t {
+    UNSPECIFIED = 0,
 
-        Declarations,
-        Expressions,
-        Statements,
-    };
+    Declarations,
+    Expressions,
+    Statements,
+  };
 
-    /**
-     * Parse the input \p text, as according to the \p syntaxCategory,
-     * in order to build \c this SyntaxTree.
-     */
-    static std::unique_ptr<SyntaxTree> parseText(SourceText text,
-                                                 TextPreprocessingState textPPState,
-                                                 TextCompleteness textCompleteness,
-                                                 ParseOptions parseOptions = ParseOptions(),
-                                                 const std::string& filePath = "",
-                                                 SyntaxCategory syntaxCategory = SyntaxCategory::UNSPECIFIED);
+  /**
+   * Parse the input \p text, as according to the \p syntaxCategory,
+   * in order to build \c this SyntaxTree.
+   */
+  static std::unique_ptr<SyntaxTree>
+  parseText(SourceText text, TextPreprocessingState textPPState,
+            TextCompleteness textCompleteness,
+            ParseOptions parseOptions = ParseOptions(),
+            const std::string &filePath = "",
+            SyntaxCategory syntaxCategory = SyntaxCategory::UNSPECIFIED);
 
-    /**
-     * The path of the file associated to \c this SyntaxTree.
-     */
-    std::string filePath() const;
+  /**
+   * The path of the file associated to \c this SyntaxTree.
+   */
+  std::string filePath() const;
 
-    /**
-     * The SourceText associated to \c this SyntaxTree.
-     */
-    const SourceText& text() const;
+  /**
+   * The SourceText associated to \c this SyntaxTree.
+   */
+  const SourceText &text() const;
 
-    /**
-     * The root node of this \c this SyntaxTree.
-     */
-    SyntaxNode* root() const;
+  /**
+   * The root node of this \c this SyntaxTree.
+   */
+  SyntaxNode *root() const;
 
-    /**
-     * Whether \c this SyntaxTree has a \c TranslationUnit as the root node.
-     */
-    bool hasTranslationUnitRoot() const;
+  /**
+   * Whether \c this SyntaxTree has a \c TranslationUnit as the root node.
+   */
+  bool hasTranslationUnitRoot() const;
 
-    /**
-     * The \c TranslationUnit root of \c this SyntaxTree (in one exists).
-     */
-    TranslationUnitSyntax* translationUnitRoot() const;
+  /**
+   * The \c TranslationUnit root of \c this SyntaxTree (in one exists).
+   */
+  TranslationUnitSyntax *translationUnitRoot() const;
 
-    /**
-     * The diagnostics in \c this SyntaxTree.
-     */
-    std::vector<Diagnostic> diagnostics() const;
+  /**
+   * The diagnostics in \c this SyntaxTree.
+   */
+  std::vector<Diagnostic> diagnostics() const;
 
-PSY_INTERNAL_AND_RESTRICTED:
-    PSY_GRANT_ACCESS(SyntaxNode);
-    PSY_GRANT_ACCESS(SyntaxNodeList);
-    PSY_GRANT_ACCESS(Lexer);
-    PSY_GRANT_ACCESS(Parser);
-    PSY_GRANT_ACCESS(Binder);
-    PSY_GRANT_ACCESS(Symbol);
-    PSY_GRANT_ACCESS(Compilation);
-    PSY_GRANT_ACCESS(InternalsTestSuite);
-    PSY_GRANT_ACCESS(SyntaxWriterDOTFormat); // TODO: Remove this grant.
+  PSY_INTERNAL_AND_RESTRICTED : PSY_GRANT_ACCESS(SyntaxNode);
+  PSY_GRANT_ACCESS(SyntaxNodeList);
+  PSY_GRANT_ACCESS(Lexer);
+  PSY_GRANT_ACCESS(Parser);
+  PSY_GRANT_ACCESS(Binder);
+  PSY_GRANT_ACCESS(Symbol);
+  PSY_GRANT_ACCESS(Compilation);
+  PSY_GRANT_ACCESS(InternalsTestSuite);
+  PSY_GRANT_ACCESS(SyntaxWriterDOTFormat); // TODO: Remove this grant.
 
-    MemoryPool* unitPool() const;
+  MemoryPool *unitPool() const;
 
-    using TokenSequenceType = std::vector<SyntaxToken>;
-    using LineColum = std::pair<unsigned int, unsigned int>;
-    using ExpansionsTable = std::unordered_map<unsigned int, LineColum>;
+  using TokenSequenceType = std::vector<SyntaxToken>;
+  using LineColum = std::pair<unsigned int, unsigned int>;
+  using ExpansionsTable = std::unordered_map<unsigned int, LineColum>;
 
-    /* Lexed-tokens access and manipulation */
-    void addToken(SyntaxToken tk);
-    SyntaxToken& tokenAt(LexedTokens::IndexType tkIdx);
-    const SyntaxToken& tokenAt(LexedTokens::IndexType tkIdx) const;
-    TokenSequenceType::size_type tokenCount() const;
-    LexedTokens::IndexType freeTokenSlot() const;
+  /* Lexed-tokens access and manipulation */
+  void addToken(SyntaxToken tk);
+  SyntaxToken &tokenAt(LexedTokens::IndexType tkIdx);
+  const SyntaxToken &tokenAt(LexedTokens::IndexType tkIdx) const;
+  TokenSequenceType::size_type tokenCount() const;
+  LexedTokens::IndexType freeTokenSlot() const;
 
-    bool parseExitedEarly() const;
+  bool parseExitedEarly() const;
 
-    const Identifier* identifier(const char* s, unsigned int size);
-    const IntegerConstant* integerConstant(const char* s, unsigned int size);
-    const FloatingConstant* floatingConstant(const char* s, unsigned int size);
-    const ImaginaryIntegerConstant* imaginaryIntegerConstant(const char* s, unsigned int size);
-    const ImaginaryFloatingConstant* imaginaryFloatingConstant(const char* s, unsigned int size);
-    const CharacterConstant* characterConstant(const char* s, unsigned int size);
-    const StringLiteral* stringLiteral(const char* s, unsigned size);
+  const Identifier *identifier(const char *s, unsigned int size);
+  const IntegerConstant *integerConstant(const char *s, unsigned int size);
+  const FloatingConstant *floatingConstant(const char *s, unsigned int size);
+  const ImaginaryIntegerConstant *imaginaryIntegerConstant(const char *s,
+                                                           unsigned int size);
+  const ImaginaryFloatingConstant *imaginaryFloatingConstant(const char *s,
+                                                             unsigned int size);
+  const CharacterConstant *characterConstant(const char *s, unsigned int size);
+  const StringLiteral *stringLiteral(const char *s, unsigned size);
 
-    void relayLineStart(unsigned int offset);
-    void relayExpansion(unsigned int offset, std::pair<unsigned, unsigned> p);
-    void relayLineDirective(unsigned int offset, unsigned int lineno, const std::string& filePath);
+  void relayLineStart(unsigned int offset);
+  void relayExpansion(unsigned int offset, std::pair<unsigned, unsigned> p);
+  void relayLineDirective(unsigned int offset, unsigned int lineno,
+                          const std::string &filePath);
 
-    const ParseOptions& parseOptions() const;
+  const ParseOptions &parseOptions() const;
 
-    LanguageDialect dialect() const { return dialect_; }
-    void setDialect(LanguageDialect dialect) { dialect_ = dialect; }
+  LanguageDialect dialect() const { return dialect_; }
+  void setDialect(LanguageDialect dialect) { dialect_ = dialect; }
 
-    void newDiagnostic(DiagnosticDescriptor descriptor, LexedTokens::IndexType tkIdx) const;
-    void newDiagnostic(DiagnosticDescriptor descriptor, SyntaxToken tk) const;
+  void newDiagnostic(DiagnosticDescriptor descriptor,
+                     LexedTokens::IndexType tkIdx) const;
+  void newDiagnostic(DiagnosticDescriptor descriptor, SyntaxToken tk) const;
 
-    void attachCompilation(const Compilation*) const;
-    void detachCompilation(const Compilation*) const;
-    std::unordered_set<const Compilation*> linkedCompilations() const;
+  void attachCompilation(const Compilation *) const;
+  void detachCompilation(const Compilation *) const;
+  std::unordered_set<const Compilation *> linkedCompilations() const;
 
 private:
-    SyntaxTree(SourceText text,
-               TextPreprocessingState textPPState,
-               TextCompleteness textCompleteness,
-               ParseOptions parseOptions,
-               const std::string& path);
+  SyntaxTree(SourceText text, TextPreprocessingState textPPState,
+             TextCompleteness textCompleteness, ParseOptions parseOptions,
+             const std::string &path);
 
-    // Unavailable
-    SyntaxTree(const SyntaxTree&) = delete;
-    SyntaxTree& operator=(const SyntaxTree&) = delete;
+  // Unavailable
+  SyntaxTree(const SyntaxTree &) = delete;
+  SyntaxTree &operator=(const SyntaxTree &) = delete;
 
-    DECL_PIMPL(SyntaxTree)
+  DECL_PIMPL(SyntaxTree)
 
-    void buildFor(SyntaxCategory syntaxCategory);
+  void buildFor(SyntaxCategory syntaxCategory);
 
-    LinePosition computePosition(unsigned int offset) const;
-    unsigned int searchForLineno(unsigned int offset) const;
-    unsigned int searchForColumn(unsigned int offset, unsigned int lineno) const;
-    LineDirective searchForLineDirective(unsigned int offset) const;
+  LinePosition computePosition(unsigned int offset) const;
+  unsigned int searchForLineno(unsigned int offset) const;
+  unsigned int searchForColumn(unsigned int offset, unsigned int lineno) const;
+  LineDirective searchForLineDirective(unsigned int offset) const;
 
-    // TODO: Move to implementaiton.
-    LanguageDialect dialect_;
-    std::vector<SyntaxToken> comments_;
+  // TODO: Move to implementaiton.
+  LanguageDialect dialect_;
+  std::vector<SyntaxToken> comments_;
 };
 
-} // C
-} // psy
-
+} // namespace C
+} // namespace psy
 
 #endif

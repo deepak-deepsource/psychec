@@ -27,17 +27,16 @@
 
 namespace psy {
 
-class TestSuite
-{
+class TestSuite {
 public:
-    virtual ~TestSuite() {}
-    virtual std::string description() const = 0;
-    virtual std::tuple<int, int> testAll() = 0;
-    virtual void printSummary() const = 0;
+  virtual ~TestSuite() {}
+  virtual std::string description() const = 0;
+  virtual std::tuple<int, int> testAll() = 0;
+  virtual void printSummary() const = 0;
 
-    static void runTests();
+  static void runTests();
 };
 
-} // psy
+} // namespace psy
 
 #endif

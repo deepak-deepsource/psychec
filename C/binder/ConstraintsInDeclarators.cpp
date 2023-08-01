@@ -23,39 +23,31 @@
 using namespace psy;
 using namespace C;
 
-const std::string ConstraintsInDeclarators::ID_FunctionReturningFunction = "Binder-200-6.7.6.3-1-A";
-const std::string ConstraintsInDeclarators::ID_FunctionReturningArray = "Binder-200-6.7.6.3-1-B";
+const std::string ConstraintsInDeclarators::ID_FunctionReturningFunction =
+    "Binder-200-6.7.6.3-1-A";
+const std::string ConstraintsInDeclarators::ID_FunctionReturningArray =
+    "Binder-200-6.7.6.3-1-B";
 
 void ConstraintsInDeclarators::FunctionReturningFunction(
-        SyntaxToken decltorTk,
-        Binder::DiagnosticsReporter* diagReporter)
-{
-    auto s = "`"
-            + decltorTk.valueText()
-            + "' declared as function returning a function";
+    SyntaxToken decltorTk, Binder::DiagnosticsReporter *diagReporter) {
+  auto s = "`" + decltorTk.valueText() +
+           "' declared as function returning a function";
 
-    diagReporter->diagnose(DiagnosticDescriptor(
-                               ID_FunctionReturningFunction,
-                               "[[function returning function]]",
-                               s,
-                               DiagnosticSeverity::Error,
-                               DiagnosticCategory::Binding),
-                           decltorTk);
+  diagReporter->diagnose(DiagnosticDescriptor(ID_FunctionReturningFunction,
+                                              "[[function returning function]]",
+                                              s, DiagnosticSeverity::Error,
+                                              DiagnosticCategory::Binding),
+                         decltorTk);
 }
 
 void ConstraintsInDeclarators::FunctionReturningArray(
-        SyntaxToken decltorTk,
-        Binder::DiagnosticsReporter* diagReporter)
-{
-    auto s = "`"
-            + decltorTk.valueText()
-            + "' declared as function returning an array";
+    SyntaxToken decltorTk, Binder::DiagnosticsReporter *diagReporter) {
+  auto s =
+      "`" + decltorTk.valueText() + "' declared as function returning an array";
 
-    diagReporter->diagnose(DiagnosticDescriptor(
-                               ID_FunctionReturningArray,
-                               "[[function returning array]]",
-                               s,
-                               DiagnosticSeverity::Error,
-                               DiagnosticCategory::Binding),
-                           decltorTk);
+  diagReporter->diagnose(DiagnosticDescriptor(ID_FunctionReturningArray,
+                                              "[[function returning array]]", s,
+                                              DiagnosticSeverity::Error,
+                                              DiagnosticCategory::Binding),
+                         decltorTk);
 }

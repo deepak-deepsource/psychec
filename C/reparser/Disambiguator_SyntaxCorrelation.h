@@ -33,32 +33,35 @@
 namespace psy {
 namespace C {
 
-class PSY_C_NON_API SyntaxCorrelationDisambiguator final : public Disambiguator
-{
-PSY_INTERNAL_AND_RESTRICTED:
-    PSY_GRANT_ACCESS(Reparser);
+class PSY_C_NON_API SyntaxCorrelationDisambiguator final
+    : public Disambiguator {
+  PSY_INTERNAL_AND_RESTRICTED : PSY_GRANT_ACCESS(Reparser);
 
-    SyntaxCorrelationDisambiguator(SyntaxTree* tree);
+  SyntaxCorrelationDisambiguator(SyntaxTree *tree);
 
-    void acquireCatalog(std::unique_ptr<NameCatalog> catalog);
+  void acquireCatalog(std::unique_ptr<NameCatalog> catalog);
 
 private:
-    std::unique_ptr<NameCatalog> catalog_;
+  std::unique_ptr<NameCatalog> catalog_;
 
-    virtual Disambiguation disambiguateExpression(const AmbiguousCastOrBinaryExpressionSyntax*) const override;
-    virtual Disambiguation disambiguateStatement(const AmbiguousExpressionOrDeclarationStatementSyntax*) const override;
-    virtual Disambiguation disambiguateTypeReference(const AmbiguousTypeNameOrExpressionAsTypeReferenceSyntax*) const override;
+  virtual Disambiguation disambiguateExpression(
+      const AmbiguousCastOrBinaryExpressionSyntax *) const override;
+  virtual Disambiguation disambiguateStatement(
+      const AmbiguousExpressionOrDeclarationStatementSyntax *) const override;
+  virtual Disambiguation disambiguateTypeReference(
+      const AmbiguousTypeNameOrExpressionAsTypeReferenceSyntax *)
+      const override;
 
-    bool recognizesTypeName(const std::string& name) const;
-    bool recognizesName(const std::string& name) const;
+  bool recognizesTypeName(const std::string &name) const;
+  bool recognizesName(const std::string &name) const;
 
-    //--------------//
-    // Declarations //
-    //--------------//
-    Action visitTranslationUnit(const TranslationUnitSyntax*) override;
+  //--------------//
+  // Declarations //
+  //--------------//
+  Action visitTranslationUnit(const TranslationUnitSyntax *) override;
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

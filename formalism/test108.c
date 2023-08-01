@@ -1,12 +1,11 @@
-int k()
-{
-    const int* p;
-    const int cv;
+int k() {
+  const int *p;
+  const int cv;
 
-    T1 x;
-    x = p + cv;
-    T2 y;
-    y = cv + p;
+  T1 x;
+  x = p + cv;
+  T2 y;
+  y = cv + p;
 
-    return 23;
+  return 23;
 }

@@ -29,8 +29,7 @@
 namespace psy {
 namespace C {
 
-const char* tokenNames[] =
-{
+const char *tokenNames[] = {
     // ----------------------------------------------------------------- //
     // These must be ordered as according to the SyntaxKind enumerators. //
     // ----------------------------------------------------------------- //
@@ -75,7 +74,7 @@ const char* tokenNames[] =
     "#",
     "##",
 
-     ";",
+    ";",
 
     "auto",
     "break",
@@ -210,258 +209,222 @@ const char* tokenNames[] =
     "_Template",
     "_Forall",
     "_Exists",
-    "<psychec marker>"
-};
+    "<psychec marker>"};
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 using namespace psy;
 using namespace C;
 
-SyntaxToken::SyntaxToken(SyntaxTree* tree)
-    : tree_(tree)
-    , rawSyntaxK_(0)
-    , byteSize_(0)
-    , charSize_(0)
-    , byteOffset_(0)
-    , charOffset_(0)
-    , matchingBracket_(0)
-    , BF_all_(0)
-    , lineno_(0)
-    , column_(0)
-    , lexeme_(nullptr)
-{
-    if (!tree_)
-        BF_.missing_ = true;
+SyntaxToken::SyntaxToken(SyntaxTree *tree)
+    : tree_(tree), rawSyntaxK_(0), byteSize_(0), charSize_(0), byteOffset_(0),
+      charOffset_(0), matchingBracket_(0), BF_all_(0), lineno_(0), column_(0),
+      lexeme_(nullptr) {
+  if (!tree_)
+    BF_.missing_ = true;
 }
 
-SyntaxToken::~SyntaxToken()
-{}
+SyntaxToken::~SyntaxToken() {}
 
-void SyntaxToken::setup()
-{
-    rawSyntaxK_ = 0;
-    byteSize_ = 0;
-    charSize_ = 0;
-    byteOffset_ = 0;
-    charOffset_ = 0;
-    matchingBracket_ = 0;
-    BF_all_ = 0;
-    lexeme_ = nullptr;
+void SyntaxToken::setup() {
+  rawSyntaxK_ = 0;
+  byteSize_ = 0;
+  charSize_ = 0;
+  byteOffset_ = 0;
+  charOffset_ = 0;
+  matchingBracket_ = 0;
+  BF_all_ = 0;
+  lexeme_ = nullptr;
 }
 
-bool SyntaxToken::isComment() const
-{
-    return rawSyntaxK_ == MultiLineCommentTrivia
-            || rawSyntaxK_ == MultiLineDocumentationCommentTrivia
-            || rawSyntaxK_ == SingleLineCommentTrivia
-            || rawSyntaxK_ == SingleLineDocumentationCommentTrivia
-            || rawSyntaxK_ == Keyword_ExtPSY_omission;
+bool SyntaxToken::isComment() const {
+  return rawSyntaxK_ == MultiLineCommentTrivia ||
+         rawSyntaxK_ == MultiLineDocumentationCommentTrivia ||
+         rawSyntaxK_ == SingleLineCommentTrivia ||
+         rawSyntaxK_ == SingleLineDocumentationCommentTrivia ||
+         rawSyntaxK_ == Keyword_ExtPSY_omission;
 }
 
-Location SyntaxToken::location() const
-{
-    LinePosition lineStart(lineno_, column_);
-    LinePosition lineEnd(lineno_, column_ + byteSize_ - 1); // TODO: Account for joined tokens.
-    FileLinePositionSpan fileLineSpan(tree_->filePath(), lineStart, lineEnd);
+Location SyntaxToken::location() const {
+  LinePosition lineStart(lineno_, column_);
+  LinePosition lineEnd(lineno_, column_ + byteSize_ -
+                                    1); // TODO: Account for joined tokens.
+  FileLinePositionSpan fileLineSpan(tree_->filePath(), lineStart, lineEnd);
 
-    return Location::create(fileLineSpan);
+  return Location::create(fileLineSpan);
 }
 
-SyntaxToken::Category SyntaxToken::category() const
-{
-    return category(SyntaxKind(rawSyntaxK_));
+SyntaxToken::Category SyntaxToken::category() const {
+  return category(SyntaxKind(rawSyntaxK_));
 }
 
-SyntaxToken::Category SyntaxToken::category(SyntaxKind k)
-{
-    switch (k) {
-        case IdentifierToken:
-            return Category::Identifiers;
+SyntaxToken::Category SyntaxToken::category(SyntaxKind k) {
+  switch (k) {
+  case IdentifierToken:
+    return Category::Identifiers;
 
-        case IntegerConstantToken:
-        case FloatingConstantToken:
-        case CharacterConstantToken:
-        case CharacterConstant_L_Token:
-        case CharacterConstant_u_Token:
-        case CharacterConstant_U_Token:
-        case ImaginaryIntegerConstantToken:
-        case ImaginaryFloatingConstantToken:
-            return Category::Constants;
+  case IntegerConstantToken:
+  case FloatingConstantToken:
+  case CharacterConstantToken:
+  case CharacterConstant_L_Token:
+  case CharacterConstant_u_Token:
+  case CharacterConstant_U_Token:
+  case ImaginaryIntegerConstantToken:
+  case ImaginaryFloatingConstantToken:
+    return Category::Constants;
 
-        case StringLiteralToken:
-        case StringLiteral_L_Token:
-        case StringLiteral_u8_Token:
-        case StringLiteral_u_Token:
-        case StringLiteral_U_Token:
-        case StringLiteral_R_Token:
-        case StringLiteral_LR_Token:
-        case StringLiteral_u8R_Token:
-        case StringLiteral_uR_Token:
-        case StringLiteral_UR_Token:
-            return Category::StringLiterals;
+  case StringLiteralToken:
+  case StringLiteral_L_Token:
+  case StringLiteral_u8_Token:
+  case StringLiteral_u_Token:
+  case StringLiteral_U_Token:
+  case StringLiteral_R_Token:
+  case StringLiteral_LR_Token:
+  case StringLiteral_u8R_Token:
+  case StringLiteral_uR_Token:
+  case StringLiteral_UR_Token:
+    return Category::StringLiterals;
 
-        case EllipsisToken:
-        case OpenBraceToken:
-        case CloseBraceToken:
-        case OpenBracketToken:
-        case CloseBracketToken:
-        case OpenParenToken:
-        case CloseParenToken:
+  case EllipsisToken:
+  case OpenBraceToken:
+  case CloseBraceToken:
+  case OpenBracketToken:
+  case CloseBracketToken:
+  case OpenParenToken:
+  case CloseParenToken:
 
-        case HashToken:
-        case HashHashToken:
+  case HashToken:
+  case HashHashToken:
 
-        case SemicolonToken:
+  case SemicolonToken:
 
-        case ArrowToken:
-        case DotToken:
+  case ArrowToken:
+  case DotToken:
 
-        case PlusPlusToken:
-        case MinusMinusToken:
+  case PlusPlusToken:
+  case MinusMinusToken:
 
-        case AsteriskToken:
-        case AmpersandToken:
+  case AsteriskToken:
+  case AmpersandToken:
 
-        case PlusToken:
-        case MinusToken:
-        case TildeToken:
-        case SlashToken:
-        case PercentToken:
-        case LessThanLessThanToken:
-        case GreaterThanGreaterThanToken:
-        case BarToken:
-        case CaretToken:
+  case PlusToken:
+  case MinusToken:
+  case TildeToken:
+  case SlashToken:
+  case PercentToken:
+  case LessThanLessThanToken:
+  case GreaterThanGreaterThanToken:
+  case BarToken:
+  case CaretToken:
 
-        case ExclamationToken:
-        case AmpersandAmpersandToken:
-        case BarBarToken:
+  case ExclamationToken:
+  case AmpersandAmpersandToken:
+  case BarBarToken:
 
-        case LessThanToken:
-        case LessThanEqualsToken:
-        case GreaterThanToken:
-        case GreaterThanEqualsToken:
-        case EqualsEqualsToken:
-        case ExclamationEqualsToken:
+  case LessThanToken:
+  case LessThanEqualsToken:
+  case GreaterThanToken:
+  case GreaterThanEqualsToken:
+  case EqualsEqualsToken:
+  case ExclamationEqualsToken:
 
-        case ColonToken:
-        case QuestionToken:
+  case ColonToken:
+  case QuestionToken:
 
-        case EqualsToken:
-        case AsteriskEqualsToken:
-        case SlashEqualsToken:
-        case PercentEqualsToken:
-        case PlusEqualsToken:
-        case MinusEqualsToken:
-        case LessThanLessThanEqualsToken:
-        case GreaterThanGreaterThanEqualsToken:
-        case AmpersandEqualsToken:
-        case CaretEqualsToken:
-        case BarEqualsToken:
-        case CommaToken:
-            return Category::Punctuators;
+  case EqualsToken:
+  case AsteriskEqualsToken:
+  case SlashEqualsToken:
+  case PercentEqualsToken:
+  case PlusEqualsToken:
+  case MinusEqualsToken:
+  case LessThanLessThanEqualsToken:
+  case GreaterThanGreaterThanEqualsToken:
+  case AmpersandEqualsToken:
+  case CaretEqualsToken:
+  case BarEqualsToken:
+  case CommaToken:
+    return Category::Punctuators;
 
-        default:
-            if (k > STARTof_KeywordOrPunctuatorToken
-                    && k <= ENDof_KeywordOrPunctuatorToken)
-                return Category::Keywords;
-            return Category::Unrecognized;
-    }
+  default:
+    if (k > STARTof_KeywordOrPunctuatorToken &&
+        k <= ENDof_KeywordOrPunctuatorToken)
+      return Category::Keywords;
+    return Category::Unrecognized;
+  }
 }
 
-SyntaxLexeme* SyntaxToken::valueLexeme() const
-{
-    return lexeme_;
+SyntaxLexeme *SyntaxToken::valueLexeme() const { return lexeme_; }
+
+std::string SyntaxToken::valueText() const { return valueText_c_str(); }
+
+const char *SyntaxToken::valueText_c_str() const {
+  switch (rawSyntaxK_) {
+  case IdentifierToken:
+  case IntegerConstantToken:
+  case FloatingConstantToken:
+  case CharacterConstantToken:
+  case CharacterConstant_L_Token:
+  case CharacterConstant_u_Token:
+  case CharacterConstant_U_Token:
+  case ImaginaryIntegerConstantToken:
+  case ImaginaryFloatingConstantToken:
+  case StringLiteralToken:
+  case StringLiteral_L_Token:
+  case StringLiteral_u8_Token:
+  case StringLiteral_u_Token:
+  case StringLiteral_U_Token:
+  case StringLiteral_R_Token:
+  case StringLiteral_LR_Token:
+  case StringLiteral_u8R_Token:
+  case StringLiteral_uR_Token:
+  case StringLiteral_UR_Token:
+    return lexeme_->c_str();
+
+  default:
+    return tokenNames[rawSyntaxK_];
+  }
 }
 
-std::string SyntaxToken::valueText() const
-{
-    return valueText_c_str();
-}
+bool SyntaxToken::isValid() const { return tree_ != nullptr; }
 
-const char* SyntaxToken::valueText_c_str() const
-{
-    switch (rawSyntaxK_) {
-        case IdentifierToken:
-        case IntegerConstantToken:
-        case FloatingConstantToken:
-        case CharacterConstantToken:
-        case CharacterConstant_L_Token:
-        case CharacterConstant_u_Token:
-        case CharacterConstant_U_Token:
-        case ImaginaryIntegerConstantToken:
-        case ImaginaryFloatingConstantToken:
-        case StringLiteralToken:
-        case StringLiteral_L_Token:
-        case StringLiteral_u8_Token:
-        case StringLiteral_u_Token:
-        case StringLiteral_U_Token:
-        case StringLiteral_R_Token:
-        case StringLiteral_LR_Token:
-        case StringLiteral_u8R_Token:
-        case StringLiteral_uR_Token:
-        case StringLiteral_UR_Token:
-            return lexeme_->c_str();
+TextSpan SyntaxToken::span() const { return TextSpan(charStart(), charEnd()); }
 
-        default:
-            return tokenNames[rawSyntaxK_];
-    }
-}
-
-bool SyntaxToken::isValid() const
-{
-    return tree_ != nullptr;
-}
-
-TextSpan SyntaxToken::span() const
-{
-    return TextSpan(charStart(), charEnd());
-}
-
-SyntaxToken SyntaxToken::invalid()
-{
-    return SyntaxToken(nullptr);
-}
+SyntaxToken SyntaxToken::invalid() { return SyntaxToken(nullptr); }
 
 namespace psy {
 namespace C {
 
-bool operator==(const SyntaxToken& a, const SyntaxToken& b)
-{
-    return a.tree_ == b.tree_
-            && a.rawSyntaxK_ == b.rawSyntaxK_
-            && a.byteOffset_ == b.byteOffset_
-            && a.byteSize_ == b.byteSize_;
+bool operator==(const SyntaxToken &a, const SyntaxToken &b) {
+  return a.tree_ == b.tree_ && a.rawSyntaxK_ == b.rawSyntaxK_ &&
+         a.byteOffset_ == b.byteOffset_ && a.byteSize_ == b.byteSize_;
 }
 
-bool operator!=(const SyntaxToken& a, const SyntaxToken& b)
-{
-    return !(a == b);
+bool operator!=(const SyntaxToken &a, const SyntaxToken &b) {
+  return !(a == b);
 }
 
-std::string to_string(SyntaxToken::Category category)
-{
-    switch (category) {
-        case SyntaxToken::Category::Keywords:
-            return "[keywords]";
+std::string to_string(SyntaxToken::Category category) {
+  switch (category) {
+  case SyntaxToken::Category::Keywords:
+    return "[keywords]";
 
-        case SyntaxToken::Category::Identifiers:
-            return "[identifiers]";
+  case SyntaxToken::Category::Identifiers:
+    return "[identifiers]";
 
-        case SyntaxToken::Category::Constants:
-            return "[constants]";
+  case SyntaxToken::Category::Constants:
+    return "[constants]";
 
-        case SyntaxToken::Category::StringLiterals:
-            return "[string literals]";
+  case SyntaxToken::Category::StringLiterals:
+    return "[string literals]";
 
-        case SyntaxToken::Category::Punctuators:
-            return "[punctuators]";
+  case SyntaxToken::Category::Punctuators:
+    return "[punctuators]";
 
-        default:
-            return "[unrecognized]";
-    }
+  default:
+    return "[unrecognized]";
+  }
 }
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy

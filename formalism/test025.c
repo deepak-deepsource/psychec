@@ -1,14 +1,13 @@
-T f()
-{
-    const int* cip;
-    T1 x;
-    x = cip;
-    
-    const double* cdp;
-    T2 y;
-    y = cdp;
+T f() {
+  const int *cip;
+  T1 x;
+  x = cip;
 
-    x = y;
+  const double *cdp;
+  T2 y;
+  y = cdp;
 
-    return 42;
+  x = y;
+
+  return 42;
 }

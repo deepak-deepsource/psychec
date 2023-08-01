@@ -44,59 +44,57 @@ class SemanticModel;
  * This API is inspired by that of \c Microsoft.CodeAnalysis.Compilation
  * from Roslyn, the .NET Compiler Platform.
  */
-class PSY_C_API Compilation
-{
-    friend class InternalsTestSuite;
+class PSY_C_API Compilation {
+  friend class InternalsTestSuite;
 
 public:
-    ~Compilation();
+  ~Compilation();
 
-    /**
-     * Create an empty compilation identified by \p id with SyntaxTree \p tree.
-     */
-    static std::unique_ptr<Compilation> create(const std::string& id);
+  /**
+   * Create an empty compilation identified by \p id with SyntaxTree \p tree.
+   */
+  static std::unique_ptr<Compilation> create(const std::string &id);
 
-    /**
-     * The Assembly produced by \c this Compilation.
-     */
-    const Assembly* assembly() const;
+  /**
+   * The Assembly produced by \c this Compilation.
+   */
+  const Assembly *assembly() const;
 
-    /**
-     * Add a SyntaxTree to \c this Compilation.
-     */
-    void addSyntaxTree(const SyntaxTree* tree);
+  /**
+   * Add a SyntaxTree to \c this Compilation.
+   */
+  void addSyntaxTree(const SyntaxTree *tree);
 
-    /**
-     * Add SyntaxTrees to \c this Compilation.
-     */
-    void addSyntaxTrees(std::vector<const SyntaxTree*> trees);
+  /**
+   * Add SyntaxTrees to \c this Compilation.
+   */
+  void addSyntaxTrees(std::vector<const SyntaxTree *> trees);
 
-    /**
-     * The SyntaxTrees in \c this Compilation.
-     */
-    std::vector<const SyntaxTree*> syntaxTrees() const;
+  /**
+   * The SyntaxTrees in \c this Compilation.
+   */
+  std::vector<const SyntaxTree *> syntaxTrees() const;
 
-    /**
-     * The SemanticModel for the SyntaxTree \p tree in \c this Compilation.
-     */
-    const SemanticModel* semanticModel(const SyntaxTree* tree) const;
+  /**
+   * The SemanticModel for the SyntaxTree \p tree in \c this Compilation.
+   */
+  const SemanticModel *semanticModel(const SyntaxTree *tree) const;
 
-PSY_INTERNAL_AND_RESTRICTED:
-    PSY_GRANT_ACCESS(SemanticModel);
+  PSY_INTERNAL_AND_RESTRICTED : PSY_GRANT_ACCESS(SemanticModel);
 
-    Assembly* assembly();
+  Assembly *assembly();
 
 private:
-    Compilation();
+  Compilation();
 
-    // Unavailable
-    Compilation(const Compilation&) = delete;
-    Compilation& operator=(const Compilation&) = delete;
+  // Unavailable
+  Compilation(const Compilation &) = delete;
+  Compilation &operator=(const Compilation &) = delete;
 
-    DECL_PIMPL(Compilation);
+  DECL_PIMPL(Compilation);
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

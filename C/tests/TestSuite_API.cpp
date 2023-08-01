@@ -25,31 +25,26 @@
 using namespace psy;
 using namespace C;
 
-APITestSuite::~APITestSuite()
-{}
+APITestSuite::~APITestSuite() {}
 
-std::tuple<int, int> APITestSuite::testAll()
-{
-    auto SM = std::make_unique<SemanticModelTester>(this);
-    SM->testSemanticModel();
+std::tuple<int, int> APITestSuite::testAll() {
+  auto SM = std::make_unique<SemanticModelTester>(this);
+  SM->testSemanticModel();
 
-    auto res = std::make_tuple(SM->totalPassed(),
-                               SM->totalFailed());
+  auto res = std::make_tuple(SM->totalPassed(), SM->totalFailed());
 
-    testers_.emplace_back(SM.release());
+  testers_.emplace_back(SM.release());
 
-    return res;
+  return res;
 }
 
-std::string APITestSuite::description() const
-{
-    return "C API test suite";
-}
+std::string APITestSuite::description() const { return "C API test suite"; }
 
-void APITestSuite::printSummary() const
-{
-    for (auto const& tester : testers_) {
-        std::cout << "    " << tester->name() << " passed: " << tester->totalPassed() << std::endl
-                  << "    " << std::string(tester->name().length(), ' ') << " failed: " << tester->totalFailed() << std::endl;
-    }
+void APITestSuite::printSummary() const {
+  for (auto const &tester : testers_) {
+    std::cout << "    " << tester->name()
+              << " passed: " << tester->totalPassed() << std::endl
+              << "    " << std::string(tester->name().length(), ' ')
+              << " failed: " << tester->totalFailed() << std::endl;
+  }
 }

@@ -28,375 +28,196 @@
 using namespace psy;
 using namespace C;
 
-void ParserTester::case2000()
-{
-    parseStatement("x : 1 ; ",
-                   Expectation().AST( { IdentifierLabelStatement,
-                                        ExpressionStatement,
-                                        IntegerConstantExpression }));
+void ParserTester::case2000() {
+  parseStatement("x : 1 ; ", Expectation().AST({IdentifierLabelStatement,
+                                                ExpressionStatement,
+                                                IntegerConstantExpression}));
 }
 
-void ParserTester::case2001()
-{
-    parseStatement("x : :",
-                   Expectation().diagnostic(Expectation::ErrorOrWarn::Error,
-                                               Parser::DiagnosticsReporter::ID_of_ExpectedFIRSTofExpression));
+void ParserTester::case2001() {
+  parseStatement(
+      "x : :",
+      Expectation().diagnostic(
+          Expectation::ErrorOrWarn::Error,
+          Parser::DiagnosticsReporter::ID_of_ExpectedFIRSTofExpression));
 }
 
-void ParserTester::case2002()
-{
-    parseStatement("goto x ;",
-                   Expectation().AST( { GotoStatement }));
+void ParserTester::case2002() {
+  parseStatement("goto x ;", Expectation().AST({GotoStatement}));
 }
 
-void ParserTester::case2003()
-{
-    parseStatement("goto ;",
-                   Expectation().diagnostic(Expectation::ErrorOrWarn::Error,
-                                               Parser::DiagnosticsReporter::ID_of_ExpectedTokenOfCategoryIdentifier));
+void ParserTester::case2003() {
+  parseStatement("goto ;", Expectation().diagnostic(
+                               Expectation::ErrorOrWarn::Error,
+                               Parser::DiagnosticsReporter::
+                                   ID_of_ExpectedTokenOfCategoryIdentifier));
 }
 
-void ParserTester::case2004()
-{
-    parseStatement("goto 1 ;",
-                   Expectation().diagnostic(Expectation::ErrorOrWarn::Error,
-                                               Parser::DiagnosticsReporter::ID_of_ExpectedTokenOfCategoryIdentifier));
+void ParserTester::case2004() {
+  parseStatement("goto 1 ;", Expectation().diagnostic(
+                                 Expectation::ErrorOrWarn::Error,
+                                 Parser::DiagnosticsReporter::
+                                     ID_of_ExpectedTokenOfCategoryIdentifier));
 }
 
-void ParserTester::case2005()
-{
-    parseStatement("goto x",
-                   Expectation().diagnostic(Expectation::ErrorOrWarn::Error,
-                                               Parser::DiagnosticsReporter::ID_of_ExpectedToken));
+void ParserTester::case2005() {
+  parseStatement("goto x",
+                 Expectation().diagnostic(
+                     Expectation::ErrorOrWarn::Error,
+                     Parser::DiagnosticsReporter::ID_of_ExpectedToken));
 }
 
-void ParserTester::case2006()
-{
+void ParserTester::case2006() {}
 
-}
-
-void ParserTester::case2007()
-{
-
-}
-
-void ParserTester::case2008()
-{
-
-}
-
-void ParserTester::case2009()
-{
-
-}
-
-void ParserTester::case2010()
-{
-
-}
-
-void ParserTester::case2011()
-{
-
-}
-
-void ParserTester::case2012()
-{
-
-}
-
-void ParserTester::case2013()
-{
-
-}
-
-void ParserTester::case2014()
-{
-
-}
-
-void ParserTester::case2015()
-{
-
-}
-
-void ParserTester::case2016()
-{
-
-}
-
-void ParserTester::case2017()
-{
-
-}
-
-void ParserTester::case2018()
-{
-
-}
-
-void ParserTester::case2019()
-{
-
-}
-
-void ParserTester::case2020()
-{
-    parseStatement("{ }",
-                   Expectation().AST( { CompoundStatement }));
-}
-
-void ParserTester::case2021()
-{
-    parseStatement("{",
-                   Expectation().diagnostic(Expectation::ErrorOrWarn::Error,
-                                               Parser::DiagnosticsReporter::ID_of_ExpectedToken));
-}
-
-void ParserTester::case2022()
-{
-    parseStatement("{ / }",
-                   Expectation().setErrorCnt(1));
-}
-
-void ParserTester::case2023()
-{
-    parseStatement("{ { } }",
-                   Expectation().AST( { CompoundStatement,
-                                        CompoundStatement }));
-}
-
-void ParserTester::case2024()
-{
-    parseDeclaration("void x ( ) { }",
-                     Expectation().AST( { FunctionDefinition,
-                                          BuiltinTypeSpecifier,
-                                          FunctionDeclarator,
-                                          IdentifierDeclarator,
-                                          ParameterSuffix,
-                                          CompoundStatement }));
-}
-
-void ParserTester::case2025()
-{
+void ParserTester::case2007() {}
 
-}
-
-void ParserTester::case2026()
-{
-
-}
-
-void ParserTester::case2027()
-{
-
-}
-
-void ParserTester::case2028()
-{
-
-}
+void ParserTester::case2008() {}
 
-void ParserTester::case2029()
-{
-
-}
+void ParserTester::case2009() {}
 
-void ParserTester::case2030()
-{
+void ParserTester::case2010() {}
 
-}
+void ParserTester::case2011() {}
 
-void ParserTester::case2031()
-{
-}
+void ParserTester::case2012() {}
 
-void ParserTester::case2032()
-{
-}
+void ParserTester::case2013() {}
 
-void ParserTester::case2033()
-{
-}
+void ParserTester::case2014() {}
 
-void ParserTester::case2034()
-{
-}
+void ParserTester::case2015() {}
 
-void ParserTester::case2035()
-{
-}
+void ParserTester::case2016() {}
 
-void ParserTester::case2036()
-{
-}
+void ParserTester::case2017() {}
 
-void ParserTester::case2037()
-{
-}
+void ParserTester::case2018() {}
 
-void ParserTester::case2038()
-{
-}
+void ParserTester::case2019() {}
 
-void ParserTester::case2039()
-{
+void ParserTester::case2020() {
+  parseStatement("{ }", Expectation().AST({CompoundStatement}));
 }
 
-void ParserTester::case2040()
-{
+void ParserTester::case2021() {
+  parseStatement("{", Expectation().diagnostic(
+                          Expectation::ErrorOrWarn::Error,
+                          Parser::DiagnosticsReporter::ID_of_ExpectedToken));
 }
 
-void ParserTester::case2041()
-{
+void ParserTester::case2022() {
+  parseStatement("{ / }", Expectation().setErrorCnt(1));
 }
 
-void ParserTester::case2042()
-{
+void ParserTester::case2023() {
+  parseStatement("{ { } }",
+                 Expectation().AST({CompoundStatement, CompoundStatement}));
 }
 
-void ParserTester::case2043()
-{
+void ParserTester::case2024() {
+  parseDeclaration("void x ( ) { }",
+                   Expectation().AST({FunctionDefinition, BuiltinTypeSpecifier,
+                                      FunctionDeclarator, IdentifierDeclarator,
+                                      ParameterSuffix, CompoundStatement}));
 }
 
-void ParserTester::case2044()
-{
-}
+void ParserTester::case2025() {}
 
-void ParserTester::case2045()
-{
-}
+void ParserTester::case2026() {}
 
-void ParserTester::case2046()
-{
-}
+void ParserTester::case2027() {}
 
-void ParserTester::case2047()
-{
+void ParserTester::case2028() {}
 
-}
+void ParserTester::case2029() {}
 
-void ParserTester::case2048()
-{
+void ParserTester::case2030() {}
 
-}
+void ParserTester::case2031() {}
 
-void ParserTester::case2049()
-{
+void ParserTester::case2032() {}
 
-}
+void ParserTester::case2033() {}
 
-void ParserTester::case2050()
-{
+void ParserTester::case2034() {}
 
-}
+void ParserTester::case2035() {}
 
-void ParserTester::case2051()
-{
+void ParserTester::case2036() {}
 
-}
+void ParserTester::case2037() {}
 
-void ParserTester::case2052()
-{
+void ParserTester::case2038() {}
 
-}
+void ParserTester::case2039() {}
 
-void ParserTester::case2053()
-{
+void ParserTester::case2040() {}
 
-}
+void ParserTester::case2041() {}
 
-void ParserTester::case2054()
-{
+void ParserTester::case2042() {}
 
-}
+void ParserTester::case2043() {}
 
-void ParserTester::case2055()
-{
+void ParserTester::case2044() {}
 
-}
+void ParserTester::case2045() {}
 
-void ParserTester::case2056()
-{
+void ParserTester::case2046() {}
 
-}
+void ParserTester::case2047() {}
 
-void ParserTester::case2057()
-{
+void ParserTester::case2048() {}
 
-}
+void ParserTester::case2049() {}
 
-void ParserTester::case2058()
-{
+void ParserTester::case2050() {}
 
-}
+void ParserTester::case2051() {}
 
-void ParserTester::case2059()
-{
+void ParserTester::case2052() {}
 
-}
+void ParserTester::case2053() {}
 
-void ParserTester::case2060()
-{
+void ParserTester::case2054() {}
 
-}
+void ParserTester::case2055() {}
 
-void ParserTester::case2061()
-{
+void ParserTester::case2056() {}
 
-}
+void ParserTester::case2057() {}
 
-void ParserTester::case2062()
-{
+void ParserTester::case2058() {}
 
-}
+void ParserTester::case2059() {}
 
-void ParserTester::case2063()
-{
-}
+void ParserTester::case2060() {}
 
-void ParserTester::case2064()
-{
-}
+void ParserTester::case2061() {}
 
-void ParserTester::case2065()
-{
+void ParserTester::case2062() {}
 
-}
+void ParserTester::case2063() {}
 
-void ParserTester::case2066()
-{
+void ParserTester::case2064() {}
 
-}
+void ParserTester::case2065() {}
 
-void ParserTester::case2067()
-{
+void ParserTester::case2066() {}
 
-}
+void ParserTester::case2067() {}
 
-void ParserTester::case2068()
-{
-}
+void ParserTester::case2068() {}
 
-void ParserTester::case2069()
-{
-}
+void ParserTester::case2069() {}
 
-void ParserTester::case2070()
-{
-}
+void ParserTester::case2070() {}
 
-void ParserTester::case2071()
-{
-}
+void ParserTester::case2071() {}
 
-void ParserTester::case2072()
-{
-}
+void ParserTester::case2072() {}
 
-void ParserTester::case2073()
-{
-}
+void ParserTester::case2073() {}
 
 void ParserTester::case2074() {}
 void ParserTester::case2075() {}
@@ -425,118 +246,74 @@ void ParserTester::case2097() {}
 void ParserTester::case2098() {}
 void ParserTester::case2099() {}
 
-void ParserTester::case2100()
-{
-    parseStatement("{ x ++ ; }",
-                   Expectation().AST( { CompoundStatement,
-                                        ExpressionStatement,
-                                        PostIncrementExpression,
-                                        IdentifierName }));
+void ParserTester::case2100() {
+  parseStatement("{ x ++ ; }",
+                 Expectation().AST({CompoundStatement, ExpressionStatement,
+                                    PostIncrementExpression, IdentifierName}));
 }
 
-void ParserTester::case2101()
-{
-    parseStatement("{ ++ x ; }",
-                   Expectation().AST( { CompoundStatement,
-                                        ExpressionStatement,
-                                        PreIncrementExpression,
-                                        IdentifierName }));
+void ParserTester::case2101() {
+  parseStatement("{ ++ x ; }",
+                 Expectation().AST({CompoundStatement, ExpressionStatement,
+                                    PreIncrementExpression, IdentifierName}));
 }
 
-void ParserTester::case2102()
-{
-    parseStatement("{ x ( 1 ) ; }",
-                   Expectation().AST( { CompoundStatement,
-                                        ExpressionStatement,
-                                        CallExpression,
-                                        IdentifierName,
-                                        IntegerConstantExpression }));
+void ParserTester::case2102() {
+  parseStatement(
+      "{ x ( 1 ) ; }",
+      Expectation().AST({CompoundStatement, ExpressionStatement, CallExpression,
+                         IdentifierName, IntegerConstantExpression}));
 }
 
-void ParserTester::case2103()
-{
-    parseStatement("{ x ( 1 , 2 ) ; }");
+void ParserTester::case2103() { parseStatement("{ x ( 1 , 2 ) ; }"); }
+
+void ParserTester::case2104() { parseStatement("{ x ( y , 2 ) ; }"); }
+
+void ParserTester::case2105() { parseStatement("{ x ( 1 , 2 ) ; }"); }
+
+void ParserTester::case2106() {
+  parseStatement(
+      "{ ( x ( 1 ) ) ; }",
+      Expectation().AST({CompoundStatement, ExpressionStatement,
+                         ParenthesizedExpression, CallExpression,
+                         IdentifierName, IntegerConstantExpression}));
 }
 
-void ParserTester::case2104()
-{
-    parseStatement("{ x ( y , 2 ) ; }");
+void ParserTester::case2107() { parseStatement("{ ( ( x ( 1 ) ) ) ; }"); }
+
+void ParserTester::case2108() { parseStatement("{ ( x ( 1 , 2 ) ) ; }"); }
+
+void ParserTester::case2109() { parseStatement("{ 'x' ; }"); }
+
+void ParserTester::case2110() { parseStatement("{ \"x\" ; }"); }
+
+void ParserTester::case2111() { parseStatement("{ x ; }"); }
+
+void ParserTester::case2112() { parseStatement("{ 1 ; }"); }
+
+void ParserTester::case2113() {
+  parseStatement("{ 1 ( ; }", Expectation().setErrorCnt(1));
 }
 
-void ParserTester::case2105()
-{
-    parseStatement("{ x ( 1 , 2 ) ; }");
-}
+void ParserTester::case2114() { parseStatement("{ 'x' ; }"); }
 
-void ParserTester::case2106()
-{
-    parseStatement("{ ( x ( 1 ) ) ; }",
-                   Expectation().AST( { CompoundStatement,
-                                        ExpressionStatement,
-                                        ParenthesizedExpression,
-                                        CallExpression,
-                                        IdentifierName,
-                                        IntegerConstantExpression }));
-}
+void ParserTester::case2115() {
+  /*
+   Despite the parsing similarities between `typeof' and `sizeof',
+   mind the difference between this test case and the following:
 
-void ParserTester::case2107()
-{
-    parseStatement("{ ( ( x ( 1 ) ) ) ; }");
-}
+   `typeof ( x ) y ;'
 
-void ParserTester::case2108()
-{
-    parseStatement("{ ( x ( 1 , 2 ) ) ; }");
-}
+   This would be a valid declaration-statement, and the `y' doesn't
+   belong to the parsing of `typeof': it's the declarator.
+   */
 
-void ParserTester::case2109()
-{
-    parseStatement("{ 'x' ; }");
-}
+  CROSS_REFERENCE_TEST(ParserTester::case0904);
 
-void ParserTester::case2110()
-{
-    parseStatement("{ \"x\" ; }");
-}
-
-void ParserTester::case2111()
-{
-    parseStatement("{ x ; }");
-}
-
-void ParserTester::case2112()
-{
-    parseStatement("{ 1 ; }");
-}
-
-void ParserTester::case2113()
-{
-    parseStatement("{ 1 ( ; }",
-                   Expectation().setErrorCnt(1));
-}
-
-void ParserTester::case2114()
-{
-    parseStatement("{ 'x' ; }");
-}
-
-void ParserTester::case2115()
-{
-    /*
-     Despite the parsing similarities between `typeof' and `sizeof',
-     mind the difference between this test case and the following:
-
-     `typeof ( x ) y ;'
-
-     This would be a valid declaration-statement, and the `y' doesn't
-     belong to the parsing of `typeof': it's the declarator.
-     */
-
-    CROSS_REFERENCE_TEST(ParserTester::case0904);
-
-    parseStatement("sizeof ( x ) y ;",
-                   Expectation().diagnostic(Expectation::ErrorOrWarn::Error,
-                                               Parser::DiagnosticsReporter::ID_of_ExpectedToken));
+  parseStatement("sizeof ( x ) y ;",
+                 Expectation().diagnostic(
+                     Expectation::ErrorOrWarn::Error,
+                     Parser::DiagnosticsReporter::ID_of_ExpectedToken));
 }
 
 void ParserTester::case2116() {}
@@ -624,166 +401,120 @@ void ParserTester::case2197() {}
 void ParserTester::case2198() {}
 void ParserTester::case2199() {}
 
-void ParserTester::case2200()
-{
-    parseStatement("{ _Static_assert ( 1 != 2 , \"x\" ) ; }");
+void ParserTester::case2200() {
+  parseStatement("{ _Static_assert ( 1 != 2 , \"x\" ) ; }");
 }
 
-void ParserTester::case2201()
-{
-    parseStatement("{ int x ; }",
-                   Expectation().AST( { CompoundStatement,
-                                        DeclarationStatement,
-                                        VariableAndOrFunctionDeclaration,
-                                        BuiltinTypeSpecifier,
-                                        IdentifierDeclarator }));
+void ParserTester::case2201() {
+  parseStatement(
+      "{ int x ; }",
+      Expectation().AST({CompoundStatement, DeclarationStatement,
+                         VariableAndOrFunctionDeclaration, BuiltinTypeSpecifier,
+                         IdentifierDeclarator}));
 }
 
-void ParserTester::case2202()
-{
-    parseStatement("{ int x , y ; }",
-                   Expectation().AST( { CompoundStatement,
-                                        DeclarationStatement,
-                                        VariableAndOrFunctionDeclaration,
-                                        BuiltinTypeSpecifier,
-                                        IdentifierDeclarator,
-                                        IdentifierDeclarator }));
+void ParserTester::case2202() {
+  parseStatement(
+      "{ int x , y ; }",
+      Expectation().AST({CompoundStatement, DeclarationStatement,
+                         VariableAndOrFunctionDeclaration, BuiltinTypeSpecifier,
+                         IdentifierDeclarator, IdentifierDeclarator}));
 }
 
-void ParserTester::case2203()
-{
-    parseStatement("{ const int x ; }",
-                   Expectation().AST( { CompoundStatement,
-                                        DeclarationStatement,
-                                        VariableAndOrFunctionDeclaration,
-                                        ConstQualifier,
-                                        BuiltinTypeSpecifier,
-                                        IdentifierDeclarator }));
+void ParserTester::case2203() {
+  parseStatement(
+      "{ const int x ; }",
+      Expectation().AST({CompoundStatement, DeclarationStatement,
+                         VariableAndOrFunctionDeclaration, ConstQualifier,
+                         BuiltinTypeSpecifier, IdentifierDeclarator}));
 }
 
-void ParserTester::case2204()
-{
-    parseStatement("{ int * x ; }",
-                   Expectation().AST( { CompoundStatement,
-                                        DeclarationStatement,
-                                        VariableAndOrFunctionDeclaration,
-                                        BuiltinTypeSpecifier,
-                                        PointerDeclarator,
-                                        IdentifierDeclarator }));
+void ParserTester::case2204() {
+  parseStatement(
+      "{ int * x ; }",
+      Expectation().AST({CompoundStatement, DeclarationStatement,
+                         VariableAndOrFunctionDeclaration, BuiltinTypeSpecifier,
+                         PointerDeclarator, IdentifierDeclarator}));
 }
 
-void ParserTester::case2205()
-{
-    parseStatement("{ struct x ; }",
-                   Expectation().AST( { CompoundStatement,
-                                        DeclarationStatement,
-                                        StructDeclaration,
-                                        StructTypeSpecifier }));
+void ParserTester::case2205() {
+  parseStatement("{ struct x ; }",
+                 Expectation().AST({CompoundStatement, DeclarationStatement,
+                                    StructDeclaration, StructTypeSpecifier}));
 }
 
-void ParserTester::case2206()
-{
-    parseStatement("{ union x y ; }",
-                   Expectation().AST( { CompoundStatement,
-                                        DeclarationStatement,
-                                        VariableAndOrFunctionDeclaration,
-                                        UnionTypeSpecifier,
-                                        IdentifierDeclarator }));
+void ParserTester::case2206() {
+  parseStatement("{ union x y ; }",
+                 Expectation().AST({CompoundStatement, DeclarationStatement,
+                                    VariableAndOrFunctionDeclaration,
+                                    UnionTypeSpecifier, IdentifierDeclarator}));
 }
 
-void ParserTester::case2207()
-{
-    parseStatement("{ x y ; }",
-                   Expectation().AST( { CompoundStatement,
-                                        DeclarationStatement,
-                                        VariableAndOrFunctionDeclaration,
-                                        TypedefName,
-                                        IdentifierDeclarator }));
+void ParserTester::case2207() {
+  parseStatement("{ x y ; }",
+                 Expectation().AST({CompoundStatement, DeclarationStatement,
+                                    VariableAndOrFunctionDeclaration,
+                                    TypedefName, IdentifierDeclarator}));
 }
 
-void ParserTester::case2208()
-{
-    parseStatement("{ x y , z ; }",
-                   Expectation().AST( { CompoundStatement,
-                                        DeclarationStatement,
-                                        VariableAndOrFunctionDeclaration,
-                                        TypedefName,
-                                        IdentifierDeclarator,
-                                        IdentifierDeclarator }));
+void ParserTester::case2208() {
+  parseStatement(
+      "{ x y , z ; }",
+      Expectation().AST({CompoundStatement, DeclarationStatement,
+                         VariableAndOrFunctionDeclaration, TypedefName,
+                         IdentifierDeclarator, IdentifierDeclarator}));
 }
 
-void ParserTester::case2209()
-{
-    parseStatement("{ const x y ; }",
-                   Expectation().AST( { CompoundStatement,
-                                        DeclarationStatement,
-                                        VariableAndOrFunctionDeclaration,
-                                        ConstQualifier,
-                                        TypedefName,
-                                        IdentifierDeclarator }));
+void ParserTester::case2209() {
+  parseStatement(
+      "{ const x y ; }",
+      Expectation().AST({CompoundStatement, DeclarationStatement,
+                         VariableAndOrFunctionDeclaration, ConstQualifier,
+                         TypedefName, IdentifierDeclarator}));
 }
 
-void ParserTester::case2210()
-{
-    parseStatement("{ const x * const y ; }",
-                   Expectation().AST( { CompoundStatement,
-                                        DeclarationStatement,
-                                        VariableAndOrFunctionDeclaration,
-                                        ConstQualifier,
-                                        TypedefName,
-                                        PointerDeclarator,
-                                        ConstQualifier,
-                                        IdentifierDeclarator }));
+void ParserTester::case2210() {
+  parseStatement(
+      "{ const x * const y ; }",
+      Expectation().AST({CompoundStatement, DeclarationStatement,
+                         VariableAndOrFunctionDeclaration, ConstQualifier,
+                         TypedefName, PointerDeclarator, ConstQualifier,
+                         IdentifierDeclarator}));
 }
 
-void ParserTester::case2211()
-{
-    parseStatement("{ x * y ; }",
-                   Expectation().AST( { CompoundStatement,
-                                        AmbiguousMultiplicationOrPointerDeclaration,
-                                        DeclarationStatement,
-                                        VariableAndOrFunctionDeclaration,
-                                        TypedefName,
-                                        PointerDeclarator,
-                                        IdentifierDeclarator,
-                                        ExpressionStatement,
-                                        MultiplyExpression,
-                                        IdentifierName,
-                                        IdentifierName })
-                   .ambiguity("{ x * y ; x * y ; }"));
+void ParserTester::case2211() {
+  parseStatement(
+      "{ x * y ; }",
+      Expectation()
+          .AST({CompoundStatement, AmbiguousMultiplicationOrPointerDeclaration,
+                DeclarationStatement, VariableAndOrFunctionDeclaration,
+                TypedefName, PointerDeclarator, IdentifierDeclarator,
+                ExpressionStatement, MultiplyExpression, IdentifierName,
+                IdentifierName})
+          .ambiguity("{ x * y ; x * y ; }"));
 }
 
-void ParserTester::case2212()
-{
-    parseStatement("{ x ( y ) ; }",
-                   Expectation().AST( { CompoundStatement,
-                                        AmbiguousCallOrVariableDeclaration,
-                                        DeclarationStatement,
-                                        VariableAndOrFunctionDeclaration,
-                                        TypedefName,
-                                        ParenthesizedDeclarator,
-                                        IdentifierDeclarator,
-                                        ExpressionStatement,
-                                        CallExpression,
-                                        IdentifierName,
-                                        IdentifierName })
-                   .ambiguity("{ x ( y ) ; x ( y ) ; }"));
+void ParserTester::case2212() {
+  parseStatement(
+      "{ x ( y ) ; }",
+      Expectation()
+          .AST({CompoundStatement, AmbiguousCallOrVariableDeclaration,
+                DeclarationStatement, VariableAndOrFunctionDeclaration,
+                TypedefName, ParenthesizedDeclarator, IdentifierDeclarator,
+                ExpressionStatement, CallExpression, IdentifierName,
+                IdentifierName})
+          .ambiguity("{ x ( y ) ; x ( y ) ; }"));
 }
 
-void ParserTester::case2213()
-{
-    CROSS_REFERENCE_TEST(ParserTester::case1813);
+void ParserTester::case2213() {
+  CROSS_REFERENCE_TEST(ParserTester::case1813);
 
-    parseStatement("{ x * y = 0 ; }",
-                   Expectation().AST( { CompoundStatement,
-                                        DeclarationStatement,
-                                        VariableAndOrFunctionDeclaration,
-                                        TypedefName,
-                                        PointerDeclarator,
-                                        IdentifierDeclarator,
-                                        ExpressionInitializer,
-                                        IntegerConstantExpression }));
-
+  parseStatement(
+      "{ x * y = 0 ; }",
+      Expectation().AST({CompoundStatement, DeclarationStatement,
+                         VariableAndOrFunctionDeclaration, TypedefName,
+                         PointerDeclarator, IdentifierDeclarator,
+                         ExpressionInitializer, IntegerConstantExpression}));
 }
 
 void ParserTester::case2214() {}
@@ -873,119 +604,82 @@ void ParserTester::case2297() {}
 void ParserTester::case2298() {}
 void ParserTester::case2299() {}
 
-void ParserTester::case2300()
-{
-    parseStatement("if ( x ) ;");
+void ParserTester::case2300() { parseStatement("if ( x ) ;"); }
+
+void ParserTester::case2301() { parseStatement("if ( x ) { } "); }
+
+void ParserTester::case2302() { parseStatement("if ( x ( ) ) { }"); }
+
+void ParserTester::case2303() { parseStatement("if ( x ) y ;"); }
+
+void ParserTester::case2304() { parseStatement("if ( x ) { y ; }"); }
+
+void ParserTester::case2305() { parseStatement("if ( x ++ ) { }"); }
+
+void ParserTester::case2306() { parseStatement("if ( ++ x ) { }"); }
+
+void ParserTester::case2307() { parseStatement("if ( 1 ) { } else ;"); }
+
+void ParserTester::case2308() { parseStatement("if ( 1 ) ; else ;"); }
+
+void ParserTester::case2309() { parseStatement("if ( 1 ) ; else { }"); }
+
+void ParserTester::case2310() { parseStatement("if ( 1 ) { } else { }"); }
+
+void ParserTester::case2311() {
+  parseStatement("if ( 1 ) { x ; } else { y ; }");
 }
 
-void ParserTester::case2301()
-{
-    parseStatement("if ( x ) { } ");
+void ParserTester::case2312() {
+  parseStatement(
+      "if ( 1 ) else { }",
+      Expectation().diagnostic(
+          Expectation::ErrorOrWarn::Error,
+          Parser::DiagnosticsReporter::ID_of_ExpectedFIRSTofExpression));
 }
 
-void ParserTester::case2302()
-{
-    parseStatement("if ( x ( ) ) { }");
+void ParserTester::case2313() {
+  parseStatement("if ( 1 ) 2 else { }",
+                 Expectation().diagnostic(
+                     Expectation::ErrorOrWarn::Error,
+                     Parser::DiagnosticsReporter::ID_of_ExpectedToken));
 }
 
-void ParserTester::case2303()
-{
-    parseStatement("if ( x ) y ;");
+void ParserTester::case2314() {
+  parseStatement("if else x ;",
+                 Expectation().diagnostic(
+                     Expectation::ErrorOrWarn::Error,
+                     Parser::DiagnosticsReporter::ID_of_ExpectedToken));
 }
 
-void ParserTester::case2304()
-{
-    parseStatement("if ( x ) { y ; }");
+void ParserTester::case2315() {
+  parseStatement(
+      "if ( 1 ) { } else ",
+      Expectation().diagnostic(
+          Expectation::ErrorOrWarn::Error,
+          Parser::DiagnosticsReporter::ID_of_ExpectedFIRSTofExpression));
 }
 
-void ParserTester::case2305()
-{
-    parseStatement("if ( x ++ ) { }");
+void ParserTester::case2316() {
+  parseStatement(
+      "if ( 1 ) { } else (",
+      Expectation().diagnostic(
+          Expectation::ErrorOrWarn::Error,
+          Parser::DiagnosticsReporter::ID_of_ExpectedFIRSTofExpression));
 }
 
-void ParserTester::case2306()
-{
-    parseStatement("if ( ++ x ) { }");
+void ParserTester::case2317() { parseStatement("if ( 1 ) if ( 2 ) x ;"); }
+
+void ParserTester::case2318() {
+  parseStatement("if ( 1 ) if ( 2 ) x ; else y ;");
 }
 
-void ParserTester::case2307()
-{
-    parseStatement("if ( 1 ) { } else ;");
+void ParserTester::case2319() {
+  parseStatement("if ( 1 ) { if ( 2 ) x ; } else y ;");
 }
 
-void ParserTester::case2308()
-{
-    parseStatement("if ( 1 ) ; else ;");
-}
-
-void ParserTester::case2309()
-{
-    parseStatement("if ( 1 ) ; else { }");
-}
-
-void ParserTester::case2310()
-{
-    parseStatement("if ( 1 ) { } else { }");
-}
-
-void ParserTester::case2311()
-{
-    parseStatement("if ( 1 ) { x ; } else { y ; }");
-}
-
-void ParserTester::case2312()
-{
-    parseStatement("if ( 1 ) else { }",
-                   Expectation().diagnostic(Expectation::ErrorOrWarn::Error,
-                                               Parser::DiagnosticsReporter::ID_of_ExpectedFIRSTofExpression));
-}
-
-void ParserTester::case2313()
-{
-    parseStatement("if ( 1 ) 2 else { }",
-                   Expectation().diagnostic(Expectation::ErrorOrWarn::Error,
-                                               Parser::DiagnosticsReporter::ID_of_ExpectedToken));
-}
-
-void ParserTester::case2314()
-{
-    parseStatement("if else x ;",
-                   Expectation().diagnostic(Expectation::ErrorOrWarn::Error,
-                                               Parser::DiagnosticsReporter::ID_of_ExpectedToken));
-}
-
-void ParserTester::case2315()
-{
-    parseStatement("if ( 1 ) { } else ",
-                   Expectation().diagnostic(Expectation::ErrorOrWarn::Error,
-                                               Parser::DiagnosticsReporter::ID_of_ExpectedFIRSTofExpression));
-}
-
-void ParserTester::case2316()
-{
-    parseStatement("if ( 1 ) { } else (",
-                   Expectation().diagnostic(Expectation::ErrorOrWarn::Error,
-                                               Parser::DiagnosticsReporter::ID_of_ExpectedFIRSTofExpression));
-}
-
-void ParserTester::case2317()
-{
-    parseStatement("if ( 1 ) if ( 2 ) x ;");
-}
-
-void ParserTester::case2318()
-{
-    parseStatement("if ( 1 ) if ( 2 ) x ; else y ;");
-}
-
-void ParserTester::case2319()
-{
-    parseStatement("if ( 1 ) { if ( 2 ) x ; } else y ;");
-}
-
-void ParserTester::case2320()
-{
-    parseStatement("if ( 1 ) { if ( 2 ) x ; } else { y ; }");
+void ParserTester::case2320() {
+  parseStatement("if ( 1 ) { if ( 2 ) x ; } else { y ; }");
 }
 
 void ParserTester::case2321() {}
@@ -1018,19 +712,14 @@ void ParserTester::case2347() {}
 void ParserTester::case2348() {}
 void ParserTester::case2349() {}
 
-void ParserTester::case2350()
-{
-    parseStatement("switch ( 1 ) { }");
+void ParserTester::case2350() { parseStatement("switch ( 1 ) { }"); }
+
+void ParserTester::case2351() {
+  parseStatement("switch ( x ) { case 2 : y ( ) ; }");
 }
 
-void ParserTester::case2351()
-{
-    parseStatement("switch ( x ) { case 2 : y ( ) ; }");
-}
-
-void ParserTester::case2352()
-{
-    parseStatement(R"(
+void ParserTester::case2352() {
+  parseStatement(R"(
                    switch ( x ) {
                        case 1 : y ;
                        case 2 : z ( ) ;
@@ -1038,14 +727,12 @@ void ParserTester::case2352()
                    )");
 }
 
-void ParserTester::case2353()
-{
-    parseStatement("switch ( x ) case 2 : y ( ) ;");
+void ParserTester::case2353() {
+  parseStatement("switch ( x ) case 2 : y ( ) ;");
 }
 
-void ParserTester::case2354()
-{
-    parseStatement(R"(
+void ParserTester::case2354() {
+  parseStatement(R"(
                    switch ( x ) {
                        case 1 : y ;
                        default : z ( ) ;
@@ -1053,32 +740,31 @@ void ParserTester::case2354()
                    )");
 }
 
-void ParserTester::case2355()
-{
-    parseStatement(R"(
+void ParserTester::case2355() {
+  parseStatement(R"(
                    switch ( x ) {
                        default : y ;
                    }
                    )");
 }
 
-void ParserTester::case2356()
-{
-    parseStatement("case 1 : x ;",
-                   Expectation().diagnostic(Expectation::ErrorOrWarn::Error,
-                                               Parser::DiagnosticsReporter::ID_of_UnexpectedCaseLabelOutsideSwitch));
+void ParserTester::case2356() {
+  parseStatement(
+      "case 1 : x ;",
+      Expectation().diagnostic(
+          Expectation::ErrorOrWarn::Error,
+          Parser::DiagnosticsReporter::ID_of_UnexpectedCaseLabelOutsideSwitch));
 }
 
-void ParserTester::case2357()
-{
-    parseStatement("default : x ;",
-                   Expectation().diagnostic(Expectation::ErrorOrWarn::Error,
-                                               Parser::DiagnosticsReporter::ID_of_UnexpectedDefaultLabelOutsideSwitch));
+void ParserTester::case2357() {
+  parseStatement(
+      "default : x ;",
+      Expectation().diagnostic(Expectation::ErrorOrWarn::Error,
+                               Parser::DiagnosticsReporter::
+                                   ID_of_UnexpectedDefaultLabelOutsideSwitch));
 }
 
-void ParserTester::case2358()
-{
-}
+void ParserTester::case2358() {}
 
 void ParserTester::case2359() {}
 void ParserTester::case2360() {}
@@ -1122,93 +808,63 @@ void ParserTester::case2397() {}
 void ParserTester::case2398() {}
 void ParserTester::case2399() {}
 
-void ParserTester::case2400()
-{
-    parseStatement("while ( 1 ) { }");
+void ParserTester::case2400() { parseStatement("while ( 1 ) { }"); }
+
+void ParserTester::case2401() { parseStatement("while ( 1 ) ;"); }
+
+void ParserTester::case2402() { parseStatement("while ( * x ++ != '\\0' ) ;"); }
+
+void ParserTester::case2403() { parseStatement("while ( 1 ) x = y ;"); }
+
+void ParserTester::case2404() { parseStatement("do { } while ( 1 ) ;"); }
+
+void ParserTester::case2405() {
+  parseStatement("do { } while ( 1 )",
+                 Expectation().diagnostic(
+                     Expectation::ErrorOrWarn::Error,
+                     Parser::DiagnosticsReporter::ID_of_ExpectedToken));
 }
 
-void ParserTester::case2401()
-{
-    parseStatement("while ( 1 ) ;");
+void ParserTester::case2406() {
+  parseStatement(
+      "do { } while ( ) ;",
+      Expectation().diagnostic(
+          Expectation::ErrorOrWarn::Error,
+          Parser::DiagnosticsReporter::ID_of_ExpectedFIRSTofExpression));
 }
 
-void ParserTester::case2402()
-{
-    parseStatement("while ( * x ++ != '\\0' ) ;");
+void ParserTester::case2407() {
+  parseStatement(
+      "while ( )",
+      Expectation().diagnostic(
+          Expectation::ErrorOrWarn::Error,
+          Parser::DiagnosticsReporter::ID_of_ExpectedFIRSTofExpression));
 }
 
-void ParserTester::case2403()
-{
-    parseStatement("while ( 1 ) x = y ;");
+void ParserTester::case2408() {
+  parseStatement("do ; while ( 1 )",
+                 Expectation().diagnostic(
+                     Expectation::ErrorOrWarn::Error,
+                     Parser::DiagnosticsReporter::ID_of_ExpectedToken));
 }
 
-void ParserTester::case2404()
-{
-    parseStatement("do { } while ( 1 ) ;");
+void ParserTester::case2409() {
+  parseStatement("do x ( ) ; while ( y / z % 0 ) ;");
 }
 
-void ParserTester::case2405()
-{
-    parseStatement("do { } while ( 1 )",
-                   Expectation().diagnostic(Expectation::ErrorOrWarn::Error,
-                                               Parser::DiagnosticsReporter::ID_of_ExpectedToken));
+void ParserTester::case2410() { parseStatement("do x ; while ( y ) ;"); }
+
+void ParserTester::case2411() { parseStatement("do ; while ( 1 ) ;"); }
+
+void ParserTester::case2412() { parseStatement("while ( * x ++ != 0 ) y ;"); }
+
+void ParserTester::case2413() { parseStatement("while ( x != y ) z ;"); }
+
+void ParserTester::case2414() {
+  parseStatement("while ( ! x ( ) ) { y ; z ; }");
 }
 
-void ParserTester::case2406()
-{
-    parseStatement("do { } while ( ) ;",
-                   Expectation().diagnostic(Expectation::ErrorOrWarn::Error,
-                                               Parser::DiagnosticsReporter::ID_of_ExpectedFIRSTofExpression));
-}
-
-void ParserTester::case2407()
-{
-    parseStatement("while ( )",
-                   Expectation().diagnostic(Expectation::ErrorOrWarn::Error,
-                                               Parser::DiagnosticsReporter::ID_of_ExpectedFIRSTofExpression));
-}
-
-void ParserTester::case2408()
-{
-    parseStatement("do ; while ( 1 )",
-                   Expectation().diagnostic(Expectation::ErrorOrWarn::Error,
-                                               Parser::DiagnosticsReporter::ID_of_ExpectedToken));
-}
-
-void ParserTester::case2409()
-{
-    parseStatement("do x ( ) ; while ( y / z % 0 ) ;");
-}
-
-void ParserTester::case2410()
-{
-    parseStatement("do x ; while ( y ) ;");
-}
-
-void ParserTester::case2411()
-{
-    parseStatement("do ; while ( 1 ) ;");
-}
-
-void ParserTester::case2412()
-{
-    parseStatement("while ( * x ++ != 0 ) y ;");
-}
-
-void ParserTester::case2413()
-{
-    parseStatement("while ( x != y ) z ;");
-}
-
-void ParserTester::case2414()
-{
-    parseStatement("while ( ! x ( ) ) { y ; z ; }");
-}
-
-void ParserTester::case2415()
-{
-        parseStatement("while ( * x ++ != '0' ) ;");
-}
+void ParserTester::case2415() { parseStatement("while ( * x ++ != '0' ) ;"); }
 
 void ParserTester::case2416() {}
 void ParserTester::case2417() {}
@@ -1245,126 +901,94 @@ void ParserTester::case2447() {}
 void ParserTester::case2448() {}
 void ParserTester::case2449() {}
 
-void ParserTester::case2450()
-{
-    parseStatement("for ( ; ; ) 1 ;",
-                   Expectation().AST( { ForStatement,
-                                        ExpressionStatement,
-                                        ExpressionStatement,
-                                        IntegerConstantExpression }));
+void ParserTester::case2450() {
+  parseStatement(
+      "for ( ; ; ) 1 ;",
+      Expectation().AST({ForStatement, ExpressionStatement, ExpressionStatement,
+                         IntegerConstantExpression}));
 }
 
-void ParserTester::case2451()
-{
-    parseStatement("for ( ; ) ;",
-                   Expectation().diagnostic(Expectation::ErrorOrWarn::Error,
-                                               Parser::DiagnosticsReporter::ID_of_ExpectedFIRSTofExpression));
+void ParserTester::case2451() {
+  parseStatement(
+      "for ( ; ) ;",
+      Expectation().diagnostic(
+          Expectation::ErrorOrWarn::Error,
+          Parser::DiagnosticsReporter::ID_of_ExpectedFIRSTofExpression));
 }
 
-void ParserTester::case2452()
-{
-    parseStatement("for ( ; ; ) { }",
-                   Expectation().AST( { ForStatement,
-                                        ExpressionStatement,
-                                        CompoundStatement }));
+void ParserTester::case2452() {
+  parseStatement("for ( ; ; ) { }",
+                 Expectation().AST(
+                     {ForStatement, ExpressionStatement, CompoundStatement}));
 }
 
-void ParserTester::case2453()
-{
-    parseStatement("for ( ; ; )",
-                   Expectation().diagnostic(Expectation::ErrorOrWarn::Error,
-                                               Parser::DiagnosticsReporter::ID_of_ExpectedFIRSTofExpression));
+void ParserTester::case2453() {
+  parseStatement(
+      "for ( ; ; )",
+      Expectation().diagnostic(
+          Expectation::ErrorOrWarn::Error,
+          Parser::DiagnosticsReporter::ID_of_ExpectedFIRSTofExpression));
 }
 
-void ParserTester::case2454()
-{
-    parseStatement("for ( x ; y ; z ) { }",
-                   Expectation().AST( { ForStatement,
-                                        ExpressionStatement,
-                                        IdentifierName,
-                                        IdentifierName,
-                                        IdentifierName,
-                                        CompoundStatement }));
+void ParserTester::case2454() {
+  parseStatement(
+      "for ( x ; y ; z ) { }",
+      Expectation().AST({ForStatement, ExpressionStatement, IdentifierName,
+                         IdentifierName, IdentifierName, CompoundStatement}));
 }
 
-void ParserTester::case2455()
-{
-    parseStatement("for ( int x ; y ; z ) { }",
-                   Expectation().AST( { ForStatement,
-                                        DeclarationStatement,
-                                        VariableAndOrFunctionDeclaration,
-                                        BuiltinTypeSpecifier,
-                                        IdentifierDeclarator,
-                                        IdentifierName,
-                                        IdentifierName,
-                                        CompoundStatement }));
+void ParserTester::case2455() {
+  parseStatement(
+      "for ( int x ; y ; z ) { }",
+      Expectation().AST({ForStatement, DeclarationStatement,
+                         VariableAndOrFunctionDeclaration, BuiltinTypeSpecifier,
+                         IdentifierDeclarator, IdentifierName, IdentifierName,
+                         CompoundStatement}));
 }
 
-void ParserTester::case2456()
-{
-    parseStatement("for ( x y ; 1 ; 2 ) { }",
-                   Expectation().AST( { ForStatement,
-                                        DeclarationStatement,
-                                        VariableAndOrFunctionDeclaration,
-                                        TypedefName,
-                                        IdentifierDeclarator,
-                                        IntegerConstantExpression,
-                                        IntegerConstantExpression,
-                                        CompoundStatement }));
+void ParserTester::case2456() {
+  parseStatement(
+      "for ( x y ; 1 ; 2 ) { }",
+      Expectation().AST({ForStatement, DeclarationStatement,
+                         VariableAndOrFunctionDeclaration, TypedefName,
+                         IdentifierDeclarator, IntegerConstantExpression,
+                         IntegerConstantExpression, CompoundStatement}));
 }
 
-void ParserTester::case2457()
-{
-    parseStatement("for ( x y ; 1 ; ) { }",
-                   Expectation().AST( { ForStatement,
-                                        DeclarationStatement,
-                                        VariableAndOrFunctionDeclaration,
-                                        TypedefName,
-                                        IdentifierDeclarator,
-                                        IntegerConstantExpression,
-                                        CompoundStatement }));
+void ParserTester::case2457() {
+  parseStatement(
+      "for ( x y ; 1 ; ) { }",
+      Expectation().AST({ForStatement, DeclarationStatement,
+                         VariableAndOrFunctionDeclaration, TypedefName,
+                         IdentifierDeclarator, IntegerConstantExpression,
+                         CompoundStatement}));
 }
 
-void ParserTester::case2458()
-{
-    parseStatement("for ( x y ; ; ) { }",
-                   Expectation().AST( { ForStatement,
-                                        DeclarationStatement,
-                                        VariableAndOrFunctionDeclaration,
-                                        TypedefName,
-                                        IdentifierDeclarator,
-                                        CompoundStatement }));
+void ParserTester::case2458() {
+  parseStatement(
+      "for ( x y ; ; ) { }",
+      Expectation().AST({ForStatement, DeclarationStatement,
+                         VariableAndOrFunctionDeclaration, TypedefName,
+                         IdentifierDeclarator, CompoundStatement}));
 }
 
-void ParserTester::case2459()
-{
-    parseStatement("for ( 1 ; x != 0 ; ++ y ) { }",
-                   Expectation().AST( { ForStatement,
-                                        ExpressionStatement,
-                                        IntegerConstantExpression,
-                                        NotEqualsExpression,
-                                        IdentifierName,
-                                        IntegerConstantExpression,
-                                        PreIncrementExpression,
-                                        IdentifierName,
-                                        CompoundStatement }));
+void ParserTester::case2459() {
+  parseStatement(
+      "for ( 1 ; x != 0 ; ++ y ) { }",
+      Expectation().AST(
+          {ForStatement, ExpressionStatement, IntegerConstantExpression,
+           NotEqualsExpression, IdentifierName, IntegerConstantExpression,
+           PreIncrementExpression, IdentifierName, CompoundStatement}));
 }
-void ParserTester::case2460()
-{
-    parseStatement("for ( int x = 1 ; y != 0 ; ++ z ) { }",
-                   Expectation().AST( { ForStatement,
-                                        DeclarationStatement,
-                                        VariableAndOrFunctionDeclaration,
-                                        BuiltinTypeSpecifier,
-                                        IdentifierDeclarator,
-                                        ExpressionInitializer,
-                                        IntegerConstantExpression,
-                                        NotEqualsExpression,
-                                        IdentifierName,
-                                        IntegerConstantExpression,
-                                        PreIncrementExpression,
-                                        IdentifierName,
-                                        CompoundStatement }));
+void ParserTester::case2460() {
+  parseStatement(
+      "for ( int x = 1 ; y != 0 ; ++ z ) { }",
+      Expectation().AST(
+          {ForStatement, DeclarationStatement, VariableAndOrFunctionDeclaration,
+           BuiltinTypeSpecifier, IdentifierDeclarator, ExpressionInitializer,
+           IntegerConstantExpression, NotEqualsExpression, IdentifierName,
+           IntegerConstantExpression, PreIncrementExpression, IdentifierName,
+           CompoundStatement}));
 }
 
 void ParserTester::case2461() {}
@@ -1407,51 +1031,38 @@ void ParserTester::case2497() {}
 void ParserTester::case2498() {}
 void ParserTester::case2499() {}
 
-void ParserTester::case2500()
-{
-    parseStatement("break ;",
-                   Expectation().diagnostic(Expectation::ErrorOrWarn::Error,
-                                               Parser::DiagnosticsReporter::ID_of_UnexpectedBreakOutsideSwitchOrLoop));
+void ParserTester::case2500() {
+  parseStatement("break ;", Expectation().diagnostic(
+                                Expectation::ErrorOrWarn::Error,
+                                Parser::DiagnosticsReporter::
+                                    ID_of_UnexpectedBreakOutsideSwitchOrLoop));
 }
 
-void ParserTester::case2501()
-{
-    parseStatement("continue ;",
-                   Expectation().diagnostic(Expectation::ErrorOrWarn::Error,
-                                               Parser::DiagnosticsReporter::ID_of_UnexpectedContinueOutsideLoop));
+void ParserTester::case2501() {
+  parseStatement(
+      "continue ;",
+      Expectation().diagnostic(
+          Expectation::ErrorOrWarn::Error,
+          Parser::DiagnosticsReporter::ID_of_UnexpectedContinueOutsideLoop));
 }
 
-void ParserTester::case2502()
-{
-    parseStatement("return ;");
-}
+void ParserTester::case2502() { parseStatement("return ;"); }
 
-void ParserTester::case2503()
-{
-    parseStatement("return x ;");
-}
+void ParserTester::case2503() { parseStatement("return x ;"); }
 
-void ParserTester::case2504()
-{
-    parseStatement("return 0 ;");
-}
+void ParserTester::case2504() { parseStatement("return 0 ;"); }
 
-void ParserTester::case2505()
-{
-    parseStatement("return x ( ) ;");
-}
+void ParserTester::case2505() { parseStatement("return x ( ) ;"); }
 
-void ParserTester::case2506()
-{
-    parseStatement(R"(
+void ParserTester::case2506() {
+  parseStatement(R"(
                    for ( ; ; )
                        break ;
                    )");
 }
 
-void ParserTester::case2507()
-{
-    parseStatement(R"(
+void ParserTester::case2507() {
+  parseStatement(R"(
                    for ( ; ; )
                    {
                        break ;
@@ -1459,25 +1070,22 @@ void ParserTester::case2507()
                    )");
 }
 
-void ParserTester::case2508()
-{
-    parseStatement(R"(
+void ParserTester::case2508() {
+  parseStatement(R"(
                    for ( ; ; )
                        continue ;
                    )");
 }
 
-void ParserTester::case2509()
-{
-    parseStatement(R"(
+void ParserTester::case2509() {
+  parseStatement(R"(
                    while ( 1 )
                        break ;
                    )");
 }
 
-void ParserTester::case2510()
-{
-    parseStatement(R"(
+void ParserTester::case2510() {
+  parseStatement(R"(
                    while ( 1 )
                    {
                        break ;
@@ -1485,9 +1093,8 @@ void ParserTester::case2510()
                    )");
 }
 
-void ParserTester::case2511()
-{
-    parseStatement(R"(
+void ParserTester::case2511() {
+  parseStatement(R"(
                    for ( ; ; )
                    {
                        continue ;
@@ -1495,9 +1102,8 @@ void ParserTester::case2511()
                    )");
 }
 
-void ParserTester::case2512()
-{
-    parseStatement(R"(
+void ParserTester::case2512() {
+  parseStatement(R"(
                    switch ( x )
                    {
                        case 1 :
@@ -1506,9 +1112,8 @@ void ParserTester::case2512()
                    )");
 }
 
-void ParserTester::case2513()
-{
-    parseStatement(R"(
+void ParserTester::case2513() {
+  parseStatement(R"(
                    switch ( x )
                    {
                        case 1 : break ;
@@ -1517,9 +1122,8 @@ void ParserTester::case2513()
                    )");
 }
 
-void ParserTester::case2514()
-{
-    parseStatement(R"(
+void ParserTester::case2514() {
+  parseStatement(R"(
                    switch ( x )
                    {
                        case 1 :
@@ -1529,28 +1133,30 @@ void ParserTester::case2514()
                    )");
 }
 
-void ParserTester::case2515()
-{
-    parse("break",
-          Expectation().diagnostic(Expectation::ErrorOrWarn::Error,
-                                      Parser::DiagnosticsReporter::ID_of_ExpectedFIRSTofDirectDeclarator)
-                       .diagnostic(Expectation::ErrorOrWarn::Warn,
-                                      Parser::DiagnosticsReporter::ID_of_ExpectedTypeSpecifier));
+void ParserTester::case2515() {
+  parse("break",
+        Expectation()
+            .diagnostic(Expectation::ErrorOrWarn::Error,
+                        Parser::DiagnosticsReporter::
+                            ID_of_ExpectedFIRSTofDirectDeclarator)
+            .diagnostic(
+                Expectation::ErrorOrWarn::Warn,
+                Parser::DiagnosticsReporter::ID_of_ExpectedTypeSpecifier));
 }
 
-void ParserTester::case2516()
-{
-    parse("continue ;",
-          Expectation().diagnostic(Expectation::ErrorOrWarn::Error,
-                                      Parser::DiagnosticsReporter::ID_of_ExpectedFIRSTofDirectDeclarator)
-                       .diagnostic(Expectation::ErrorOrWarn::Warn,
-                                      Parser::DiagnosticsReporter::ID_of_ExpectedTypeSpecifier));
-
+void ParserTester::case2516() {
+  parse("continue ;",
+        Expectation()
+            .diagnostic(Expectation::ErrorOrWarn::Error,
+                        Parser::DiagnosticsReporter::
+                            ID_of_ExpectedFIRSTofDirectDeclarator)
+            .diagnostic(
+                Expectation::ErrorOrWarn::Warn,
+                Parser::DiagnosticsReporter::ID_of_ExpectedTypeSpecifier));
 }
 
-void ParserTester::case2517()
-{
-    parseStatement(R"(
+void ParserTester::case2517() {
+  parseStatement(R"(
                    for ( ; ; ) {
                        switch ( 1 ) {
                            default :
@@ -1560,9 +1166,8 @@ void ParserTester::case2517()
                    )");
 }
 
-void ParserTester::case2518()
-{
-    parseStatement(R"(
+void ParserTester::case2518() {
+  parseStatement(R"(
                    for ( ; ; ) {
                        switch ( 1 ) {
                            default :
@@ -1572,18 +1177,16 @@ void ParserTester::case2518()
                    )");
 }
 
-void ParserTester::case2519()
-{
-    parseStatement(R"(
+void ParserTester::case2519() {
+  parseStatement(R"(
                    switch ( x ) {
                        break;
                    }
                    )");
 }
 
-void ParserTester::case2520()
-{
-    parseStatement(R"(
+void ParserTester::case2520() {
+  parseStatement(R"(
                    switch ( 0 ) {
                        case 1 : ;
                        default:
@@ -1674,69 +1277,64 @@ void ParserTester::case2597() {}
 void ParserTester::case2598() {}
 void ParserTester::case2599() {}
 
-void ParserTester::case2600()
-{
-    parseStatement(R"(
+void ParserTester::case2600() {
+  parseStatement(R"(
                    asm ( "nop" );
                    )");
 }
 
-void ParserTester::case2601()
-{
-    parseStatement(R"(
+void ParserTester::case2601() {
+  parseStatement(R"(
                    asm ( "nop"
                          "nop" );
                    )");
 }
 
-void ParserTester::case2602()
-{
-    parseStatement(R"(
+void ParserTester::case2602() {
+  parseStatement(R"(
                    asm ( "nop" )
                    )",
-                   Expectation().diagnostic(Expectation::ErrorOrWarn::Error,
-                                               Parser::DiagnosticsReporter::ID_of_ExpectedToken));
+                 Expectation().diagnostic(
+                     Expectation::ErrorOrWarn::Error,
+                     Parser::DiagnosticsReporter::ID_of_ExpectedToken));
 }
 
-void ParserTester::case2603()
-{
-    parseStatement(R"(
+void ParserTester::case2603() {
+  parseStatement(
+      R"(
                    asm ( )
                    )",
-                   Expectation().diagnostic(Expectation::ErrorOrWarn::Error,
-                                               Parser::DiagnosticsReporter::ID_of_ExpectedTokenOfCategoryStringLiteral));
+      Expectation().diagnostic(Expectation::ErrorOrWarn::Error,
+                               Parser::DiagnosticsReporter::
+                                   ID_of_ExpectedTokenOfCategoryStringLiteral));
 }
 
-void ParserTester::case2604()
-{
-    // From https://www.felixcloutier.com/documents/gcc-asm.html.
+void ParserTester::case2604() {
+  // From https://www.felixcloutier.com/documents/gcc-asm.html.
 
-    parseStatement(R"(
+  parseStatement(R"(
                    asm ( "movq %0, %0" : "+rm" ( foo ) ) ;
                    )");
 }
 
-void ParserTester::case2605()
-{
-    // From https://www.felixcloutier.com/documents/gcc-asm.html.
+void ParserTester::case2605() {
+  // From https://www.felixcloutier.com/documents/gcc-asm.html.
 
-    parseStatement(R"(
+  parseStatement(R"(
                    asm ( "addl %0, %1" : "+r" ( foo ) : "g" ( bar ) ) ;
                    )");
 }
 
-void ParserTester::case2606()
-{
-    // From https://www.felixcloutier.com/documents/gcc-asm.html.
+void ParserTester::case2606() {
+  // From https://www.felixcloutier.com/documents/gcc-asm.html.
 
-    parseStatement(R"(
+  parseStatement(R"(
                    asm ( "lfence " :  :  : "memory" ) ;
                    )");
 }
 
-void ParserTester::case2607()
-{
-    parseStatement(R"(
+void ParserTester::case2607() {
+  parseStatement(R"(
                    asm ( "movl $123 , %0 \n  "
                          "addl %1 , %0"
                          : "=&r" ( foo )
@@ -1744,9 +1342,8 @@ void ParserTester::case2607()
                    )");
 }
 
-void ParserTester::case2608()
-{
-    parseStatement(R"(
+void ParserTester::case2608() {
+  parseStatement(R"(
                    asm goto ( "jmp %l0\n"
                               :
                               :
@@ -1755,9 +1352,8 @@ void ParserTester::case2608()
                    )");
 }
 
-void ParserTester::case2609()
-{
-    parseStatement(R"(
+void ParserTester::case2609() {
+  parseStatement(R"(
                    asm goto ( "jmp %l0\n"
                               :
                               :
@@ -1766,29 +1362,26 @@ void ParserTester::case2609()
                    )");
 }
 
-void ParserTester::case2610()
-{
-    // From https://www.felixcloutier.com/documents/gcc-asm.html.
+void ParserTester::case2610() {
+  // From https://www.felixcloutier.com/documents/gcc-asm.html.
 
-    parseStatement(R"(
+  parseStatement(R"(
                    asm volatile ( "syscall" : "=a" (ret_val) : : "rcx" , "r11" ) ;
                    )");
 }
 
-void ParserTester::case2611()
-{
-    // From https://www.felixcloutier.com/documents/gcc-asm.html.
+void ParserTester::case2611() {
+  // From https://www.felixcloutier.com/documents/gcc-asm.html.
 
-    parseStatement(R"(
+  parseStatement(R"(
                    asm ( "imulq %[rhs]"
                          : "=a" (*lo) , "=d" (*hi)
                          : [ lhs ] "0" ( left ) , [ rhs ] "rm" ( right )) ;
                    )");
 }
 
-void ParserTester::case2612()
-{
-    parseStatement(R"(
+void ParserTester::case2612() {
+  parseStatement(R"(
                    asm ( "mov %[e], %[d]"
                       : [ d ] "=rm" ( d )
                       : [ e ] "rm" ( * e ) );

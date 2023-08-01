@@ -36,113 +36,97 @@ namespace C {
 
 class SyntaxTree;
 
-class PSY_C_API SyntaxNodeList
-{
+class PSY_C_API SyntaxNodeList {
 public:
+  /**
+   * The first token of \c this SyntaxNodeList.
+   */
+  virtual SyntaxToken firstToken() const = 0;
 
-    /**
-     * The first token of \c this SyntaxNodeList.
-     */
-    virtual SyntaxToken firstToken() const = 0;
+  /**
+   * The last token of \c this SyntaxNode.
+   */
+  virtual SyntaxToken lastToken() const = 0;
 
-    /**
-     * The last token of \c this SyntaxNode.
-     */
-    virtual SyntaxToken lastToken() const = 0;
+  static SyntaxToken token(LexedTokens::IndexType tkIdx, SyntaxTree *tree);
 
-    static SyntaxToken token(LexedTokens::IndexType tkIdx, SyntaxTree* tree);
-
-    virtual void acceptVisitor(SyntaxVisitor* visitor) = 0;
+  virtual void acceptVisitor(SyntaxVisitor *visitor) = 0;
 };
-
 
 /**
  * \brief The CoreSyntaxNodeList class \b template.
  *
  * The base class of every syntax list.
  */
-template <class SyntaxNodeT,
-          class DerivedListT>
-class PSY_C_API CoreSyntaxNodeList
-        : public List<SyntaxNodeT, DerivedListT>
-        , public SyntaxNodeList
-{
+template <class SyntaxNodeT, class DerivedListT>
+class PSY_C_API CoreSyntaxNodeList : public List<SyntaxNodeT, DerivedListT>,
+                                     public SyntaxNodeList {
 public:
-    CoreSyntaxNodeList(SyntaxTree* tree)
-        : List<SyntaxNodeT, DerivedListT>()
-        , tree_(tree)
-    {}
+  CoreSyntaxNodeList(SyntaxTree *tree)
+      : List<SyntaxNodeT, DerivedListT>(), tree_(tree) {}
 
-    CoreSyntaxNodeList(SyntaxTree* tree, const SyntaxNodeT& node)
-        : List<SyntaxNodeT, DerivedListT>(node)
-        , tree_(tree)
-    {}
+  CoreSyntaxNodeList(SyntaxTree *tree, const SyntaxNodeT &node)
+      : List<SyntaxNodeT, DerivedListT>(node), tree_(tree) {}
 
-    CoreSyntaxNodeList(const CoreSyntaxNodeList&) = delete;
-    CoreSyntaxNodeList& operator=(const CoreSyntaxNodeList&) = delete;
+  CoreSyntaxNodeList(const CoreSyntaxNodeList &) = delete;
+  CoreSyntaxNodeList &operator=(const CoreSyntaxNodeList &) = delete;
 
-    virtual SyntaxToken firstToken() const override
-    {
-        if (this->value)
-            return this->value->firstToken();
-        return SyntaxToken::invalid();
+  virtual SyntaxToken firstToken() const override {
+    if (this->value)
+      return this->value->firstToken();
+    return SyntaxToken::invalid();
+  }
+
+  virtual SyntaxToken lastToken() const override {
+    SyntaxNodeT node = this->lastValue();
+    if (node)
+      return node->lastToken();
+    return SyntaxToken::invalid();
+  }
+
+  virtual void acceptVisitor(SyntaxVisitor *visitor) override {
+    for (auto it = this; it; it = it->next) {
+      SyntaxNodeT node = static_cast<SyntaxNodeT>(it->value);
+      if (node)
+        node->acceptVisitor(visitor);
     }
+  }
 
-    virtual SyntaxToken lastToken() const override
-    {
-        SyntaxNodeT node = this->lastValue();
-        if (node)
-            return node->lastToken();
-        return SyntaxToken::invalid();
-    }
-
-    virtual void acceptVisitor(SyntaxVisitor* visitor) override
-    {
-        for (auto it = this; it; it = it->next) {
-            SyntaxNodeT node = static_cast<SyntaxNodeT>(it->value);
-            if (node)
-                node->acceptVisitor(visitor);
-        }
-    }
-
-    SyntaxTree* tree_;
+  SyntaxTree *tree_;
 };
-
 
 /**
  * \brief The SyntaxNodePlainList class (template).
  */
 template <class SyntaxNodeT>
 class PSY_C_API SyntaxNodePlainList final
-        : public CoreSyntaxNodeList<SyntaxNodeT,
-                                    SyntaxNodePlainList<SyntaxNodeT>>
-{
+    : public CoreSyntaxNodeList<SyntaxNodeT, SyntaxNodePlainList<SyntaxNodeT>> {
 public:
-    using CoreSyntaxNodeList<SyntaxNodeT, SyntaxNodePlainList<SyntaxNodeT>>::CoreSyntaxNodeList;
-    using NodeType = SyntaxNodeT;
+  using CoreSyntaxNodeList<
+      SyntaxNodeT, SyntaxNodePlainList<SyntaxNodeT>>::CoreSyntaxNodeList;
+  using NodeType = SyntaxNodeT;
 };
-
 
 /**
  * \brief The SyntaxNodeSeparatedList class (template).
  */
 template <class SyntaxNodeT>
 class PSY_C_API SyntaxNodeSeparatedList final
-        : public CoreSyntaxNodeList<SyntaxNodeT,
-                                    SyntaxNodeSeparatedList<SyntaxNodeT>>
-{
+    : public CoreSyntaxNodeList<SyntaxNodeT,
+                                SyntaxNodeSeparatedList<SyntaxNodeT>> {
 public:
-    SyntaxToken delimiterToken() const;
+  SyntaxToken delimiterToken() const;
 
-    using Base = CoreSyntaxNodeList<SyntaxNodeT, SyntaxNodeSeparatedList<SyntaxNodeT>>;
-    using NodeType = SyntaxNodeT;
-    using CoreSyntaxNodeList<SyntaxNodeT,
-                             SyntaxNodeSeparatedList<SyntaxNodeT>>::CoreSyntaxNodeList;
+  using Base =
+      CoreSyntaxNodeList<SyntaxNodeT, SyntaxNodeSeparatedList<SyntaxNodeT>>;
+  using NodeType = SyntaxNodeT;
+  using CoreSyntaxNodeList<
+      SyntaxNodeT, SyntaxNodeSeparatedList<SyntaxNodeT>>::CoreSyntaxNodeList;
 
-    unsigned delimTkIdx_ = 0;
+  unsigned delimTkIdx_ = 0;
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

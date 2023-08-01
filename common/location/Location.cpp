@@ -23,35 +23,29 @@
 using namespace psy;
 
 Location::Location(std::string filePath, LinePositionSpan lineSpan)
-    : fileLineSpan_(filePath, lineSpan)
-{}
+    : fileLineSpan_(filePath, lineSpan) {}
 
 Location::Location(FileLinePositionSpan fileLineSpan)
-    : fileLineSpan_(std::move(fileLineSpan))
-{}
+    : fileLineSpan_(std::move(fileLineSpan)) {}
 
-Location Location::create(std::string filePath, LinePositionSpan span)
-{
-    Location loc(filePath, span);
-    return loc;
+Location Location::create(std::string filePath, LinePositionSpan span) {
+  Location loc(filePath, span);
+  return loc;
 }
 
-Location Location::create(FileLinePositionSpan fileLineSpan)
-{
-    return Location(std::move(fileLineSpan));
+Location Location::create(FileLinePositionSpan fileLineSpan) {
+  return Location(std::move(fileLineSpan));
 }
 
 namespace psy {
 
-bool operator==(const Location& a, const Location& b)
-{
-    return a.lineSpan() == b.lineSpan();
+bool operator==(const Location &a, const Location &b) {
+  return a.lineSpan() == b.lineSpan();
 }
 
-std::ostream& operator<<(std::ostream& os, const Location& loc)
-{
-    os << loc.lineSpan();
-    return os;
+std::ostream &operator<<(std::ostream &os, const Location &loc) {
+  os << loc.lineSpan();
+  return os;
 }
 
-} // psy
+} // namespace psy

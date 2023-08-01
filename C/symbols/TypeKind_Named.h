@@ -36,36 +36,34 @@ namespace C {
 /**
  * \brief The NamedTypeKind class.
  */
-enum class PSY_C_API NamedTypeKind : std::uint8_t
-{
-    UNSPECIFIED = 0,
+enum class PSY_C_API NamedTypeKind : std::uint8_t {
+  UNSPECIFIED = 0,
 
-    Builtin,
-    Structure,
-    Union,
-    Enumeration,
-    Synonym
+  Builtin,
+  Structure,
+  Union,
+  Enumeration,
+  Synonym
 };
 
-inline std::string PSY_C_API to_string(NamedTypeKind namedTyK)
-{
-    switch (namedTyK) {
-        case NamedTypeKind::Builtin:
-            return "Builtin";
-        case NamedTypeKind::Structure:
-            return "Structure";
-        case NamedTypeKind::Union:
-            return "Union";
-        case NamedTypeKind::Enumeration:
-            return "Enumeration";
-        case NamedTypeKind::Synonym:
-            return "Synonym";
-        default:
-            PSY_ESCAPE_VIA_RETURN("<INVALID or UNSPECIFIED NamedTypeKind>");
-    }
+inline std::string PSY_C_API to_string(NamedTypeKind namedTyK) {
+  switch (namedTyK) {
+  case NamedTypeKind::Builtin:
+    return "Builtin";
+  case NamedTypeKind::Structure:
+    return "Structure";
+  case NamedTypeKind::Union:
+    return "Union";
+  case NamedTypeKind::Enumeration:
+    return "Enumeration";
+  case NamedTypeKind::Synonym:
+    return "Synonym";
+  default:
+    PSY_ESCAPE_VIA_RETURN("<INVALID or UNSPECIFIED NamedTypeKind>");
+  }
 }
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

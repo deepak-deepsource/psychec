@@ -33,35 +33,32 @@
 namespace psy {
 namespace C {
 
-class PSY_C_NON_API Reparser
-{
-PSY_INTERNAL_AND_RESTRICTED:
-    PSY_GRANT_ACCESS(SyntaxTree);
-    PSY_GRANT_ACCESS(InternalsTestSuite);
+class PSY_C_NON_API Reparser {
+  PSY_INTERNAL_AND_RESTRICTED : PSY_GRANT_ACCESS(SyntaxTree);
+  PSY_GRANT_ACCESS(InternalsTestSuite);
 
-    Reparser();
+  Reparser();
 
-    enum class DisambiguationStrategy : std::uint8_t
-    {
-        UNSPECIFIED = 0,
+  enum class DisambiguationStrategy : std::uint8_t {
+    UNSPECIFIED = 0,
 
-        TypeSynonymsVerification,
-        SyntaxCorrelation,
-        GuidelineImposition
-    };
+    TypeSynonymsVerification,
+    SyntaxCorrelation,
+    GuidelineImposition
+  };
 
-    void setDisambiguationStrategy(DisambiguationStrategy strategy);
+  void setDisambiguationStrategy(DisambiguationStrategy strategy);
 
-    void setPermitHeuristic(bool heuristic);
+  void setPermitHeuristic(bool heuristic);
 
-    void reparse(SyntaxTree* tree);
+  void reparse(SyntaxTree *tree);
 
 private:
-    DisambiguationStrategy disambigStrategy_;
-    bool permitHeuristic_;
+  DisambiguationStrategy disambigStrategy_;
+  bool permitHeuristic_;
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

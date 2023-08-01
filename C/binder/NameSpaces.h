@@ -27,13 +27,12 @@
 namespace psy {
 namespace C {
 
-class PSY_C_API NameSpaces
-{
+class PSY_C_API NameSpaces {
 private:
-    NameSpaces();
+  NameSpaces();
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

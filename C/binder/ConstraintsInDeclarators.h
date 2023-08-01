@@ -32,20 +32,22 @@
 namespace psy {
 namespace C {
 
-class PSY_C_NON_API ConstraintsInDeclarators
-{
-    friend class BinderTester;
+class PSY_C_NON_API ConstraintsInDeclarators {
+  friend class BinderTester;
 
 public:
-    static void FunctionReturningFunction(SyntaxToken decltorTk, Binder::DiagnosticsReporter* diagReporter);
-    static void FunctionReturningArray(SyntaxToken decltorTk, Binder::DiagnosticsReporter* diagReporter);
+  static void
+  FunctionReturningFunction(SyntaxToken decltorTk,
+                            Binder::DiagnosticsReporter *diagReporter);
+  static void FunctionReturningArray(SyntaxToken decltorTk,
+                                     Binder::DiagnosticsReporter *diagReporter);
 
 private:
-    static const std::string ID_FunctionReturningFunction;
-    static const std::string ID_FunctionReturningArray;
+  static const std::string ID_FunctionReturningFunction;
+  static const std::string ID_FunctionReturningArray;
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

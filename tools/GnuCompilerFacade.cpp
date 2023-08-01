@@ -25,61 +25,55 @@
 #include <iostream>
 #include <sstream>
 
-namespace
-{
-const char * const kInclude = "#include";
+namespace {
+const char *const kInclude = "#include";
 }
 
 using namespace psy;
 
-GnuCompilerFacade::GnuCompilerFacade(const std::string& compilerName,
-                               const std::string& std,
-                               const std::vector<std::string>& D,
-                               const std::vector<std::string>& U)
-    : compilerName_(compilerName)
-    , std_(std)
-    , D_(D)
-    , U_(U)
-{}
+GnuCompilerFacade::GnuCompilerFacade(const std::string &compilerName,
+                                     const std::string &std,
+                                     const std::vector<std::string> &D,
+                                     const std::vector<std::string> &U)
+    : compilerName_(compilerName), std_(std), D_(D), U_(U) {}
 
-std::pair<int, std::string> GnuCompilerFacade::preprocess(const std::string& srcText)
-{
-    std::string in = "cat << 'EOF' | ";
-    in += compilerName_;
-    in += assembleMacroCmd();
-    in += " ";
-    in += "-std=" + std_ + " ";
-    in += "-E -x c -CC -";
-    in += "\n" + srcText + "\nEOF";
+std::pair<int, std::string>
+GnuCompilerFacade::preprocess(const std::string &srcText) {
+  std::string in = "cat << 'EOF' | ";
+  in += compilerName_;
+  in += assembleMacroCmd();
+  in += " ";
+  in += "-std=" + std_ + " ";
+  in += "-E -x c -CC -";
+  in += "\n" + srcText + "\nEOF";
 
-    return Process().execute(in);
+  return Process().execute(in);
 }
 
-std::pair<int, std::string> GnuCompilerFacade::preprocess_IgnoreIncludes(const std::string& srcText)
-{
-    std::string srcText_P;
-    srcText_P.reserve(srcText.length());
+std::pair<int, std::string>
+GnuCompilerFacade::preprocess_IgnoreIncludes(const std::string &srcText) {
+  std::string srcText_P;
+  srcText_P.reserve(srcText.length());
 
-    std::istringstream iss(srcText);
-    std::string line;
-    while (std::getline(iss, line)) {
-        line.erase(0, line.find_first_not_of(' '));
+  std::istringstream iss(srcText);
+  std::string line;
+  while (std::getline(iss, line)) {
+    line.erase(0, line.find_first_not_of(' '));
 
-        if (line.find(kInclude) == 0)
-            continue;
+    if (line.find(kInclude) == 0)
+      continue;
 
-        srcText_P += (line + "\n");
-    }
+    srcText_P += (line + "\n");
+  }
 
-    return preprocess(srcText_P);
+  return preprocess(srcText_P);
 }
 
-std::string GnuCompilerFacade::assembleMacroCmd() const
-{
-    std::string s;
-    for (const auto& d : D_)
-        s += " -D " + d;
-    for (const auto& u : U_)
-        s += " -U " + u;
-    return s;
+std::string GnuCompilerFacade::assembleMacroCmd() const {
+  std::string s;
+  for (const auto &d : D_)
+    s += " -D " + d;
+  for (const auto &u : U_)
+    s += " -U " + u;
+  return s;
 }

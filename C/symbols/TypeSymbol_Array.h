@@ -35,39 +35,35 @@ namespace C {
  * This API is inspired by that of \c Microsoft.CodeAnalysis.IArrayTypeSymbol
  * from Roslyn, the .NET Compiler Platform.
  */
-class PSY_C_API ArrayTypeSymbol final : public TypeSymbol
-{
+class PSY_C_API ArrayTypeSymbol final : public TypeSymbol {
 public:
-    //!@{
-    /**
-     * Cast \c this TypeSymbol as a ArrayTypeSymbol.
-     */
-    virtual ArrayTypeSymbol* asArrayType() override { return this; }
-    virtual const ArrayTypeSymbol* asArrayType() const override { return this; }
-    //!@}
+  //!@{
+  /**
+   * Cast \c this TypeSymbol as a ArrayTypeSymbol.
+   */
+  virtual ArrayTypeSymbol *asArrayType() override { return this; }
+  virtual const ArrayTypeSymbol *asArrayType() const override { return this; }
+  //!@}
 
-    /**
-     * The <em>element type</em> of \c this ArrayTypeSymbol.
-     *
-     * \remark 6.2.5-20
-     */
-    const TypeSymbol* elementType() const;
+  /**
+   * The <em>element type</em> of \c this ArrayTypeSymbol.
+   *
+   * \remark 6.2.5-20
+   */
+  const TypeSymbol *elementType() const;
 
-PSY_INTERNAL_AND_RESTRICTED:
-    PSY_GRANT_ACCESS(Binder);
+  PSY_INTERNAL_AND_RESTRICTED : PSY_GRANT_ACCESS(Binder);
 
-    ArrayTypeSymbol(const SyntaxTree* tree,
-                    const Scope* scope,
-                    const Symbol* containingSym,
-                    const TypeSymbol* elemTySym);
+  ArrayTypeSymbol(const SyntaxTree *tree, const Scope *scope,
+                  const Symbol *containingSym, const TypeSymbol *elemTySym);
 
 private:
-    DECL_PIMPL_SUB(ArrayTypeSymbol)
+  DECL_PIMPL_SUB(ArrayTypeSymbol)
 };
 
-std::string PSY_C_API to_string(const ArrayTypeSymbol& tySym);
+std::string PSY_C_API to_string(const ArrayTypeSymbol &tySym);
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

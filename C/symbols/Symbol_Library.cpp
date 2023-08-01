@@ -26,26 +26,19 @@
 using namespace psy;
 using namespace C;
 
-LibrarySymbol::LibrarySymbol(const SyntaxTree* tree,
-                               const Scope* scope,
-                               const Symbol* containingSym)
-    : Symbol(new SymbolImpl(tree,
-                            scope,
-                            containingSym,
-                            SymbolKind::Library))
-{}
+LibrarySymbol::LibrarySymbol(const SyntaxTree *tree, const Scope *scope,
+                             const Symbol *containingSym)
+    : Symbol(new SymbolImpl(tree, scope, containingSym, SymbolKind::Library)) {}
 
 namespace psy {
 namespace C {
 
-std::string to_string(const LibrarySymbol& sym)
-{
-    std::ostringstream oss;
-    oss << "{!library !}";
+std::string to_string(const LibrarySymbol &sym) {
+  std::ostringstream oss;
+  oss << "{!library !}";
 
-    return oss.str();
+  return oss.str();
 }
 
-} // C
-} // psy
-
+} // namespace C
+} // namespace psy

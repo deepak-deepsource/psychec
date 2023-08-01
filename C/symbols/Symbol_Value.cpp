@@ -28,80 +28,53 @@
 using namespace psy;
 using namespace C;
 
-struct ValueSymbol::ValueSymbolImpl : SymbolImpl
-{
-    ValueSymbolImpl(const SyntaxTree* tree,
-                    const Scope* scope,
-                    const Symbol* containingSym,
-                    ValueKind valKind)
-        : SymbolImpl(tree, scope, containingSym, SymbolKind::Value)
-        , valKind_(valKind)
-        , name_(nullptr)
-        , tySym_(nullptr)
-    {}
+struct ValueSymbol::ValueSymbolImpl : SymbolImpl {
+  ValueSymbolImpl(const SyntaxTree *tree, const Scope *scope,
+                  const Symbol *containingSym, ValueKind valKind)
+      : SymbolImpl(tree, scope, containingSym, SymbolKind::Value),
+        valKind_(valKind), name_(nullptr), tySym_(nullptr) {}
 
-    ValueKind valKind_;
-    std::unique_ptr<SymbolName> name_;
-    const TypeSymbol* tySym_;
+  ValueKind valKind_;
+  std::unique_ptr<SymbolName> name_;
+  const TypeSymbol *tySym_;
 };
 
-ValueSymbol::ValueSymbol(const SyntaxTree* tree,
-                          const Scope* scope,
-                          const Symbol* containingSym,
-                          ValueKind valKind)
-    : Symbol(new ValueSymbolImpl(tree,
-                                 scope,
-                                 containingSym,
-                                 valKind))
-{}
+ValueSymbol::ValueSymbol(const SyntaxTree *tree, const Scope *scope,
+                         const Symbol *containingSym, ValueKind valKind)
+    : Symbol(new ValueSymbolImpl(tree, scope, containingSym, valKind)) {}
 
-ValueSymbol::~ValueSymbol()
-{}
+ValueSymbol::~ValueSymbol() {}
 
-ValueKind ValueSymbol::valueKind() const
-{
-    return P_CAST->valKind_;
-}
+ValueKind ValueSymbol::valueKind() const { return P_CAST->valKind_; }
 
-const SymbolName* ValueSymbol::name() const
-{
-    return P_CAST->name_.get();
-}
+const SymbolName *ValueSymbol::name() const { return P_CAST->name_.get(); }
 
-const TypeSymbol* ValueSymbol::type() const
-{
-    return P_CAST->tySym_;
-}
+const TypeSymbol *ValueSymbol::type() const { return P_CAST->tySym_; }
 
-void ValueSymbol::setType(const TypeSymbol* tySym)
-{
-    P_CAST->tySym_ = tySym;
-}
+void ValueSymbol::setType(const TypeSymbol *tySym) { P_CAST->tySym_ = tySym; }
 
-void ValueSymbol::setName(std::unique_ptr<SymbolName> symName)
-{
-    P_CAST->name_ = std::move(symName);
+void ValueSymbol::setName(std::unique_ptr<SymbolName> symName) {
+  P_CAST->name_ = std::move(symName);
 }
 
 namespace psy {
 namespace C {
 
-std::string to_string(const ValueSymbol& sym)
-{
-    switch (sym.valueKind()) {
-        case ValueKind::Enumerator:
-            return to_string(*sym.asEnumerator());
-        case ValueKind::Field:
-            return to_string(*sym.asField());
-        case ValueKind::Parameter:
-            return to_string(*sym.asParameter());
-        case ValueKind::Variable:
-            return to_string(*sym.asVariable());
-        default:
-            PSY_ESCAPE_VIA_RETURN("");
-            return "<INVALID or UNSPECIFIED value kind>";
-    }
+std::string to_string(const ValueSymbol &sym) {
+  switch (sym.valueKind()) {
+  case ValueKind::Enumerator:
+    return to_string(*sym.asEnumerator());
+  case ValueKind::Field:
+    return to_string(*sym.asField());
+  case ValueKind::Parameter:
+    return to_string(*sym.asParameter());
+  case ValueKind::Variable:
+    return to_string(*sym.asVariable());
+  default:
+    PSY_ESCAPE_VIA_RETURN("");
+    return "<INVALID or UNSPECIFIED value kind>";
+  }
 }
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy

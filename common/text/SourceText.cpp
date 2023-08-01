@@ -22,11 +22,6 @@
 
 using namespace psy;
 
-SourceText::SourceText(std::string rawText)
-    : rawText_(std::move(rawText))
-{}
+SourceText::SourceText(std::string rawText) : rawText_(std::move(rawText)) {}
 
-const std::string& SourceText::rawText() const
-{
-    return rawText_;
-}
+const std::string &SourceText::rawText() const { return rawText_; }

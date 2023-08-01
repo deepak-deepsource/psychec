@@ -21,22 +21,21 @@
 #ifndef PSYCHE_C_DECLARATION_INTERCEPTOR_H__
 #define PSYCHE_C_DECLARATION_INTERCEPTOR_H__
 
-#include "PluginConfig.h"
 #include "Fwds.h"
+#include "PluginConfig.h"
 
 namespace psy {
 namespace C {
 
-class PLUGIN_API DeclarationInterceptor
-{
+class PLUGIN_API DeclarationInterceptor {
 public:
-    virtual ~DeclarationInterceptor() = default;
+  virtual ~DeclarationInterceptor() = default;
 
-    virtual bool intercept(DeclaratorDeclarationSyntax*) { return false; }
-    virtual bool intercept(FunctionDefinitionSyntax*) { return false; }
+  virtual bool intercept(DeclaratorDeclarationSyntax *) { return false; }
+  virtual bool intercept(FunctionDefinitionSyntax *) { return false; }
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

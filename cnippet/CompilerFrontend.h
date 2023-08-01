@@ -34,17 +34,16 @@ namespace cnip {
 /*!
  * \brief The CompilerFrontend class.
  */
-class CompilerFrontend
-{
+class CompilerFrontend {
 public:
-    virtual ~CompilerFrontend();
+  virtual ~CompilerFrontend();
 
-    virtual int run(const std::string& srcText, const psy::FileInfo& fi) = 0;
+  virtual int run(const std::string &srcText, const psy::FileInfo &fi) = 0;
 
 protected:
-    CompilerFrontend();
+  CompilerFrontend();
 };
 
-} // cnip
+} // namespace cnip
 
 #endif

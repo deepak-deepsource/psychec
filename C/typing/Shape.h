@@ -27,13 +27,12 @@
 namespace psy {
 namespace C {
 
-class PSY_C_NON_API Shape
-{
+class PSY_C_NON_API Shape {
 public:
-    virtual ~Shape();
+  virtual ~Shape();
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

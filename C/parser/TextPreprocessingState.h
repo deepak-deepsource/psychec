@@ -31,15 +31,13 @@ namespace C {
 /**
  * \brief The alternatives for the TextPreprocessingState of the parsed text.
  */
-enum class PSY_C_API TextPreprocessingState : std::uint8_t
-{
-    Unknown,
-    Preprocessed,
-    Unpreprocessed
+enum class PSY_C_API TextPreprocessingState : std::uint8_t {
+  Unknown,
+  Preprocessed,
+  Unpreprocessed
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif
-

@@ -39,67 +39,63 @@ namespace C {
 /**
  * \brief The ValueSymbol class.
  */
-class PSY_C_API ValueSymbol : public Symbol
-                            , public TypeClass_NameableSymbol
-                            , public TypeClass_TypeableSymbol
-{
+class PSY_C_API ValueSymbol : public Symbol,
+                              public TypeClass_NameableSymbol,
+                              public TypeClass_TypeableSymbol {
 public:
-    virtual ~ValueSymbol();
+  virtual ~ValueSymbol();
 
-    //!@{
-    /**
-     * Cast \c this Symbol as a ValueSymbol.
-     */
-    virtual ValueSymbol* asValue() override { return this; }
-    virtual const ValueSymbol* asValue() const override { return this; }
+  //!@{
+  /**
+   * Cast \c this Symbol as a ValueSymbol.
+   */
+  virtual ValueSymbol *asValue() override { return this; }
+  virtual const ValueSymbol *asValue() const override { return this; }
 
-    //!@{
-    /**
-     * Cast \c this ValueSymbol.
-     */
-    virtual EnumeratorSymbol* asEnumerator() { return nullptr; }
-    virtual const EnumeratorSymbol* asEnumerator() const { return nullptr; }
-    virtual FieldSymbol* asField() { return nullptr; }
-    virtual const FieldSymbol* asField() const { return nullptr; }
-    virtual VariableSymbol* asVariable() { return nullptr; }
-    virtual const VariableSymbol* asVariable() const { return nullptr; }
-    virtual ParameterSymbol* asParameter() { return nullptr; }
-    virtual const ParameterSymbol* asParameter() const { return nullptr; }
-    //!@}
+  //!@{
+  /**
+   * Cast \c this ValueSymbol.
+   */
+  virtual EnumeratorSymbol *asEnumerator() { return nullptr; }
+  virtual const EnumeratorSymbol *asEnumerator() const { return nullptr; }
+  virtual FieldSymbol *asField() { return nullptr; }
+  virtual const FieldSymbol *asField() const { return nullptr; }
+  virtual VariableSymbol *asVariable() { return nullptr; }
+  virtual const VariableSymbol *asVariable() const { return nullptr; }
+  virtual ParameterSymbol *asParameter() { return nullptr; }
+  virtual const ParameterSymbol *asParameter() const { return nullptr; }
+  //!@}
 
-    /**
-     * The (value) kind of \c this value.
-     */
-    ValueKind valueKind() const;
+  /**
+   * The (value) kind of \c this value.
+   */
+  ValueKind valueKind() const;
 
-    /**
-     * The SymbolName of \c this Symbol.
-     */
-    const SymbolName* name() const;
+  /**
+   * The SymbolName of \c this Symbol.
+   */
+  const SymbolName *name() const;
 
-    /**
-     * The type of \c this value.
-     */
-    const TypeSymbol* type() const;
+  /**
+   * The type of \c this value.
+   */
+  const TypeSymbol *type() const;
 
-PSY_INTERNAL_AND_RESTRICTED:
-    PSY_GRANT_ACCESS(Binder);
+  PSY_INTERNAL_AND_RESTRICTED : PSY_GRANT_ACCESS(Binder);
 
-    virtual void setName(std::unique_ptr<SymbolName> symName) override;
-    virtual void setType(const TypeSymbol* tySym) override;
+  virtual void setName(std::unique_ptr<SymbolName> symName) override;
+  virtual void setType(const TypeSymbol *tySym) override;
 
 protected:
-    DECL_PIMPL_SUB(ValueSymbol);
+  DECL_PIMPL_SUB(ValueSymbol);
 
-    ValueSymbol(const SyntaxTree* tree,
-                const Scope* scope,
-                const Symbol* containingSym,
-                ValueKind valKind);
+  ValueSymbol(const SyntaxTree *tree, const Scope *scope,
+              const Symbol *containingSym, ValueKind valKind);
 };
 
-std::string PSY_C_API to_string(const ValueSymbol& sym);
+std::string PSY_C_API to_string(const ValueSymbol &sym);
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

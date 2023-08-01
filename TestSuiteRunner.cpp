@@ -24,17 +24,13 @@
 
 using namespace psy;
 
-int main()
-{
-    try
-    {
-        TestSuite::runTests();
-    }
-    catch (...)
-    {
-        std::cerr << "Unhandled exception during tests!" << std::endl;
-        return 1;
-    }
+int main() {
+  try {
+    TestSuite::runTests();
+  } catch (...) {
+    std::cerr << "Unhandled exception during tests!" << std::endl;
+    return 1;
+  }
 
-    return 0;
+  return 0;
 }

@@ -23,25 +23,17 @@
 namespace psy {
 namespace C {
 
-std::string to_string(const EmptySymbolName&)
-{
-    return "<EmptySymbolName>";
+std::string to_string(const EmptySymbolName &) { return "<EmptySymbolName>"; }
+
+bool operator==(const EmptySymbolName &, const EmptySymbolName &) {
+  return false;
 }
 
-bool operator==(const EmptySymbolName&, const EmptySymbolName&)
-{
-    return false;
+bool operator!=(const EmptySymbolName &a, const EmptySymbolName &b) {
+  return !(a == b);
 }
 
-bool operator!=(const EmptySymbolName& a, const EmptySymbolName& b)
-{
-    return !(a == b);
-}
+std::string EmptySymbolName::text() const { return ""; }
 
-std::string EmptySymbolName::text() const
-{
-    return "";
-}
-
-} // C
-} // psy
+} // namespace C
+} // namespace psy

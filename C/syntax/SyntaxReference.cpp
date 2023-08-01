@@ -23,12 +23,6 @@
 using namespace psy;
 using namespace C;
 
-const SyntaxTree* SyntaxReference::syntaxTree() const
-{
-    return nullptr;
-}
+const SyntaxTree *SyntaxReference::syntaxTree() const { return nullptr; }
 
-const SyntaxNode* SyntaxReference::syntax() const
-{
-    return nullptr;
-}
+const SyntaxNode *SyntaxReference::syntax() const { return nullptr; }

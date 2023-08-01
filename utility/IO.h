@@ -26,10 +26,10 @@
 
 namespace psy {
 
-std::pair<int, std::string> readFile(const std::string& filePath);
+std::pair<int, std::string> readFile(const std::string &filePath);
 
-int writeFile(const std::string& filePath, const std::string& content);
+int writeFile(const std::string &filePath, const std::string &content);
 
-} // psy
+} // namespace psy
 
 #endif

@@ -30,62 +30,45 @@
 using namespace psy;
 using namespace C;
 
-struct FunctionSymbol::FunctionSymbolImpl : SymbolImpl
-{
-    FunctionSymbolImpl(const SyntaxTree* tree,
-                       const Scope* scope,
-                       const Symbol* containingSym)
-        : SymbolImpl(tree, scope, containingSym, SymbolKind::Function)
-        , name_(nullptr)
-        , tySym_(nullptr)
-    {}
+struct FunctionSymbol::FunctionSymbolImpl : SymbolImpl {
+  FunctionSymbolImpl(const SyntaxTree *tree, const Scope *scope,
+                     const Symbol *containingSym)
+      : SymbolImpl(tree, scope, containingSym, SymbolKind::Function),
+        name_(nullptr), tySym_(nullptr) {}
 
-    std::unique_ptr<SymbolName> name_;
-    const TypeSymbol* tySym_;
+  std::unique_ptr<SymbolName> name_;
+  const TypeSymbol *tySym_;
 };
 
-FunctionSymbol::FunctionSymbol(const SyntaxTree* tree,
-                               const Scope* scope,
-                               const Symbol* containingSym)
-    : Symbol(new FunctionSymbolImpl(tree,
-                                    scope,
-                                    containingSym))
-{}
+FunctionSymbol::FunctionSymbol(const SyntaxTree *tree, const Scope *scope,
+                               const Symbol *containingSym)
+    : Symbol(new FunctionSymbolImpl(tree, scope, containingSym)) {}
 
-const SymbolName* FunctionSymbol::name() const
-{
-    return P_CAST->name_.get();
+const SymbolName *FunctionSymbol::name() const { return P_CAST->name_.get(); }
+
+void FunctionSymbol::setName(std::unique_ptr<SymbolName> symName) {
+  P_CAST->name_ = std::move(symName);
 }
 
-void FunctionSymbol::setName(std::unique_ptr<SymbolName> symName)
-{
-    P_CAST->name_ = std::move(symName);
-}
+const TypeSymbol *FunctionSymbol::type() const { return P_CAST->tySym_; }
 
-const TypeSymbol* FunctionSymbol::type() const
-{
-    return P_CAST->tySym_;
-}
-
-void FunctionSymbol::setType(const TypeSymbol* tySym)
-{
-    P_CAST->tySym_ = tySym;
+void FunctionSymbol::setType(const TypeSymbol *tySym) {
+  P_CAST->tySym_ = tySym;
 }
 
 namespace psy {
 namespace C {
 
-std::string to_string(const FunctionSymbol& sym)
-{
-    std::ostringstream oss;
-    oss << "[@function |";
-    oss << " " << (sym.name() ? to_string(*sym.name()) : "name:NULL");
-    oss << " " << (sym.type() ? to_string(*sym.type()) : "type:NULL");
-    oss << " " << (sym.scope() ? to_string(sym.scope()->kind()) : "scope:NULL");
-    oss << " @]";
+std::string to_string(const FunctionSymbol &sym) {
+  std::ostringstream oss;
+  oss << "[@function |";
+  oss << " " << (sym.name() ? to_string(*sym.name()) : "name:NULL");
+  oss << " " << (sym.type() ? to_string(*sym.type()) : "type:NULL");
+  oss << " " << (sym.scope() ? to_string(sym.scope()->kind()) : "scope:NULL");
+  oss << " @]";
 
-    return oss.str();
+  return oss.str();
 }
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy

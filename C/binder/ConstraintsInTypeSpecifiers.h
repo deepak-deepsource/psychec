@@ -35,31 +35,29 @@ namespace C {
 
 class Binder;
 
-class PSY_C_NON_API ConstraintsInTypeSpecifiers
-{
-    friend class BinderTester;
+class PSY_C_NON_API ConstraintsInTypeSpecifiers {
+  friend class BinderTester;
 
 public:
-    static void TypeSpecifierMissingDefaultsToInt(SyntaxToken declTk,
-                                                  Binder::DiagnosticsReporter* diagReporter);
-    static void TwoOrMoreDataTypesInDeclarationSpecifiers(SyntaxToken builtTySpecTk,
-                                                          Binder::DiagnosticsReporter* diagReporter);
+  static void
+  TypeSpecifierMissingDefaultsToInt(SyntaxToken declTk,
+                                    Binder::DiagnosticsReporter *diagReporter);
+  static void TwoOrMoreDataTypesInDeclarationSpecifiers(
+      SyntaxToken builtTySpecTk, Binder::DiagnosticsReporter *diagReporter);
 
-    static void specify(SyntaxToken builtTySpecTk,
-                        NamedTypeSymbol* namedTySym,
-                        Binder::DiagnosticsReporter* diagReporter);
+  static void specify(SyntaxToken builtTySpecTk, NamedTypeSymbol *namedTySym,
+                      Binder::DiagnosticsReporter *diagReporter);
 
 private:
-    static const std::string ID_TypeSpecifierMissingDefaultsToInt;
-    static const std::string ID_TwoOrMoreDataTypesInDeclarationSpecifiers;
+  static const std::string ID_TypeSpecifierMissingDefaultsToInt;
+  static const std::string ID_TwoOrMoreDataTypesInDeclarationSpecifiers;
 
-    static BuiltinTypeKind combine(SyntaxToken builtTySpecTk,
-                                   BuiltinTypeKind builtTyK,
-                                   Binder::DiagnosticsReporter* diagReporter);
-
+  static BuiltinTypeKind combine(SyntaxToken builtTySpecTk,
+                                 BuiltinTypeKind builtTyK,
+                                 Binder::DiagnosticsReporter *diagReporter);
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

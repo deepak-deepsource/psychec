@@ -42,28 +42,25 @@ namespace C {
  * This API is inspired by that of \c Microsoft.CodeAnalysis.IModuleSymbol
  * from Roslyn, the .NET Compiler Platform.
  */
-class PSY_C_API LibrarySymbol final : public Symbol
-{
+class PSY_C_API LibrarySymbol final : public Symbol {
 public:
-    //!@{
-    /**
-     * Cast \c this Symbol as a LibrarySymbol.
-     */
-    virtual LibrarySymbol* asLibrary() override { return this; }
-    virtual const LibrarySymbol* asLibrary() const override { return this; }
-    //!@}
+  //!@{
+  /**
+   * Cast \c this Symbol as a LibrarySymbol.
+   */
+  virtual LibrarySymbol *asLibrary() override { return this; }
+  virtual const LibrarySymbol *asLibrary() const override { return this; }
+  //!@}
 
-PSY_INTERNAL_AND_RESTRICTED:
-    PSY_GRANT_ACCESS(Binder);
+  PSY_INTERNAL_AND_RESTRICTED : PSY_GRANT_ACCESS(Binder);
 
-    LibrarySymbol(const SyntaxTree* tree,
-                  const Scope* scope,
-                  const Symbol* containingSym);
+  LibrarySymbol(const SyntaxTree *tree, const Scope *scope,
+                const Symbol *containingSym);
 };
 
-std::string PSY_C_API to_string(const LibrarySymbol& sym);
+std::string PSY_C_API to_string(const LibrarySymbol &sym);
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

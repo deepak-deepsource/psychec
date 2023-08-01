@@ -29,28 +29,29 @@ namespace C {
 /**
  * \brief The EmptySymbolName class.
  */
-class PSY_C_API EmptySymbolName final : public SymbolName
-{
+class PSY_C_API EmptySymbolName final : public SymbolName {
 public:
-    //!@{
-    /**
-     * Cast \c this SymbolName as an EmptySymbolName.
-     */
-    virtual EmptySymbolName* asEmptySymbolName() override { return this; }
-    virtual const EmptySymbolName* asEmptySymbolName() const override { return this; }
+  //!@{
+  /**
+   * Cast \c this SymbolName as an EmptySymbolName.
+   */
+  virtual EmptySymbolName *asEmptySymbolName() override { return this; }
+  virtual const EmptySymbolName *asEmptySymbolName() const override {
+    return this;
+  }
 
-    /**
-     * The text of \c this SymbolName.
-     */
-    virtual std::string text() const override;
+  /**
+   * The text of \c this SymbolName.
+   */
+  virtual std::string text() const override;
 };
 
-std::string to_string(const EmptySymbolName& name);
+std::string to_string(const EmptySymbolName &name);
 
-bool operator==(const EmptySymbolName& a, const EmptySymbolName& b);
-bool operator!=(const EmptySymbolName& a, const EmptySymbolName& b);
+bool operator==(const EmptySymbolName &a, const EmptySymbolName &b);
+bool operator!=(const EmptySymbolName &a, const EmptySymbolName &b);
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

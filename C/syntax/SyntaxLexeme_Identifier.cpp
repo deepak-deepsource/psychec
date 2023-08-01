@@ -24,8 +24,5 @@
 using namespace psy;
 using namespace C;
 
-Identifier::Identifier(const char* chars, unsigned int size)
-    : SyntaxLexeme(chars,
-                   size,
-                   Kind::Identifier)
-{}
+Identifier::Identifier(const char *chars, unsigned int size)
+    : SyntaxLexeme(chars, size, Kind::Identifier) {}

@@ -37,53 +37,48 @@ namespace psy {
  * within a file.
  *
  * \note
- * This API is inspired by that of \c Microsoft.CodeAnalysis.FileLinePositionSpan
- * from Roslyn, the .NET Compiler Platform.
+ * This API is inspired by that of \c
+ * Microsoft.CodeAnalysis.FileLinePositionSpan from Roslyn, the .NET Compiler
+ * Platform.
  */
-class PSY_API FileLinePositionSpan
-{
+class PSY_API FileLinePositionSpan {
 public:
-    FileLinePositionSpan(std::string path, LinePositionSpan span)
-        : path_(std::move(path))
-        , span_(std::move(span))
-    {}
+  FileLinePositionSpan(std::string path, LinePositionSpan span)
+      : path_(std::move(path)), span_(std::move(span)) {}
 
-    FileLinePositionSpan(std::string path,
-                         const LinePosition& start,
-                         const LinePosition& end)
-        : path_(std::move(path))
-        , span_(start, end)
-    {}
+  FileLinePositionSpan(std::string path, const LinePosition &start,
+                       const LinePosition &end)
+      : path_(std::move(path)), span_(start, end) {}
 
-    /**
-     * The path of the file.
-     */
-    std::string path() const { return path_; }
+  /**
+   * The path of the file.
+   */
+  std::string path() const { return path_; }
 
-    /**
-     * The line span within the file.
-     */
-    LinePositionSpan span() const { return span_; }
+  /**
+   * The line span within the file.
+   */
+  LinePositionSpan span() const { return span_; }
 
-    /**
-     * The line position of the end of the span.
-     */
-    LinePosition endLinePosition() const { return span_.end(); }
+  /**
+   * The line position of the end of the span.
+   */
+  LinePosition endLinePosition() const { return span_.end(); }
 
-    /**
-     * The line position of the start of the span.
-     */
-    LinePosition starLinePosition() const { return span_.start(); }
+  /**
+   * The line position of the start of the span.
+   */
+  LinePosition starLinePosition() const { return span_.start(); }
 
 private:
-    std::string path_;
-    LinePositionSpan span_;
+  std::string path_;
+  LinePositionSpan span_;
 };
 
-bool operator==(const FileLinePositionSpan& a, const FileLinePositionSpan& b);
+bool operator==(const FileLinePositionSpan &a, const FileLinePositionSpan &b);
 
-std::ostream& operator<<(std::ostream& os, const FileLinePositionSpan& span);
+std::ostream &operator<<(std::ostream &os, const FileLinePositionSpan &span);
 
-} // psy
+} // namespace psy
 
 #endif

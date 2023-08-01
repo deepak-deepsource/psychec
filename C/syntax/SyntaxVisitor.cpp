@@ -27,14 +27,10 @@
 using namespace psy;
 using namespace C;
 
-SyntaxVisitor::SyntaxVisitor(const SyntaxTree* tree)
-    : tree_(tree)
-{}
+SyntaxVisitor::SyntaxVisitor(const SyntaxTree *tree) : tree_(tree) {}
 
-SyntaxVisitor::~SyntaxVisitor()
-{}
+SyntaxVisitor::~SyntaxVisitor() {}
 
-void SyntaxVisitor::visit(const SyntaxNode* node)
-{
-    SyntaxNode::acceptVisitor(node, this);
+void SyntaxVisitor::visit(const SyntaxNode *node) {
+  SyntaxNode::acceptVisitor(node, this);
 }

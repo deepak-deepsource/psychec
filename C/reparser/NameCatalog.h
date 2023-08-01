@@ -36,45 +36,43 @@
 namespace psy {
 namespace C {
 
-class PSY_C_NON_API NameCatalog
-{
-    friend std::ostream& operator<<(std::ostream& os, const NameCatalog& disambigCatalog);
+class PSY_C_NON_API NameCatalog {
+  friend std::ostream &operator<<(std::ostream &os,
+                                  const NameCatalog &disambigCatalog);
 
 public:
-    ~NameCatalog();
+  ~NameCatalog();
 
-PSY_INTERNAL_AND_RESTRICTED:
-    PSY_GRANT_ACCESS(NameCataloger);
-    PSY_GRANT_ACCESS(SyntaxCorrelationDisambiguator);
+  PSY_INTERNAL_AND_RESTRICTED : PSY_GRANT_ACCESS(NameCataloger);
+  PSY_GRANT_ACCESS(SyntaxCorrelationDisambiguator);
 
-    void createLevelAndEnter(const SyntaxNode*);
-    void enterLevel(const SyntaxNode*);
-    void exitLevel();
+  void createLevelAndEnter(const SyntaxNode *);
+  void enterLevel(const SyntaxNode *);
+  void exitLevel();
 
-    void catalogTypeName(std::string s);
-    void catalogName(std::string s);
+  void catalogTypeName(std::string s);
+  void catalogName(std::string s);
 
-    bool containsTypeName(const std::string& s) const;
-    bool containsName(const std::string& s) const;
+  bool containsTypeName(const std::string &s) const;
+  bool containsName(const std::string &s) const;
 
 private:
-    using TypeNames = std::unordered_set<std::string>;
-    using Names = std::unordered_set<std::string>;
-    using NameIndex = std::pair<TypeNames, Names>;
+  using TypeNames = std::unordered_set<std::string>;
+  using Names = std::unordered_set<std::string>;
+  using NameIndex = std::pair<TypeNames, Names>;
 
-    using Levels = std::unordered_map<const SyntaxNode*, NameIndex>;
+  using Levels = std::unordered_map<const SyntaxNode *, NameIndex>;
 
-    mutable Levels levels_;
-    std::stack<const SyntaxNode*> levelKeys_;
+  mutable Levels levels_;
+  std::stack<const SyntaxNode *> levelKeys_;
 
-    bool levelExists(const SyntaxNode*) const;
-    NameIndex* currentLevel() const;
+  bool levelExists(const SyntaxNode *) const;
+  NameIndex *currentLevel() const;
 };
 
-std::ostream& operator<<(std::ostream& os, const NameCatalog& disambigCatalog);
+std::ostream &operator<<(std::ostream &os, const NameCatalog &disambigCatalog);
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif
-

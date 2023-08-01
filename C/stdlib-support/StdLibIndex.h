@@ -30,38 +30,28 @@
 namespace psy {
 namespace C {
 
-class StdLibIndex final
-{
+class StdLibIndex final {
 public:
-    enum class Version
-    {
-        C89,
-        C99,
-        C11
-    };
+  enum class Version { C89, C99, C11 };
 
-    StdLibIndex(Version std);
+  StdLibIndex(Version std);
 
-    std::vector<std::string> inspect(const Compilation&) const;
+  std::vector<std::string> inspect(const Compilation &) const;
 
-    bool recognizes(const char* ident) const;
+  bool recognizes(const char *ident) const;
 
 private:
-    enum class SymbolKind : char
-    {
-        Type,
-        Value
-    };
-    using StdSymbol = std::pair<const char*, SymbolKind>;
-    using Index = std::unordered_map<const char*, std::vector<StdSymbol>>;
+  enum class SymbolKind : char { Type, Value };
+  using StdSymbol = std::pair<const char *, SymbolKind>;
+  using Index = std::unordered_map<const char *, std::vector<StdSymbol>>;
 
-    Version std_;
-    static const Index c89idx_;
-    static const Index c99idx_;
-    static const Index c11idx_;
+  Version std_;
+  static const Index c89idx_;
+  static const Index c99idx_;
+  static const Index c11idx_;
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

@@ -31,85 +31,63 @@
 #include <algorithm>
 #include <sstream>
 
-Symbol::Symbol(SymbolImpl* p)
-    : P(p)
-{}
+Symbol::Symbol(SymbolImpl *p) : P(p) {}
 
-Symbol::~Symbol()
-{}
+Symbol::~Symbol() {}
 
-const Assembly* Symbol::owningAssembly() const
-{
-    for (auto compilation : P->tree_->linkedCompilations()) {
-        const auto&& syms = compilation->assembly()->symbols();
-        auto it = std::find(syms.begin(), syms.end(), this);
-        if (it != syms.end())
-            return compilation->assembly();
-    }
+const Assembly *Symbol::owningAssembly() const {
+  for (auto compilation : P->tree_->linkedCompilations()) {
+    const auto &&syms = compilation->assembly()->symbols();
+    auto it = std::find(syms.begin(), syms.end(), this);
+    if (it != syms.end())
+      return compilation->assembly();
+  }
 
-    PSY_ESCAPE_VIA_RETURN(nullptr);
+  PSY_ESCAPE_VIA_RETURN(nullptr);
 }
 
-const Scope *Symbol::scope() const
-{
-    return P->scope_;
+const Scope *Symbol::scope() const { return P->scope_; }
+
+Accessibility Symbol::declaredAccessibility() const { return P->access_; }
+
+std::vector<SyntaxReference> Symbol::declaringSyntaxReferences() const {
+  return {};
 }
 
-Accessibility Symbol::declaredAccessibility() const
-{
-    return P->access_;
-}
+SymbolKind Symbol::kind() const { return P->kind_; }
 
-std::vector<SyntaxReference> Symbol::declaringSyntaxReferences() const
-{
-    return {};
-}
+const NameSpace *Symbol::nameSpace() const { return P->ns_; }
 
-SymbolKind Symbol::kind() const
-{
-    return P->kind_;
-}
+Location Symbol::location() const {
+  const auto &synRefs = declaringSyntaxReferences();
 
-const NameSpace* Symbol::nameSpace() const
-{
-    return P->ns_;
-}
+  std::vector<Location> locs;
+  std::transform(
+      synRefs.begin(), synRefs.end(), std::back_inserter(locs),
+      [](auto &synRef) { return synRef.syntax()->firstToken().location(); });
 
-Location Symbol::location() const
-{
-    const auto& synRefs = declaringSyntaxReferences();
-
-    std::vector<Location> locs;
-    std::transform(synRefs.begin(),
-                   synRefs.end(),
-                   std::back_inserter(locs),
-                   [] (auto& synRef) {
-                        return synRef.syntax()->firstToken().location();
-                   });
-
-    // TODO
-    return locs.front();
+  // TODO
+  return locs.front();
 }
 
 namespace psy {
 namespace C {
 
-std::string to_string(const Symbol& sym)
-{
-    switch (sym.kind()) {
-        case SymbolKind::Library:
-            return to_string(*sym.asLibrary());
-        case SymbolKind::Function:
-            return to_string(*sym.asFunction());
-        case SymbolKind::Value:
-            return to_string(*sym.asValue());
-        case SymbolKind::Type:
-            return to_string(*sym.asType());
-        default:
-            PSY_ESCAPE_VIA_RETURN("");
-            return "<INVALID or UNSPECIFIED symbol kind>";
-    }
+std::string to_string(const Symbol &sym) {
+  switch (sym.kind()) {
+  case SymbolKind::Library:
+    return to_string(*sym.asLibrary());
+  case SymbolKind::Function:
+    return to_string(*sym.asFunction());
+  case SymbolKind::Value:
+    return to_string(*sym.asValue());
+  case SymbolKind::Type:
+    return to_string(*sym.asType());
+  default:
+    PSY_ESCAPE_VIA_RETURN("");
+    return "<INVALID or UNSPECIFIED symbol kind>";
+  }
 }
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy

@@ -33,44 +33,46 @@
 namespace psy {
 namespace C {
 
-class PSY_C_NON_API NameCataloger : public SyntaxVisitor
-{
+class PSY_C_NON_API NameCataloger : public SyntaxVisitor {
 public:
-    NameCataloger(SyntaxTree* tree);
+  NameCataloger(SyntaxTree *tree);
 
-    std::unique_ptr<NameCatalog> catalogFor(const SyntaxNode*);
+  std::unique_ptr<NameCatalog> catalogFor(const SyntaxNode *);
 
 private:
-    std::unique_ptr<NameCatalog> catalog_;
+  std::unique_ptr<NameCatalog> catalog_;
 
-    using SyntaxVisitor::visit;
-    using Base = SyntaxVisitor;
+  using SyntaxVisitor::visit;
+  using Base = SyntaxVisitor;
 
-    //--------------//
-    // Declarations //
-    //--------------//
-    Action visitTranslationUnit(const TranslationUnitSyntax*) override;
+  //--------------//
+  // Declarations //
+  //--------------//
+  Action visitTranslationUnit(const TranslationUnitSyntax *) override;
 
-    /* Specifiers */
-    Action visitTypedefName(const TypedefNameSyntax*) override;
+  /* Specifiers */
+  Action visitTypedefName(const TypedefNameSyntax *) override;
 
-    /* Declarators */
-    Action visitIdentifierDeclarator(const IdentifierDeclaratorSyntax*) override;
+  /* Declarators */
+  Action visitIdentifierDeclarator(const IdentifierDeclaratorSyntax *) override;
 
-    //-------------//
-    // Expressions //
-    //-------------//
-    Action visitIdentifierName(const IdentifierNameSyntax*) override;
+  //-------------//
+  // Expressions //
+  //-------------//
+  Action visitIdentifierName(const IdentifierNameSyntax *) override;
 
-    //-------------//
-    // Ambiguities //
-    //-------------//
-    Action visitAmbiguousTypeNameOrExpressionAsTypeReference(const AmbiguousTypeNameOrExpressionAsTypeReferenceSyntax*) override;
-    Action visitAmbiguousCastOrBinaryExpression(const AmbiguousCastOrBinaryExpressionSyntax*) override;
-    Action visitAmbiguousExpressionOrDeclarationStatement(const AmbiguousExpressionOrDeclarationStatementSyntax*) override;
+  //-------------//
+  // Ambiguities //
+  //-------------//
+  Action visitAmbiguousTypeNameOrExpressionAsTypeReference(
+      const AmbiguousTypeNameOrExpressionAsTypeReferenceSyntax *) override;
+  Action visitAmbiguousCastOrBinaryExpression(
+      const AmbiguousCastOrBinaryExpressionSyntax *) override;
+  Action visitAmbiguousExpressionOrDeclarationStatement(
+      const AmbiguousExpressionOrDeclarationStatementSyntax *) override;
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

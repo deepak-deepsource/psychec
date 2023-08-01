@@ -31,35 +31,31 @@
 
 namespace psy {
 
-class PSY_API LinePosition
-{
+class PSY_API LinePosition {
 public:
-    LinePosition(int line, int character)
-        : line_(line)
-        , character_(character)
-    {}
+  LinePosition(int line, int character) : line_(line), character_(character) {}
 
-    /**
-     * The line number.
-     */
-    int line() const { return line_; }
+  /**
+   * The line number.
+   */
+  int line() const { return line_; }
 
-    /**
-     * The character position within the line.
-     */
-    int character() const { return character_; }
+  /**
+   * The character position within the line.
+   */
+  int character() const { return character_; }
 
 private:
-    int line_ = 0;
-    int character_ = 0;
+  int line_ = 0;
+  int character_ = 0;
 };
 
-bool operator==(const LinePosition& a, const LinePosition& b);
+bool operator==(const LinePosition &a, const LinePosition &b);
 
-bool operator<(const LinePosition& a, const LinePosition& b);
+bool operator<(const LinePosition &a, const LinePosition &b);
 
-PSY_API std::ostream& operator<<(std::ostream& os, const LinePosition& pos);
+PSY_API std::ostream &operator<<(std::ostream &os, const LinePosition &pos);
 
-} // psy
+} // namespace psy
 
 #endif

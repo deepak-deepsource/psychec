@@ -24,8 +24,8 @@
 #include "API.h"
 #include "Fwds.h"
 
-#include "TypeKind.h"
 #include "Symbol.h"
+#include "TypeKind.h"
 
 #include "../common/infra/InternalAccess.h"
 
@@ -45,69 +45,67 @@ namespace C {
  * Influence by the API of Clang/LLVM is present as well; specifically:
  * \c clang::Type and \c clang::QualType.
  */
-class PSY_C_API TypeSymbol : public Symbol
-{
+class PSY_C_API TypeSymbol : public Symbol {
 public:
-    virtual ~TypeSymbol();
+  virtual ~TypeSymbol();
 
-    //!@{
-    /**
-     * Cast \c this Symbol as a TypeSymbol.
-     */
-    virtual TypeSymbol* asType() override { return this; }
-    virtual const TypeSymbol* asType() const override { return this; }
-    //!@}
+  //!@{
+  /**
+   * Cast \c this Symbol as a TypeSymbol.
+   */
+  virtual TypeSymbol *asType() override { return this; }
+  virtual const TypeSymbol *asType() const override { return this; }
+  //!@}
 
-    //!@{
-    /**
-     * Cast \c this TypeSymbol.
-     */
-    virtual ArrayTypeSymbol* asArrayType() { return nullptr; }
-    virtual const ArrayTypeSymbol* asArrayType() const { return nullptr; }
-    virtual FunctionTypeSymbol* asFunctionType() { return nullptr; }
-    virtual const FunctionTypeSymbol* asFunctionType() const { return nullptr; }
-    virtual NamedTypeSymbol* asNamedType() { return nullptr; }
-    virtual const NamedTypeSymbol* asNamedType() const { return nullptr; }
-    virtual PointerTypeSymbol* asPointerType() { return nullptr; }
-    virtual const PointerTypeSymbol* asPointerType() const { return nullptr; }
-    //!@}
+  //!@{
+  /**
+   * Cast \c this TypeSymbol.
+   */
+  virtual ArrayTypeSymbol *asArrayType() { return nullptr; }
+  virtual const ArrayTypeSymbol *asArrayType() const { return nullptr; }
+  virtual FunctionTypeSymbol *asFunctionType() { return nullptr; }
+  virtual const FunctionTypeSymbol *asFunctionType() const { return nullptr; }
+  virtual NamedTypeSymbol *asNamedType() { return nullptr; }
+  virtual const NamedTypeSymbol *asNamedType() const { return nullptr; }
+  virtual PointerTypeSymbol *asPointerType() { return nullptr; }
+  virtual const PointerTypeSymbol *asPointerType() const { return nullptr; }
+  //!@}
 
-    /**
-     * The TypeKind of \c this type.
-     */
-    TypeKind typeKind() const;
+  /**
+   * The TypeKind of \c this type.
+   */
+  TypeKind typeKind() const;
 
-    /**
-     * Whether the type is \c const qualified.
-     */
-    bool isConstQualified() const;
+  /**
+   * Whether the type is \c const qualified.
+   */
+  bool isConstQualified() const;
 
-    /**
-     * Whether the type is \c volatile qualified.
-     */
-    bool isVolatileQualified() const;
+  /**
+   * Whether the type is \c volatile qualified.
+   */
+  bool isVolatileQualified() const;
 
-    /**
-     * Whether the type is \c restrict qualified.
-     */
-    bool isRestrictQualified() const;
+  /**
+   * Whether the type is \c restrict qualified.
+   */
+  bool isRestrictQualified() const;
 
-PSY_INTERNAL_AND_RESTRICTED:
-    PSY_GRANT_ACCESS(SemanticsOfTypeQualifiers);
+  PSY_INTERNAL_AND_RESTRICTED : PSY_GRANT_ACCESS(SemanticsOfTypeQualifiers);
 
-    void qualifyWithConst();
-    void qualifyWithVolatile();
-    void qualifyWithRestrict();
+  void qualifyWithConst();
+  void qualifyWithVolatile();
+  void qualifyWithRestrict();
 
 protected:
-    DECL_PIMPL_SUB(TypeSymbol);
+  DECL_PIMPL_SUB(TypeSymbol);
 
-    TypeSymbol(TypeSymbolImpl* p);
+  TypeSymbol(TypeSymbolImpl *p);
 };
 
-std::string PSY_C_API to_string(const TypeSymbol& tySym);
+std::string PSY_C_API to_string(const TypeSymbol &tySym);
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

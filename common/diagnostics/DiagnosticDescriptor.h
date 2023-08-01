@@ -37,48 +37,46 @@ namespace psy {
 /**
  * The DiagnosticDescriptor class.
  */
-class PSY_API DiagnosticDescriptor
-{
+class PSY_API DiagnosticDescriptor {
 public:
-    DiagnosticDescriptor(std::string id,
-                         std::string title,
-                         std::string description,
-                         DiagnosticSeverity defaultSeverity,
-                         DiagnosticCategory category);
+  DiagnosticDescriptor(std::string id, std::string title,
+                       std::string description,
+                       DiagnosticSeverity defaultSeverity,
+                       DiagnosticCategory category);
 
-    /**
-     * The ID of \c this DiagnosticDescriptor.
-     */
-    const std::string& id() const;
+  /**
+   * The ID of \c this DiagnosticDescriptor.
+   */
+  const std::string &id() const;
 
-    /**
-     * The title of \c this DiagnosticDescriptor.
-     */
-    const std::string& title() const;
+  /**
+   * The title of \c this DiagnosticDescriptor.
+   */
+  const std::string &title() const;
 
-    /**
-     * The description of \c this DiagnosticDescriptor.
-     */
-    const std::string& description() const;
+  /**
+   * The description of \c this DiagnosticDescriptor.
+   */
+  const std::string &description() const;
 
-    /**
-     * The default severity of \c this DiagnosticDescriptor.
-     */
-    DiagnosticSeverity defaultSeverity() const;
+  /**
+   * The default severity of \c this DiagnosticDescriptor.
+   */
+  DiagnosticSeverity defaultSeverity() const;
 
-    /**
-     * The category of \c this DiagnosticDescriptor.
-     */
-    DiagnosticCategory category() const;
+  /**
+   * The category of \c this DiagnosticDescriptor.
+   */
+  DiagnosticCategory category() const;
 
 private:
-    std::string id_;
-    std::string title_;
-    std::string description_;
-    DiagnosticSeverity defaultSeverity_;
-    DiagnosticCategory category_;
+  std::string id_;
+  std::string title_;
+  std::string description_;
+  DiagnosticSeverity defaultSeverity_;
+  DiagnosticCategory category_;
 };
 
-} // psy
+} // namespace psy
 
 #endif
