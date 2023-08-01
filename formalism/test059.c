@@ -1,5 +1,4 @@
-int f()
-{
-    struct T a;
-    return 1;
+int f() {
+  struct T a;
+  return 1;
 }

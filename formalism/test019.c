@@ -1,5 +1,4 @@
-int f()
-{
-    T x;
-    return x;
+int f() {
+  T x;
+  return x;
 }

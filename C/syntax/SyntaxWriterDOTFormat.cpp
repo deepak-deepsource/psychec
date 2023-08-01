@@ -25,7 +25,8 @@
 ** requirements will be met: https://www.gnu.org/licenses/lgpl.html and
 ** http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
 **
-** In addition, as a special exception, The Qt Company gives you certain additional
+** In addition, as a special exception, The Qt Company gives you certain
+*additional
 ** rights.  These rights are described in The Qt Company LGPL Exception
 ** version 1.1, included in the file LGPL_EXCEPTION.txt in this package.
 **
@@ -43,124 +44,113 @@
 #include "SyntaxWriterDOTFormat.h"
 
 #include "SyntaxLexeme_ALL.h"
-#include "SyntaxVisitor.h"
 #include "SyntaxTree.h"
+#include "SyntaxVisitor.h"
 
 #ifdef __GNUC__
-#  include <cxxabi.h>
+#include <cxxabi.h>
 #endif
 
 using namespace psy;
 using namespace C;
 
-void SyntaxWriterDOTFormat::write(const SyntaxNode* node,
-                                  const std::string& fileSuffix)
-{
-    std::string basename = tree_->filePath();
-    basename.append(fileSuffix);
-    std::ofstream ofs(basename);
-    write(node, fileSuffix, ofs);
-    ofs.close();
+void SyntaxWriterDOTFormat::write(const SyntaxNode *node,
+                                  const std::string &fileSuffix) {
+  std::string basename = tree_->filePath();
+  basename.append(fileSuffix);
+  std::ofstream ofs(basename);
+  write(node, fileSuffix, ofs);
+  ofs.close();
 }
 
-void SyntaxWriterDOTFormat::write(const SyntaxNode* node,
-                                  const std::string& fileSuffix,
-                                  std::ostream &os)
-{
-    os_ = &os;
-    count_ = 1;
+void SyntaxWriterDOTFormat::write(const SyntaxNode *node,
+                                  const std::string &fileSuffix,
+                                  std::ostream &os) {
+  os_ = &os;
+  count_ = 1;
 
-    *os_ << "digraph Syntax { ordering=out;" << std::endl;
-    // std::cout << "rankdir = \"LR\";" << std::endl;
+  *os_ << "digraph Syntax { ordering=out;" << std::endl;
+  // std::cout << "rankdir = \"LR\";" << std::endl;
 
-    generateTokens();
-    visit(node);
+  generateTokens();
+  visit(node);
 
-    for (const auto& conn : connections_)
-        *os_ << conn.first << " -> " << conn.second << std::endl;
+  for (const auto &conn : connections_)
+    *os_ << conn.first << " -> " << conn.second << std::endl;
 
-    alignTerminals();
+  alignTerminals();
 
-    *os_ << "}" << std::endl;
+  *os_ << "}" << std::endl;
 }
 
-void SyntaxWriterDOTFormat::alignTerminals()
-{
-    *os_ <<"{ rank=same;" << std::endl;
-    for (const auto& terminalShape : terminalShapes_)
-        *os_ << "  " << terminalShape << ";" << std::endl;
-    *os_ <<"}"<<std::endl;
+void SyntaxWriterDOTFormat::alignTerminals() {
+  *os_ << "{ rank=same;" << std::endl;
+  for (const auto &terminalShape : terminalShapes_)
+    *os_ << "  " << terminalShape << ";" << std::endl;
+  *os_ << "}" << std::endl;
 }
 
-std::string SyntaxWriterDOTFormat::name(const SyntaxNode* node) {
+std::string SyntaxWriterDOTFormat::name(const SyntaxNode *node) {
 #ifdef __GNUC__
-    std::string name = abi::__cxa_demangle(typeid(*node).name(), 0, 0, 0) + 8;
+  std::string name = abi::__cxa_demangle(typeid(*node).name(), 0, 0, 0) + 8;
 #else
-    std::string name = typeid(*node).name();
+  std::string name = typeid(*node).name();
 #endif
-    return name;
+  return name;
 }
 
-std::string SyntaxWriterDOTFormat::terminalId(unsigned token)
-{
-    return 't' + std::to_string(token);
+std::string SyntaxWriterDOTFormat::terminalId(unsigned token) {
+  return 't' + std::to_string(token);
 }
 
-std::string SyntaxWriterDOTFormat::terminalId(const SyntaxToken& tk)
-{
-    return 't' + tk.valueText();
+std::string SyntaxWriterDOTFormat::terminalId(const SyntaxToken &tk) {
+  return 't' + tk.valueText();
 }
 
-void SyntaxWriterDOTFormat::terminal(const SyntaxToken& tk, const SyntaxNode *node)
-{
-    connections_.push_back(std::make_pair(id_[node], terminalId(tk)));
+void SyntaxWriterDOTFormat::terminal(const SyntaxToken &tk,
+                                     const SyntaxNode *node) {
+  connections_.push_back(std::make_pair(id_[node], terminalId(tk)));
 }
 
 void SyntaxWriterDOTFormat::generateTokens() {
-    for (unsigned token = 1; token < tree_->tokenCount(); ++token) {
-        if (tree_->tokenAt(token).kind() == EndOfFile)
-            break;
+  for (unsigned token = 1; token < tree_->tokenCount(); ++token) {
+    if (tree_->tokenAt(token).kind() == EndOfFile)
+      break;
 
-        std::string t;
-        t.append(terminalId(token));
-        t.append(" [shape=rect label = \"");
-        t.append(tree_->tokenAt(token).valueText());
-        t.append("\"]");
+    std::string t;
+    t.append(terminalId(token));
+    t.append(" [shape=rect label = \"");
+    t.append(tree_->tokenAt(token).valueText());
+    t.append("\"]");
 
-        if (token > 1) {
-            t.append("; ");
-            t.append(terminalId(token - 1));
-            t.append(" -> ");
-            t.append(terminalId(token));
-            t.append(" [arrowhead=\"vee\" color=\"transparent\"]");
-        }
-
-        terminalShapes_.push_back(t);
+    if (token > 1) {
+      t.append("; ");
+      t.append(terminalId(token - 1));
+      t.append(" -> ");
+      t.append(terminalId(token));
+      t.append(" [arrowhead=\"vee\" color=\"transparent\"]");
     }
+
+    terminalShapes_.push_back(t);
+  }
 }
 
-void SyntaxWriterDOTFormat::nodeLabel(const SyntaxNode* node)
-{
-    *os_ << id_[node] << " [label=\"" << name(node) << "\"];" << std::endl;
+void SyntaxWriterDOTFormat::nodeLabel(const SyntaxNode *node) {
+  *os_ << id_[node] << " [label=\"" << name(node) << "\"];" << std::endl;
 }
 
-bool SyntaxWriterDOTFormat::preVisit(const SyntaxNode* node)
-{
-    const std::string id = 'n' + std::to_string(count_++);
-    id_[node] = id;
+bool SyntaxWriterDOTFormat::preVisit(const SyntaxNode *node) {
+  const std::string id = 'n' + std::to_string(count_++);
+  id_[node] = id;
 
-    if (!nodes_.empty())
-        connections_.push_back(std::make_pair(id_[nodes_.top()], id));
+  if (!nodes_.empty())
+    connections_.push_back(std::make_pair(id_[nodes_.top()], id));
 
-    nodes_.push(node);
+  nodes_.push(node);
 
-    nodeLabel(node);
+  nodeLabel(node);
 
-    return true;
+  return true;
 }
 
-void SyntaxWriterDOTFormat::postVisit(const SyntaxNode *)
-{
-    nodes_.pop();
-}
-
+void SyntaxWriterDOTFormat::postVisit(const SyntaxNode *) { nodes_.pop(); }

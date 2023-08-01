@@ -22,8 +22,8 @@
 #ifndef PSYCHE_C_SYNTAX_LEXEMES_H__
 #define PSYCHE_C_SYNTAX_LEXEMES_H__
 
-#include "SyntaxLexeme_Identifier.h"
 #include "SyntaxLexeme_Constant.h"
+#include "SyntaxLexeme_Identifier.h"
 #include "SyntaxLexeme_StringLiteral.h"
 
 #endif

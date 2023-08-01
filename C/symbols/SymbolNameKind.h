@@ -34,30 +34,23 @@ namespace C {
 /**
  * \brief The SymbolNameKind enum.
  */
-enum class SymbolNameKind : std::uint8_t
-{
-    UNSPECIFIED = 0,
-    Empty,
-    Plain,
-    Tag
-};
+enum class SymbolNameKind : std::uint8_t { UNSPECIFIED = 0, Empty, Plain, Tag };
 
-inline std::string PSY_C_API to_string(SymbolNameKind symNameK)
-{
-    switch (symNameK) {
-        case SymbolNameKind::Empty:
-            return "Empty";
-        case SymbolNameKind::Plain:
-            return "Plain";
-        case SymbolNameKind::Tag:
-            return "Tag";
-        default:
-            PSY_ESCAPE_VIA_RETURN("");
-            return "<INVALID or UNSPECIFIED SymbolNameKind>";
-    }
+inline std::string PSY_C_API to_string(SymbolNameKind symNameK) {
+  switch (symNameK) {
+  case SymbolNameKind::Empty:
+    return "Empty";
+  case SymbolNameKind::Plain:
+    return "Plain";
+  case SymbolNameKind::Tag:
+    return "Tag";
+  default:
+    PSY_ESCAPE_VIA_RETURN("");
+    return "<INVALID or UNSPECIFIED SymbolNameKind>";
+  }
 }
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

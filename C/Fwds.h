@@ -189,20 +189,27 @@ class AmbiguousCastOrBinaryExpressionSyntax;
 class AmbiguousExpressionOrDeclarationStatementSyntax;
 
 /* Lists */
-typedef SyntaxNodePlainList<DeclarationSyntax*> DeclarationListSyntax;
-typedef SyntaxNodeSeparatedList<EnumeratorDeclarationSyntax*> EnumeratorListSyntax;
-typedef SyntaxNodeSeparatedList<ParameterDeclarationSyntax*> ParameterDeclarationListSyntax;
-typedef SyntaxNodePlainList<SpecifierSyntax*> SpecifierListSyntax;
-typedef SyntaxNodeSeparatedList<ExtGNU_AttributeSyntax*> ExtGNU_AttributeListSyntax;
-typedef SyntaxNodeSeparatedList<DeclaratorSyntax*> DeclaratorListSyntax;
-typedef SyntaxNodePlainList<DeclaratorSuffixSyntax*> DeclaratorSuffixListSyntax;
-typedef SyntaxNodePlainList<DesignatorSyntax*> DesignatorListSyntax;
-typedef SyntaxNodeSeparatedList<InitializerSyntax*> InitializerListSyntax;
-typedef SyntaxNodeSeparatedList<ExpressionSyntax*> ExpressionListSyntax;
-typedef SyntaxNodeSeparatedList<GenericAssociationSyntax*> GenericAssociationListSyntax;
-typedef SyntaxNodePlainList<StatementSyntax*> StatementListSyntax;
-typedef SyntaxNodeSeparatedList<ExtGNU_AsmOperandSyntax*> ExtGNU_AsmOperandListSyntax;
-typedef SyntaxNodePlainList<ExtKR_ParameterDeclarationSyntax*> ExtKR_ParameterDeclarationListSyntax;
+typedef SyntaxNodePlainList<DeclarationSyntax *> DeclarationListSyntax;
+typedef SyntaxNodeSeparatedList<EnumeratorDeclarationSyntax *>
+    EnumeratorListSyntax;
+typedef SyntaxNodeSeparatedList<ParameterDeclarationSyntax *>
+    ParameterDeclarationListSyntax;
+typedef SyntaxNodePlainList<SpecifierSyntax *> SpecifierListSyntax;
+typedef SyntaxNodeSeparatedList<ExtGNU_AttributeSyntax *>
+    ExtGNU_AttributeListSyntax;
+typedef SyntaxNodeSeparatedList<DeclaratorSyntax *> DeclaratorListSyntax;
+typedef SyntaxNodePlainList<DeclaratorSuffixSyntax *>
+    DeclaratorSuffixListSyntax;
+typedef SyntaxNodePlainList<DesignatorSyntax *> DesignatorListSyntax;
+typedef SyntaxNodeSeparatedList<InitializerSyntax *> InitializerListSyntax;
+typedef SyntaxNodeSeparatedList<ExpressionSyntax *> ExpressionListSyntax;
+typedef SyntaxNodeSeparatedList<GenericAssociationSyntax *>
+    GenericAssociationListSyntax;
+typedef SyntaxNodePlainList<StatementSyntax *> StatementListSyntax;
+typedef SyntaxNodeSeparatedList<ExtGNU_AsmOperandSyntax *>
+    ExtGNU_AsmOperandListSyntax;
+typedef SyntaxNodePlainList<ExtKR_ParameterDeclarationSyntax *>
+    ExtKR_ParameterDeclarationListSyntax;
 
 //=================================================================== Semantic
 
@@ -242,7 +249,7 @@ class Compilation;
 class Assembly;
 class SemanticModel;
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

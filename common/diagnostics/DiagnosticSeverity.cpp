@@ -24,23 +24,21 @@
 
 namespace psy {
 
-std::ostream& operator<<(std::ostream& os, DiagnosticSeverity severity)
-{
-    switch (severity)
-    {
-        case DiagnosticSeverity::Warning:
-            os << "warning";
-            break;
+std::ostream &operator<<(std::ostream &os, DiagnosticSeverity severity) {
+  switch (severity) {
+  case DiagnosticSeverity::Warning:
+    os << "warning";
+    break;
 
-        case DiagnosticSeverity::Error:
-            os << "error";
-            break;
+  case DiagnosticSeverity::Error:
+    os << "error";
+    break;
 
-        default:
-            PSY_ESCAPE_VIA_RETURN(os);
-    }
+  default:
+    PSY_ESCAPE_VIA_RETURN(os);
+  }
 
-    return os;
+  return os;
 }
 
-} // psy
+} // namespace psy

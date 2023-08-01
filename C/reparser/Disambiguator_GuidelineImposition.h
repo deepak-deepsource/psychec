@@ -28,13 +28,12 @@
 namespace psy {
 namespace C {
 
-class PSY_C_NON_API GuidelineImpositionReparser : public SyntaxVisitor
-{
+class PSY_C_NON_API GuidelineImpositionReparser : public SyntaxVisitor {
 public:
-    GuidelineImpositionReparser(SyntaxTree* tree);
+  GuidelineImpositionReparser(SyntaxTree *tree);
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

@@ -37,9 +37,9 @@ namespace C {
  *
  * The unsigned integer types are suffixed with \c _U;
  * the signed integer types are suffixed with \c _S.
- * The signed integer types are equivalent to their "plain" versions, except for \c char:
- * \c char is a separate type from <tt>signed char</tt> and <tt>unsigned char</tt>;
- * its enumerator is \c Char only (without any suffix).
+ * The signed integer types are equivalent to their "plain" versions, except for
+ * \c char: \c char is a separate type from <tt>signed char</tt> and
+ * <tt>unsigned char</tt>; its enumerator is \c Char only (without any suffix).
  *
  * \remark 6.2.5-3
  * \remark 6.2.5-17
@@ -50,101 +50,103 @@ namespace C {
  * This API is inspired by that of \c Microsoft.CodeAnalysis.SpecialType
  * from Roslyn, the .NET Compiler Platform.
  */
-enum class PSY_C_API BuiltinTypeKind : std::uint8_t
-{
-    UNSPECIFIED = 0,
+enum class PSY_C_API BuiltinTypeKind : std::uint8_t {
+  UNSPECIFIED = 0,
 
-    Void,
+  Void,
 
-    Char, // char
-    Char_S, // signed char
-    Char_U, // unsigned char
+  Char,   // char
+  Char_S, // signed char
+  Char_U, // unsigned char
 
-    Short, Short_S, // short, signed short, short int, or signed short int
-    Short_U, // unsigned short, or unsigned short int
+  Short,
+  Short_S, // short, signed short, short int, or signed short int
+  Short_U, // unsigned short, or unsigned short int
 
-    Int, Int_S, // int, signed, or signed int
-    Int_U, // unsigned, or unsigned int
+  Int,
+  Int_S, // int, signed, or signed int
+  Int_U, // unsigned, or unsigned int
 
-    Long, Long_S, // long, signed long, long int, or signed long int
-    Long_U, // unsigned long, or unsigned long int
+  Long,
+  Long_S, // long, signed long, long int, or signed long int
+  Long_U, // unsigned long, or unsigned long int
 
-    LongLong, LongLong_S, // long long, signed long long, long long int, or signed long long int
-    LongLong_U, // unsigned long long, or unsigned long long int
+  LongLong,
+  LongLong_S, // long long, signed long long, long long int, or signed long long
+              // int
+  LongLong_U, // unsigned long long, or unsigned long long int
 
-    Float,
+  Float,
 
-    Double,
+  Double,
 
-    LongDouble,
+  LongDouble,
 
-    Bool,
+  Bool,
 
-    FloatComplex,
-    DoubleComplex,
-    LongDoubleComplex
+  FloatComplex,
+  DoubleComplex,
+  LongDoubleComplex
 };
 
-inline std::string PSY_C_API canonicalText(BuiltinTypeKind builtTyKind)
-{
-    switch (builtTyKind) {
-        case BuiltinTypeKind::Void:
-                return "void";
-        case BuiltinTypeKind::Char:
-                return "char";
-        case BuiltinTypeKind::Char_S:
-                return "signed char";
-        case BuiltinTypeKind::Char_U:
-                return "unsigned char";
-        case BuiltinTypeKind::Short:
-                return "short";
-        case BuiltinTypeKind::Short_S:
-                return "signed short";
-        case BuiltinTypeKind::Short_U:
-                return "unsigned short";
-        case BuiltinTypeKind::Int:
-                return "int";
-        case BuiltinTypeKind::Int_S:
-                return "signed int";
-        case BuiltinTypeKind::Int_U:
-                return "unsigned int";
-        case BuiltinTypeKind::Long:
-                return "long";
-        case BuiltinTypeKind::Long_S:
-                return "signed long";
-        case BuiltinTypeKind::Long_U:
-                return "unsigned long";
-        case BuiltinTypeKind::LongLong:
-                return "long long";
-        case BuiltinTypeKind::LongLong_S:
-                return "signed long long";
-        case BuiltinTypeKind::LongLong_U:
-                return "unsigned long long";
-        case BuiltinTypeKind::Float:
-                return "float";
-        case BuiltinTypeKind::Double:
-                return "double";
-        case BuiltinTypeKind::LongDouble:
-                return "long double";
-        case BuiltinTypeKind::Bool:
-                return "_Bool";
-        case BuiltinTypeKind::FloatComplex:
-                return "float _Complex";
-        case BuiltinTypeKind::DoubleComplex:
-                return "double _Complex";
-        case BuiltinTypeKind::LongDoubleComplex:
-                return "long double _Complex";
-        default:
-            PSY_ESCAPE_VIA_RETURN("<INVALID or UNSPECIFIED BuiltinTypeKind>");
-    }
+inline std::string PSY_C_API canonicalText(BuiltinTypeKind builtTyKind) {
+  switch (builtTyKind) {
+  case BuiltinTypeKind::Void:
+    return "void";
+  case BuiltinTypeKind::Char:
+    return "char";
+  case BuiltinTypeKind::Char_S:
+    return "signed char";
+  case BuiltinTypeKind::Char_U:
+    return "unsigned char";
+  case BuiltinTypeKind::Short:
+    return "short";
+  case BuiltinTypeKind::Short_S:
+    return "signed short";
+  case BuiltinTypeKind::Short_U:
+    return "unsigned short";
+  case BuiltinTypeKind::Int:
+    return "int";
+  case BuiltinTypeKind::Int_S:
+    return "signed int";
+  case BuiltinTypeKind::Int_U:
+    return "unsigned int";
+  case BuiltinTypeKind::Long:
+    return "long";
+  case BuiltinTypeKind::Long_S:
+    return "signed long";
+  case BuiltinTypeKind::Long_U:
+    return "unsigned long";
+  case BuiltinTypeKind::LongLong:
+    return "long long";
+  case BuiltinTypeKind::LongLong_S:
+    return "signed long long";
+  case BuiltinTypeKind::LongLong_U:
+    return "unsigned long long";
+  case BuiltinTypeKind::Float:
+    return "float";
+  case BuiltinTypeKind::Double:
+    return "double";
+  case BuiltinTypeKind::LongDouble:
+    return "long double";
+  case BuiltinTypeKind::Bool:
+    return "_Bool";
+  case BuiltinTypeKind::FloatComplex:
+    return "float _Complex";
+  case BuiltinTypeKind::DoubleComplex:
+    return "double _Complex";
+  case BuiltinTypeKind::LongDoubleComplex:
+    return "long double _Complex";
+  default:
+    PSY_ESCAPE_VIA_RETURN("<INVALID or UNSPECIFIED BuiltinTypeKind>");
+  }
 }
 
-inline std::string PSY_C_API to_string(BuiltinTypeKind builtTyKind)
-{
-    return canonicalText(builtTyKind);
+inline std::string PSY_C_API to_string(BuiltinTypeKind builtTyKind) {
+  return canonicalText(builtTyKind);
 }
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

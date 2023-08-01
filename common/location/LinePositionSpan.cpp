@@ -22,15 +22,13 @@
 
 namespace psy {
 
-bool operator==(const LinePositionSpan& a, const LinePositionSpan& b)
-{
-    return a.start() == b.start() && a.end() == b.end();
+bool operator==(const LinePositionSpan &a, const LinePositionSpan &b) {
+  return a.start() == b.start() && a.end() == b.end();
 }
 
-std::ostream& operator<<(std::ostream& os, const LinePositionSpan& span)
-{
-    os << span.start() << "-" << span.end();
-    return os;
+std::ostream &operator<<(std::ostream &os, const LinePositionSpan &span) {
+  os << span.start() << "-" << span.end();
+  return os;
 }
 
-} // psy
+} // namespace psy

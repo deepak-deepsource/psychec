@@ -26,38 +26,38 @@
 using namespace psy;
 using namespace C;
 
-const DeclaratorSyntax* SyntaxUtilities::innermostDeclaratorOrSelf(const DeclaratorSyntax* decltor)
-{
-    while (decltor) {
-        const DeclaratorSyntax* innerDecltor = innerDeclaratorOrSelf(decltor);
-        if (innerDecltor == decltor)
-            break;
-        decltor = innerDecltor;
-    }
-    return decltor;
+const DeclaratorSyntax *
+SyntaxUtilities::innermostDeclaratorOrSelf(const DeclaratorSyntax *decltor) {
+  while (decltor) {
+    const DeclaratorSyntax *innerDecltor = innerDeclaratorOrSelf(decltor);
+    if (innerDecltor == decltor)
+      break;
+    decltor = innerDecltor;
+  }
+  return decltor;
 }
 
-const DeclaratorSyntax* SyntaxUtilities::innerDeclaratorOrSelf(const DeclaratorSyntax* decltor)
-{
-    switch (decltor->kind()) {
-        case PointerDeclarator:
-            return decltor->asPointerDeclarator()->innerDeclarator();
+const DeclaratorSyntax *
+SyntaxUtilities::innerDeclaratorOrSelf(const DeclaratorSyntax *decltor) {
+  switch (decltor->kind()) {
+  case PointerDeclarator:
+    return decltor->asPointerDeclarator()->innerDeclarator();
 
-        case ArrayDeclarator:
-        case FunctionDeclarator:
-            return decltor->asArrayOrFunctionDeclarator()->innerDeclarator();
+  case ArrayDeclarator:
+  case FunctionDeclarator:
+    return decltor->asArrayOrFunctionDeclarator()->innerDeclarator();
 
-        case BitfieldDeclarator:
-            return decltor->asBitfieldDeclarator()->innerDeclarator();
+  case BitfieldDeclarator:
+    return decltor->asBitfieldDeclarator()->innerDeclarator();
 
-        default:
-            return decltor;
-    }
+  default:
+    return decltor;
+  }
 }
 
-const DeclaratorSyntax* SyntaxUtilities::strippedDeclaratorOrSelf(const DeclaratorSyntax* decltor)
-{
-    while (decltor && decltor->asParenthesizedDeclarator())
-        decltor = decltor->asParenthesizedDeclarator()->innerDeclarator();
-    return decltor;
+const DeclaratorSyntax *
+SyntaxUtilities::strippedDeclaratorOrSelf(const DeclaratorSyntax *decltor) {
+  while (decltor && decltor->asParenthesizedDeclarator())
+    decltor = decltor->asParenthesizedDeclarator()->innerDeclarator();
+  return decltor;
 }

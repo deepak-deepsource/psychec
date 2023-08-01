@@ -28,29 +28,27 @@
 using namespace psy;
 using namespace C;
 
-SyntaxToken SyntaxNodeList::token(LexedTokens::IndexType tkIdx, SyntaxTree* tree)
-{
-    return tree->tokenAt(tkIdx);
+SyntaxToken SyntaxNodeList::token(LexedTokens::IndexType tkIdx,
+                                  SyntaxTree *tree) {
+  return tree->tokenAt(tkIdx);
 }
 
 template <class SyntaxNodeT>
-SyntaxToken
-SyntaxNodeSeparatedList<SyntaxNodeT>::delimiterToken() const
-{
-    return SyntaxNodeList::token(delimTkIdx_, Base::tree_);
+SyntaxToken SyntaxNodeSeparatedList<SyntaxNodeT>::delimiterToken() const {
+  return SyntaxNodeList::token(delimTkIdx_, Base::tree_);
 }
 
 namespace psy {
 namespace C {
 
-template class SyntaxNodeSeparatedList<EnumeratorDeclarationSyntax*>;
-template class SyntaxNodeSeparatedList<ParameterDeclarationSyntax*>;
-template class SyntaxNodeSeparatedList<ExtGNU_AttributeSyntax*>;
-template class SyntaxNodeSeparatedList<DeclaratorSyntax*>;
-template class SyntaxNodeSeparatedList<InitializerSyntax*>;
-template class SyntaxNodeSeparatedList<ExpressionSyntax*>;
-template class SyntaxNodeSeparatedList<GenericAssociationSyntax*>;
-template class SyntaxNodeSeparatedList<ExtGNU_AsmOperandSyntax*>;
+template class SyntaxNodeSeparatedList<EnumeratorDeclarationSyntax *>;
+template class SyntaxNodeSeparatedList<ParameterDeclarationSyntax *>;
+template class SyntaxNodeSeparatedList<ExtGNU_AttributeSyntax *>;
+template class SyntaxNodeSeparatedList<DeclaratorSyntax *>;
+template class SyntaxNodeSeparatedList<InitializerSyntax *>;
+template class SyntaxNodeSeparatedList<ExpressionSyntax *>;
+template class SyntaxNodeSeparatedList<GenericAssociationSyntax *>;
+template class SyntaxNodeSeparatedList<ExtGNU_AsmOperandSyntax *>;
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy

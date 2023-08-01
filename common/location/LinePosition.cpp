@@ -22,23 +22,20 @@
 
 namespace psy {
 
-bool operator==(const LinePosition& a, const LinePosition& b)
-{
-    return a.line() == b.line() && a.character() == b.character();
+bool operator==(const LinePosition &a, const LinePosition &b) {
+  return a.line() == b.line() && a.character() == b.character();
 }
 
-bool operator<(const LinePosition& a, const LinePosition& b)
-{
-    const int al = a.line();
-    const int bl = b.line();
+bool operator<(const LinePosition &a, const LinePosition &b) {
+  const int al = a.line();
+  const int bl = b.line();
 
-    return al != bl ? al < bl : a.character() < b.character();
+  return al != bl ? al < bl : a.character() < b.character();
 }
 
-std::ostream& operator<<(std::ostream& os, const LinePosition& pos)
-{
-    os << pos.line() << ":" << pos.character();
-    return os;
+std::ostream &operator<<(std::ostream &os, const LinePosition &pos) {
+  os << pos.line() << ":" << pos.character();
+  return os;
 }
 
-} // psy
+} // namespace psy

@@ -31,13 +31,13 @@ namespace C {
 /**
  * \brief The BuiltinTypeFacts class.
  */
-class PSY_C_API BuiltinTypeFacts
-{
+class PSY_C_API BuiltinTypeFacts {
 public:
-    static bool areEquivalent(BuiltinTypeKind builtTyKind_a, BuiltinTypeKind builtTyKind_b);
+  static bool areEquivalent(BuiltinTypeKind builtTyKind_a,
+                            BuiltinTypeKind builtTyKind_b);
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

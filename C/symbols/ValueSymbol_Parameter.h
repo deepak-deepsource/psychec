@@ -33,28 +33,25 @@ namespace C {
  * This API is inspired by that of \c Microsoft.CodeAnalysis.IParameterSymbol
  * from Roslyn, the .NET Compiler Platform.
  */
-class PSY_C_API ParameterSymbol final : public ValueSymbol
-{
+class PSY_C_API ParameterSymbol final : public ValueSymbol {
 public:
-    //!@{
-    /**
-     * Cast \c this Symbol as a ParameterSymbol.
-     */
-    virtual ParameterSymbol* asParameter() override { return this; }
-    virtual const ParameterSymbol* asParameter() const override { return this; }
-    //!@}
+  //!@{
+  /**
+   * Cast \c this Symbol as a ParameterSymbol.
+   */
+  virtual ParameterSymbol *asParameter() override { return this; }
+  virtual const ParameterSymbol *asParameter() const override { return this; }
+  //!@}
 
-PSY_INTERNAL_AND_RESTRICTED:
-    PSY_GRANT_ACCESS(Binder);
+  PSY_INTERNAL_AND_RESTRICTED : PSY_GRANT_ACCESS(Binder);
 
-    ParameterSymbol(const SyntaxTree* tree,
-                    const Scope* scope,
-                    const Symbol* containingSym);
+  ParameterSymbol(const SyntaxTree *tree, const Scope *scope,
+                  const Symbol *containingSym);
 };
 
-std::string PSY_C_API to_string(const ParameterSymbol& sym);
+std::string PSY_C_API to_string(const ParameterSymbol &sym);
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

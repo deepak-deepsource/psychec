@@ -26,13 +26,12 @@
 
 namespace psy {
 
-class Process final
-{
+class Process final {
 public:
-    std::pair<int, std::string> execute(const std::string& cmd);
-    std::pair<int, std::string> execute(std::string&& cmd);
+  std::pair<int, std::string> execute(const std::string &cmd);
+  std::pair<int, std::string> execute(std::string &&cmd);
 };
 
-} // psy
+} // namespace psy
 
 #endif

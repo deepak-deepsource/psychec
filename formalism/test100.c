@@ -1,10 +1,9 @@
-int fff()
-{
-    int* i;
-    double* d;
-    T* v;
-    v = i;
-    v = d;
+int fff() {
+  int *i;
+  double *d;
+  T *v;
+  v = i;
+  v = d;
 
-    return 10;
+  return 10;
 }

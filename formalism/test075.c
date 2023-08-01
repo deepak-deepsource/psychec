@@ -1,5 +1,4 @@
-int* f()
-{
+int *f() {
   T p;
   return p;
 }

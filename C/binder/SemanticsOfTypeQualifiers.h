@@ -35,15 +35,13 @@ namespace C {
 
 class Binder;
 
-class PSY_C_NON_API SemanticsOfTypeQualifiers
-{
+class PSY_C_NON_API SemanticsOfTypeQualifiers {
 public:
-    static void qualify(SyntaxToken tyQualTk,
-                        TypeSymbol* tySym,
-                        Binder::DiagnosticsReporter* diagReporter);
+  static void qualify(SyntaxToken tyQualTk, TypeSymbol *tySym,
+                      Binder::DiagnosticsReporter *diagReporter);
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

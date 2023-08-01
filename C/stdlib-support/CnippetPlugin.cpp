@@ -18,18 +18,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#include "StdLibInterceptor.h"
 #include "StdLibInspector.h"
+#include "StdLibInterceptor.h"
 
 using namespace psy;
 using namespace C;
 
 extern "C" {
 
-PLUGIN_API StdLibInterceptor* newInterceptor() { return new StdLibInterceptor; }
-PLUGIN_API void deleteInterceptor(StdLibInterceptor* p) { delete p; }
+PLUGIN_API StdLibInterceptor *newInterceptor() { return new StdLibInterceptor; }
+PLUGIN_API void deleteInterceptor(StdLibInterceptor *p) { delete p; }
 
-PLUGIN_API StdLibInspector* newInspector() { return new StdLibInspector; }
-PLUGIN_API void deleteInspector(StdLibInspector* p) { delete p; }
-
+PLUGIN_API StdLibInspector *newInspector() { return new StdLibInspector; }
+PLUGIN_API void deleteInspector(StdLibInspector *p) { delete p; }
 }

@@ -22,39 +22,23 @@
 
 using namespace psy;
 
-DiagnosticDescriptor::DiagnosticDescriptor(std::string id,
-                                           std::string title,
+DiagnosticDescriptor::DiagnosticDescriptor(std::string id, std::string title,
                                            std::string description,
                                            DiagnosticSeverity defaultSeverity,
                                            DiagnosticCategory category)
-    : id_(std::move(id))
-    , title_(std::move(title))
-    , description_(description)
-    , defaultSeverity_(defaultSeverity)
-    , category_(category)
-{}
+    : id_(std::move(id)), title_(std::move(title)), description_(description),
+      defaultSeverity_(defaultSeverity), category_(category) {}
 
-const std::string& DiagnosticDescriptor::id() const
-{
-    return id_;
+const std::string &DiagnosticDescriptor::id() const { return id_; }
+
+const std::string &DiagnosticDescriptor::title() const { return title_; }
+
+const std::string &DiagnosticDescriptor::description() const {
+  return description_;
 }
 
-const std::string& DiagnosticDescriptor::title() const
-{
-    return title_;
+DiagnosticSeverity DiagnosticDescriptor::defaultSeverity() const {
+  return defaultSeverity_;
 }
 
-const std::string& DiagnosticDescriptor::description() const
-{
-    return description_;
-}
-
-DiagnosticSeverity DiagnosticDescriptor::defaultSeverity() const
-{
-    return defaultSeverity_;
-}
-
-DiagnosticCategory DiagnosticDescriptor::category() const
-{
-    return category_;
-}
+DiagnosticCategory DiagnosticDescriptor::category() const { return category_; }

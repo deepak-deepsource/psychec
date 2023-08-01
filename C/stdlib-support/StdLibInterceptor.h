@@ -27,18 +27,16 @@
 namespace psy {
 namespace C {
 
-class StdLibInterceptor final : public DeclarationInterceptor
-{
+class StdLibInterceptor final : public DeclarationInterceptor {
 public:
-    bool intercept(DeclaratorDeclarationSyntax*) override;
-    bool intercept(FunctionDefinitionSyntax*) override;
+  bool intercept(DeclaratorDeclarationSyntax *) override;
+  bool intercept(FunctionDefinitionSyntax *) override;
 
 private:
-
-    StdLibIndex index_ { StdLibIndex::Version::C99 }; // TODO: Config appropriately.
+  StdLibIndex index_{StdLibIndex::Version::C99}; // TODO: Config appropriately.
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

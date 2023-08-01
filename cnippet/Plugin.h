@@ -31,8 +31,8 @@ class DeclarationInterceptor;
 class SourceInspector;
 class VisitorObserver;
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 namespace cnip {
 
@@ -41,32 +41,29 @@ namespace cnip {
  *
  * To be extended...
  */
-class Plugin final
-{
+class Plugin final {
 public:
-    static void load(const std::string& name);
-    static bool isLoaded();
-    static void unload();
+  static void load(const std::string &name);
+  static bool isLoaded();
+  static void unload();
 
-    static psy::C::DeclarationInterceptor* createInterceptor();
-    static psy::C::SourceInspector* createInspector();
-    static psy::C::VisitorObserver* createObserver();
+  static psy::C::DeclarationInterceptor *createInterceptor();
+  static psy::C::SourceInspector *createInspector();
+  static psy::C::VisitorObserver *createObserver();
 
 private:
-    Plugin() = delete;
+  Plugin() = delete;
 
-    template <class RetT>
-    static RetT* create(const char* name);
+  template <class RetT> static RetT *create(const char *name);
 
-    template <class ParamT>
-    static void destroy(ParamT*, const char* name);
+  template <class ParamT> static void destroy(ParamT *, const char *name);
 
-    static void* handle_;
-    static psy::C::DeclarationInterceptor* interceptor_;
-    static psy::C::SourceInspector* inspector_;
-    static psy::C::VisitorObserver* observer_;
+  static void *handle_;
+  static psy::C::DeclarationInterceptor *interceptor_;
+  static psy::C::SourceInspector *inspector_;
+  static psy::C::VisitorObserver *observer_;
 };
 
-} // cnip
+} // namespace cnip
 
 #endif

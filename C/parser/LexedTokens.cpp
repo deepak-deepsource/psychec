@@ -23,32 +23,18 @@
 using namespace psy;
 using namespace C;
 
-void LexedTokens::add(SyntaxToken tk)
-{
-    tks_.emplace_back(tk);
+void LexedTokens::add(SyntaxToken tk) { tks_.emplace_back(tk); }
+
+SyntaxToken &LexedTokens::tokenAt(LexedTokens::IndexType tkIdx) {
+  return tks_[tkIdx];
 }
 
-SyntaxToken& LexedTokens::tokenAt(LexedTokens::IndexType tkIdx)
-{
-    return tks_[tkIdx];
+LexedTokens::IndexType LexedTokens::freeSlot() const {
+  return IndexType(tks_.size() - 1);
 }
 
-LexedTokens::IndexType LexedTokens::freeSlot() const
-{
-    return IndexType(tks_.size() - 1);
-}
+LexedTokens::SizeType LexedTokens::count() const { return tks_.size(); }
 
-LexedTokens::SizeType LexedTokens::count() const
-{
-    return tks_.size();
-}
+void LexedTokens::clear() { tks_.clear(); }
 
-void LexedTokens::clear()
-{
-    tks_.clear();
-}
-
-LexedTokens::IndexType LexedTokens::invalidIndex()
-{
-    return 0;
-}
+LexedTokens::IndexType LexedTokens::invalidIndex() { return 0; }

@@ -28,89 +28,84 @@
 using namespace psy;
 using namespace C;
 
-NameCataloger::NameCataloger(SyntaxTree* tree)
-    : SyntaxVisitor(tree)
-    , catalog_(new NameCatalog)
-{}
+NameCataloger::NameCataloger(SyntaxTree *tree)
+    : SyntaxVisitor(tree), catalog_(new NameCatalog) {}
 
-std::unique_ptr<NameCatalog> NameCataloger::catalogFor(const SyntaxNode* node)
-{
-    visit(node);
-    return std::move(catalog_);
+std::unique_ptr<NameCatalog> NameCataloger::catalogFor(const SyntaxNode *node) {
+  visit(node);
+  return std::move(catalog_);
 }
 
-SyntaxVisitor::Action NameCataloger::visitTranslationUnit(const TranslationUnitSyntax* node)
-{
-    catalog_->createLevelAndEnter(node);
+SyntaxVisitor::Action
+NameCataloger::visitTranslationUnit(const TranslationUnitSyntax *node) {
+  catalog_->createLevelAndEnter(node);
 
-    for (auto iter = node->declarations(); iter; iter = iter->next)
-        visit(iter->value);
+  for (auto iter = node->declarations(); iter; iter = iter->next)
+    visit(iter->value);
 
-    catalog_->exitLevel();
+  catalog_->exitLevel();
 
-    std::cout << "CATALOG\n" << *catalog_ << std::endl;
+  std::cout << "CATALOG\n" << *catalog_ << std::endl;
 
-    return Action::Skip;
+  return Action::Skip;
 }
 
-SyntaxVisitor::Action NameCataloger::visitTypedefName(const TypedefNameSyntax* node)
-{
-    catalog_->catalogTypeName(node->identifierToken().valueText());
+SyntaxVisitor::Action
+NameCataloger::visitTypedefName(const TypedefNameSyntax *node) {
+  catalog_->catalogTypeName(node->identifierToken().valueText());
 
-    return Action::Skip;
+  return Action::Skip;
 }
 
-SyntaxVisitor::Action NameCataloger::visitIdentifierDeclarator(const IdentifierDeclaratorSyntax* node)
-{
-    catalog_->catalogName(node->identifierToken().valueText());
+SyntaxVisitor::Action NameCataloger::visitIdentifierDeclarator(
+    const IdentifierDeclaratorSyntax *node) {
+  catalog_->catalogName(node->identifierToken().valueText());
 
-    visit(node->initializer());
+  visit(node->initializer());
 
-    return Action::Skip;
+  return Action::Skip;
 }
 
-SyntaxVisitor::Action NameCataloger::visitIdentifierName(const IdentifierNameSyntax* node)
-{
-    catalog_->catalogName(node->identifierToken().valueText());
+SyntaxVisitor::Action
+NameCataloger::visitIdentifierName(const IdentifierNameSyntax *node) {
+  catalog_->catalogName(node->identifierToken().valueText());
 
-    return Action::Skip;
+  return Action::Skip;
 }
 
-SyntaxVisitor::Action NameCataloger::visitAmbiguousTypeNameOrExpressionAsTypeReference(
-        const AmbiguousTypeNameOrExpressionAsTypeReferenceSyntax* node)
-{
-    return Action::Skip;
+SyntaxVisitor::Action
+NameCataloger::visitAmbiguousTypeNameOrExpressionAsTypeReference(
+    const AmbiguousTypeNameOrExpressionAsTypeReferenceSyntax *node) {
+  return Action::Skip;
 }
 
 SyntaxVisitor::Action NameCataloger::visitAmbiguousCastOrBinaryExpression(
-        const AmbiguousCastOrBinaryExpressionSyntax* node)
-{
-    visit(node->binaryExpression()->right());
+    const AmbiguousCastOrBinaryExpressionSyntax *node) {
+  visit(node->binaryExpression()->right());
 
-    return Action::Skip;
+  return Action::Skip;
 }
 
-SyntaxVisitor::Action NameCataloger::visitAmbiguousExpressionOrDeclarationStatement(
-        const AmbiguousExpressionOrDeclarationStatementSyntax* node)
-{
-    auto expr = node->expressionStatement()->expression();
-    switch (expr->kind()) {
-        case MultiplyExpression: {
-            auto binExpr = expr->asBinaryExpression();
-            visit(binExpr->right());
-            break;
-        }
+SyntaxVisitor::Action
+NameCataloger::visitAmbiguousExpressionOrDeclarationStatement(
+    const AmbiguousExpressionOrDeclarationStatementSyntax *node) {
+  auto expr = node->expressionStatement()->expression();
+  switch (expr->kind()) {
+  case MultiplyExpression: {
+    auto binExpr = expr->asBinaryExpression();
+    visit(binExpr->right());
+    break;
+  }
 
-        case CallExpression: {
-            auto callExpr = expr->asCallExpression();
-            visit(callExpr->arguments()->value);
-            break;
-        }
+  case CallExpression: {
+    auto callExpr = expr->asCallExpression();
+    visit(callExpr->arguments()->value);
+    break;
+  }
 
-        default:
-            PSY_ESCAPE_VIA_RETURN(Action::Skip);
-    }
+  default:
+    PSY_ESCAPE_VIA_RETURN(Action::Skip);
+  }
 
-    return Action::Skip;
+  return Action::Skip;
 }
-

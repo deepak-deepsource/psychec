@@ -36,24 +36,20 @@ namespace C {
  *
  * \remark 6.2.3
  */
-class PSY_C_API NameSpace
-{
+class PSY_C_API NameSpace {
 public:
-    /**
-     * The NameSpaceKind of \c this NameSpace.
-     */
-    NameSpaceKind kind() const { return  nsK_; }
+  /**
+   * The NameSpaceKind of \c this NameSpace.
+   */
+  NameSpaceKind kind() const { return nsK_; }
 
-PSY_INTERNAL_AND_RESTRICTED:
-    NameSpace(NameSpaceKind nsK)
-        : nsK_(nsK)
-    {}
+  PSY_INTERNAL_AND_RESTRICTED : NameSpace(NameSpaceKind nsK) : nsK_(nsK) {}
 
 private:
-    NameSpaceKind nsK_;
+  NameSpaceKind nsK_;
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

@@ -29,17 +29,16 @@
 namespace psy {
 namespace C {
 
-class PSY_C_NON_API TypeClass_TypeableSymbol
-{
+class PSY_C_NON_API TypeClass_TypeableSymbol {
 public:
-    virtual ~TypeClass_TypeableSymbol() {}
+  virtual ~TypeClass_TypeableSymbol() {}
 
-    static TypeClass_TypeableSymbol* asInstance(Symbol*);
+  static TypeClass_TypeableSymbol *asInstance(Symbol *);
 
-    virtual void setType(const TypeSymbol* tySym) = 0;
+  virtual void setType(const TypeSymbol *tySym) = 0;
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

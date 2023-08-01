@@ -38,50 +38,53 @@
 
 namespace psy {
 
-namespace C { class InternalsTestSuite; }
+namespace C {
+class InternalsTestSuite;
+}
 
 /**
  * The Diagnostics class.
  */
-class PSY_API Diagnostic
-{
+class PSY_API Diagnostic {
 public:
-    Diagnostic(DiagnosticDescriptor descriptor,
-               Location location,
-               std::string snippet = "");
+  Diagnostic(DiagnosticDescriptor descriptor, Location location,
+             std::string snippet = "");
 
-    /**
-     * The DiagnosticDescriptor of \c this Diagnostic.
-     */
-    const DiagnosticDescriptor& descriptor() const { return descriptor_; }
+  /**
+   * The DiagnosticDescriptor of \c this Diagnostic.
+   */
+  const DiagnosticDescriptor &descriptor() const { return descriptor_; }
 
-    /**
-     * The actual severity (according to compilation options) of \c this Diagnostic.
-     */
-    DiagnosticSeverity severity() const;
+  /**
+   * The actual severity (according to compilation options) of \c this
+   * Diagnostic.
+   */
+  DiagnosticSeverity severity() const;
 
-    /**
-     * The Location of \c this Location.
-     */
-    const Location& location() const { return location_; }
+  /**
+   * The Location of \c this Location.
+   */
+  const Location &location() const { return location_; }
 
-    /**
-     * The code snippet associated to \c this Diagnostic.
-     */
-    const std::string& snippet() const { return snippet_; }
+  /**
+   * The code snippet associated to \c this Diagnostic.
+   */
+  const std::string &snippet() const { return snippet_; }
 
 private:
-    DiagnosticDescriptor descriptor_;
-    Location location_;
-    std::string snippet_;
-    std::string::size_type outputIndent_;
+  DiagnosticDescriptor descriptor_;
+  Location location_;
+  std::string snippet_;
+  std::string::size_type outputIndent_;
 
-    friend std::ostream& operator<<(std::ostream& os, const Diagnostic& diagnostic);
-    friend class C::InternalsTestSuite;
+  friend std::ostream &operator<<(std::ostream &os,
+                                  const Diagnostic &diagnostic);
+  friend class C::InternalsTestSuite;
 };
 
-PSY_API std::ostream& operator<<(std::ostream& os, const Diagnostic& diagnostic);
+PSY_API std::ostream &operator<<(std::ostream &os,
+                                 const Diagnostic &diagnostic);
 
-} // psy
+} // namespace psy
 
 #endif

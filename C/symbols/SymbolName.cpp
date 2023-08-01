@@ -27,41 +27,37 @@
 using namespace psy;
 using namespace C;
 
-SymbolName::SymbolName()
-{}
+SymbolName::SymbolName() {}
 
-SymbolName::~SymbolName()
-{}
+SymbolName::~SymbolName() {}
 
-SymbolNameKind SymbolName::kind() const
-{
-    if (asPlainSymbolName())
-        return SymbolNameKind::Plain;
-    if (asTagSymbolName())
-        return SymbolNameKind::Tag;
-    if (asEmptySymbolName())
-        return SymbolNameKind::Empty;
+SymbolNameKind SymbolName::kind() const {
+  if (asPlainSymbolName())
+    return SymbolNameKind::Plain;
+  if (asTagSymbolName())
+    return SymbolNameKind::Tag;
+  if (asEmptySymbolName())
+    return SymbolNameKind::Empty;
 
-    PSY_ASSERT_W_MSG(false, return SymbolNameKind::Plain, "");
+  PSY_ASSERT_W_MSG(false, return SymbolNameKind::Plain, "");
 }
 
 namespace psy {
 namespace C {
 
-std::string to_string(const SymbolName& name)
-{
-    switch (name.kind()) {
-        case SymbolNameKind::Plain:
-            return to_string(static_cast<const PlainSymbolName&>(name));
-        case SymbolNameKind::Tag:
-            return to_string(static_cast<const TagSymbolName&>(name));
-        case SymbolNameKind::Empty:
-            return to_string(static_cast<const EmptySymbolName&>(name));
-        default:
-            PSY_ESCAPE_VIA_RETURN("");
-            return "<INVALID or UNSPECIFIED SymbolName>";
-    }
+std::string to_string(const SymbolName &name) {
+  switch (name.kind()) {
+  case SymbolNameKind::Plain:
+    return to_string(static_cast<const PlainSymbolName &>(name));
+  case SymbolNameKind::Tag:
+    return to_string(static_cast<const TagSymbolName &>(name));
+  case SymbolNameKind::Empty:
+    return to_string(static_cast<const EmptySymbolName &>(name));
+  default:
+    PSY_ESCAPE_VIA_RETURN("");
+    return "<INVALID or UNSPECIFIED SymbolName>";
+  }
 }
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy

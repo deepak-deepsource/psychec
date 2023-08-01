@@ -26,73 +26,55 @@
 using namespace psy;
 using namespace C;
 
-struct PointerTypeSymbol::PointerTypeSymbolImpl : TypeSymbolImpl
-{
-    PointerTypeSymbolImpl(const SyntaxTree* tree,
-                          const Scope* scope,
-                          const Symbol* containingSym,
-                          const TypeSymbol* refedTySym)
-        : TypeSymbolImpl(tree,
-                         scope,
-                         containingSym,
-                         TypeKind::Pointer)
-        , refedTySym_(refedTySym)
-        , arrayDecay_(false)
-        , functionDecay_(false)
-    {}
+struct PointerTypeSymbol::PointerTypeSymbolImpl : TypeSymbolImpl {
+  PointerTypeSymbolImpl(const SyntaxTree *tree, const Scope *scope,
+                        const Symbol *containingSym,
+                        const TypeSymbol *refedTySym)
+      : TypeSymbolImpl(tree, scope, containingSym, TypeKind::Pointer),
+        refedTySym_(refedTySym), arrayDecay_(false), functionDecay_(false) {}
 
-    const TypeSymbol* refedTySym_;
-    bool arrayDecay_;
-    bool functionDecay_;
+  const TypeSymbol *refedTySym_;
+  bool arrayDecay_;
+  bool functionDecay_;
 };
 
-PointerTypeSymbol::PointerTypeSymbol(const SyntaxTree* tree,
-                                     const Scope* scope,
-                                     const Symbol* containingSym,
-                                     const TypeSymbol* refedTySym)
-    : TypeSymbol(new PointerTypeSymbolImpl(tree,
-                                           scope,
-                                           containingSym,
-                                           refedTySym))
-{}
+PointerTypeSymbol::PointerTypeSymbol(const SyntaxTree *tree, const Scope *scope,
+                                     const Symbol *containingSym,
+                                     const TypeSymbol *refedTySym)
+    : TypeSymbol(
+          new PointerTypeSymbolImpl(tree, scope, containingSym, refedTySym)) {}
 
-const TypeSymbol* PointerTypeSymbol::referencedType() const
-{
-    return P_CAST->refedTySym_;
+const TypeSymbol *PointerTypeSymbol::referencedType() const {
+  return P_CAST->refedTySym_;
 }
 
-bool PointerTypeSymbol::arisesFromArrayDecay() const
-{
-    return P_CAST->arrayDecay_;
+bool PointerTypeSymbol::arisesFromArrayDecay() const {
+  return P_CAST->arrayDecay_;
 }
 
-bool PointerTypeSymbol::arisesFromFunctionDecay() const
-{
-    return P_CAST->functionDecay_;
+bool PointerTypeSymbol::arisesFromFunctionDecay() const {
+  return P_CAST->functionDecay_;
 }
 
-void PointerTypeSymbol::markAsArisingFromArrayDecay()
-{
-    P_CAST->arrayDecay_ = true;
+void PointerTypeSymbol::markAsArisingFromArrayDecay() {
+  P_CAST->arrayDecay_ = true;
 }
 
-void PointerTypeSymbol::markAsArisingFromFunctionDecay()
-{
-    P_CAST->functionDecay_ = true;
+void PointerTypeSymbol::markAsArisingFromFunctionDecay() {
+  P_CAST->functionDecay_ = true;
 }
 
 namespace psy {
 namespace C {
 
-std::string to_string(const PointerTypeSymbol& tySym)
-{
-    std::ostringstream oss;
-    oss << "<*pointer type |";
-    oss << " " << to_string(*tySym.referencedType());
-    oss << " *>";
+std::string to_string(const PointerTypeSymbol &tySym) {
+  std::ostringstream oss;
+  oss << "<*pointer type |";
+  oss << " " << to_string(*tySym.referencedType());
+  oss << " *>";
 
-    return oss.str();
+  return oss.str();
 }
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy

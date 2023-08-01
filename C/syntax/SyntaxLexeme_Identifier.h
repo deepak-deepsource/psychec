@@ -33,21 +33,20 @@ namespace C {
 /**
  * \brief The Identifier class.
  */
-class PSY_C_API Identifier final : public SyntaxLexeme
-{
+class PSY_C_API Identifier final : public SyntaxLexeme {
 public:
-    //!@{
-    /**
-     * Cast \c this SyntaxLexeme as an Identifier.
-     */
-    virtual Identifier* asIdentifier() override { return this; }
-    //!@}
+  //!@{
+  /**
+   * Cast \c this SyntaxLexeme as an Identifier.
+   */
+  virtual Identifier *asIdentifier() override { return this; }
+  //!@}
 
-    // TODO: Make internal.
-    Identifier(const char* chars, unsigned int size);
+  // TODO: Make internal.
+  Identifier(const char *chars, unsigned int size);
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

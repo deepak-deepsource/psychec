@@ -34,51 +34,41 @@ namespace C {
  *
  * A singly linked-list.
  */
-template <class ValueT,
-          class DerivedListT>
-class PSY_C_NON_API List : public Managed
-{
+template <class ValueT, class DerivedListT>
+class PSY_C_NON_API List : public Managed {
 public:
-    List()
-        : value(ValueT())
-        , next(nullptr)
-    {}
+  List() : value(ValueT()), next(nullptr) {}
 
-    List(const ValueT& value)
-        : value(value)
-        , next(nullptr)
-    {}
+  List(const ValueT &value) : value(value), next(nullptr) {}
 
-    DerivedListT** skipToLast()
-    {
-        DerivedListT** cur = &next;
-        while (*cur)
-            cur = &(*cur)->next;
-        return &(*cur);
+  DerivedListT **skipToLast() {
+    DerivedListT **cur = &next;
+    while (*cur)
+      cur = &(*cur)->next;
+    return &(*cur);
+  }
+
+  ValueT lastValue() const {
+    ValueT v = nullptr;
+    for (auto it = const_cast<DerivedListT *>(
+             static_cast<const DerivedListT *>(this));
+         it; it = it->next) {
+      if (it->value)
+        v = it->value;
     }
+    return v;
+  }
 
-    ValueT lastValue() const
-    {
-        ValueT v = nullptr;
-        for (auto it = const_cast<DerivedListT*>(static_cast<const DerivedListT*>(this));
-                it;
-                it = it->next) {
-            if (it->value)
-                v = it->value;
-        }
-        return v;
-    }
-
-    ValueT value;
-    DerivedListT* next;
+  ValueT value;
+  DerivedListT *next;
 
 private:
-    // Unavailable
-    List(const List&) = delete;
-    List& operator=(const List&) = delete;
+  // Unavailable
+  List(const List &) = delete;
+  List &operator=(const List &) = delete;
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

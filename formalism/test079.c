@@ -1,5 +1,4 @@
-int f()
-{
+int f() {
   const int v;
   int w;
   w = v;

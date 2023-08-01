@@ -29,46 +29,40 @@
 namespace psy {
 namespace C {
 
-class PSY_C_NON_API MemoryPool
-{
+class PSY_C_NON_API MemoryPool {
 public:
-    MemoryPool();
-    ~MemoryPool();
+  MemoryPool();
+  ~MemoryPool();
 
-    // Unavailable
-    MemoryPool(const MemoryPool&) = delete;
-    void operator=(const MemoryPool&) = delete;
+  // Unavailable
+  MemoryPool(const MemoryPool &) = delete;
+  void operator=(const MemoryPool &) = delete;
 
-    void reset();
+  void reset();
 
-    void* allocate(size_t size)
-    {
-        size = (size + 7) & ~7;
-        if (ptr_ && (ptr_ + size < end_)) {
-            void *addr = ptr_;
-            ptr_ += size;
-            return addr;
-        }
-        return allocate_helper(size);
+  void *allocate(size_t size) {
+    size = (size + 7) & ~7;
+    if (ptr_ && (ptr_ + size < end_)) {
+      void *addr = ptr_;
+      ptr_ += size;
+      return addr;
     }
+    return allocate_helper(size);
+  }
 
 private:
-    void* allocate_helper(size_t size);
+  void *allocate_helper(size_t size);
 
-    char** blocks_;
-    int allocatedBlocks_;
-    int blockCount_;
-    char* ptr_;
-    char* end_;
+  char **blocks_;
+  int allocatedBlocks_;
+  int blockCount_;
+  char *ptr_;
+  char *end_;
 
-    enum
-    {
-        BLOCK_SIZE = 8 * 1024,
-        DEFAULT_BLOCK_COUNT = 8
-    };
+  enum { BLOCK_SIZE = 8 * 1024, DEFAULT_BLOCK_COUNT = 8 };
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

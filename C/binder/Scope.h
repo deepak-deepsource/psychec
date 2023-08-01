@@ -28,8 +28,8 @@
 
 #include "../common/infra/InternalAccess.h"
 
-#include <memory>
 #include <cstdint>
+#include <memory>
 #include <unordered_map>
 #include <vector>
 
@@ -41,30 +41,28 @@ namespace C {
  *
  * \remark 6.2.1
  */
-class PSY_C_API Scope
-{
+class PSY_C_API Scope {
 public:
-    virtual ~Scope();
+  virtual ~Scope();
 
-    /**
-     * The Kind of \c this Scope.
-     */
-    ScopeKind kind() const;
+  /**
+   * The Kind of \c this Scope.
+   */
+  ScopeKind kind() const;
 
-PSY_INTERNAL_AND_RESTRICTED:
-    PSY_GRANT_ACCESS(Binder);
+  PSY_INTERNAL_AND_RESTRICTED : PSY_GRANT_ACCESS(Binder);
 
-    Scope(ScopeKind kind);
+  Scope(ScopeKind kind);
 
-    void enclose(std::unique_ptr<Scope> scope);
-    void morphFrom_FunctionPrototype_to_Block();
+  void enclose(std::unique_ptr<Scope> scope);
+  void morphFrom_FunctionPrototype_to_Block();
 
 private:
-    ScopeKind kind_;
-    std::vector<std::unique_ptr<Scope>> enclosedScopes_;
+  ScopeKind kind_;
+  std::vector<std::unique_ptr<Scope>> enclosedScopes_;
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

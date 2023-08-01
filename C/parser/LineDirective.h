@@ -34,35 +34,33 @@ namespace C {
 /**
  * \brief The LineDirective class.
  */
-class PSY_C_NON_API LineDirective
-{
+class PSY_C_NON_API LineDirective {
 public:
-    LineDirective(unsigned int lineno,
-                  const std::string& fileName,
-                  unsigned int offset);
+  LineDirective(unsigned int lineno, const std::string &fileName,
+                unsigned int offset);
 
-    /**
-     * The file name.
-     */
-    std::string fileName() const;
+  /**
+   * The file name.
+   */
+  std::string fileName() const;
 
-    /**
-     * The line number.
-     */
-    unsigned int lineno() const;
+  /**
+   * The line number.
+   */
+  unsigned int lineno() const;
 
-    /**
-     * The offset in the file.
-     */
-    unsigned int offset() const;
+  /**
+   * The offset in the file.
+   */
+  unsigned int offset() const;
 
 private:
-    unsigned int lineno_;
-    std::string fileName_;
-    unsigned int offset_;
+  unsigned int lineno_;
+  std::string fileName_;
+  unsigned int offset_;
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

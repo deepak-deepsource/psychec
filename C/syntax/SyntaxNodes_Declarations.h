@@ -42,16 +42,15 @@ namespace C {
  *  - a \a type-qualifier, or
  *  - a \a function-specifier.
  */
-class PSY_C_API TrivialSpecifierSyntax : public SpecifierSyntax
-{
-    AST_NODE(TrivialSpecifier, Specifier)
+class PSY_C_API TrivialSpecifierSyntax : public SpecifierSyntax {
+  AST_NODE(TrivialSpecifier, Specifier)
 
 public:
-    SyntaxToken specifierToken() const { return tokenAtIndex(specTkIdx_); }
+  SyntaxToken specifierToken() const { return tokenAtIndex(specTkIdx_); }
 
 protected:
-    LexedTokens::IndexType specTkIdx_ = LexedTokens::invalidIndex();
-    AST_CHILD_LST1(specTkIdx_);
+  LexedTokens::IndexType specTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST1(specTkIdx_);
 };
 
 /**
@@ -59,12 +58,11 @@ protected:
  *
  * \remark 6.7.1
  */
-class PSY_C_API StorageClassSyntax final : public TrivialSpecifierSyntax
-{
-    AST_NODE_NK(StorageClass, TrivialSpecifier)
+class PSY_C_API StorageClassSyntax final : public TrivialSpecifierSyntax {
+  AST_NODE_NK(StorageClass, TrivialSpecifier)
 
 public:
-    SyntaxToken storageClassKeyword() const { return tokenAtIndex(specTkIdx_); }
+  SyntaxToken storageClassKeyword() const { return tokenAtIndex(specTkIdx_); }
 };
 
 /**
@@ -72,12 +70,12 @@ public:
  *
  * \remark 6.7.2
  */
-class PSY_C_API BuiltinTypeSpecifierSyntax final : public TrivialSpecifierSyntax
-{
-    AST_NODE_NK(BuiltinTypeSpecifier, TrivialSpecifier)
+class PSY_C_API BuiltinTypeSpecifierSyntax final
+    : public TrivialSpecifierSyntax {
+  AST_NODE_NK(BuiltinTypeSpecifier, TrivialSpecifier)
 
 public:
-    SyntaxToken builtinTypeKeyword() const { return tokenAtIndex(specTkIdx_); }
+  SyntaxToken builtinTypeKeyword() const { return tokenAtIndex(specTkIdx_); }
 };
 
 /**
@@ -85,36 +83,33 @@ public:
  *
  * \remark 6.7.2.1, 6.7.2.2, and 6.7.2.3
  */
-class PSY_C_API TagTypeSpecifierSyntax final : public SpecifierSyntax
-{
-    AST_NODE_NK(TagTypeSpecifier, Specifier)
+class PSY_C_API TagTypeSpecifierSyntax final : public SpecifierSyntax {
+  AST_NODE_NK(TagTypeSpecifier, Specifier)
 
 public:
-    SyntaxToken keyword() const { return tokenAtIndex(kwTkIdx_); }
-    const SpecifierListSyntax* attributes() const { return attrs1_; }
-    SyntaxToken tagToken() const { return tokenAtIndex(tagTkIdx_); }
-    SyntaxToken openBraceToken() const { return tokenAtIndex(openBraceTkIdx_); }
-    const DeclarationListSyntax* declarations() const { return decls_; }
-    SyntaxToken closeBraceToken() const { return tokenAtIndex(closeBraceTkIdx_); }
-    const SpecifierListSyntax* attributes_PostCloseBrace() const { return attrs2_; }
+  SyntaxToken keyword() const { return tokenAtIndex(kwTkIdx_); }
+  const SpecifierListSyntax *attributes() const { return attrs1_; }
+  SyntaxToken tagToken() const { return tokenAtIndex(tagTkIdx_); }
+  SyntaxToken openBraceToken() const { return tokenAtIndex(openBraceTkIdx_); }
+  const DeclarationListSyntax *declarations() const { return decls_; }
+  SyntaxToken closeBraceToken() const { return tokenAtIndex(closeBraceTkIdx_); }
+  const SpecifierListSyntax *attributes_PostCloseBrace() const {
+    return attrs2_;
+  }
 
 private:
-    LexedTokens::IndexType kwTkIdx_ = LexedTokens::invalidIndex();
-    SpecifierListSyntax* attrs1_ = nullptr;
-    LexedTokens::IndexType tagTkIdx_ = LexedTokens::invalidIndex();
-    LexedTokens::IndexType openBraceTkIdx_ = LexedTokens::invalidIndex();
-    DeclarationListSyntax* decls_ = nullptr;
-    LexedTokens::IndexType closeBraceTkIdx_ = LexedTokens::invalidIndex();;
-    SpecifierListSyntax* attrs2_ = nullptr;
-    AST_CHILD_LST7(kwTkIdx_,
-                   attrs1_,
-                   tagTkIdx_,
-                   openBraceTkIdx_,
-                   decls_,
-                   closeBraceTkIdx_,
-                   attrs2_);
+  LexedTokens::IndexType kwTkIdx_ = LexedTokens::invalidIndex();
+  SpecifierListSyntax *attrs1_ = nullptr;
+  LexedTokens::IndexType tagTkIdx_ = LexedTokens::invalidIndex();
+  LexedTokens::IndexType openBraceTkIdx_ = LexedTokens::invalidIndex();
+  DeclarationListSyntax *decls_ = nullptr;
+  LexedTokens::IndexType closeBraceTkIdx_ = LexedTokens::invalidIndex();
+  ;
+  SpecifierListSyntax *attrs2_ = nullptr;
+  AST_CHILD_LST7(kwTkIdx_, attrs1_, tagTkIdx_, openBraceTkIdx_, decls_,
+                 closeBraceTkIdx_, attrs2_);
 
-    mutable Symbol* sym_ = nullptr;
+  mutable Symbol *sym_ = nullptr;
 };
 
 /**
@@ -122,25 +117,25 @@ private:
  *
  * \remark 6.7.2.4
  */
-class PSY_C_API AtomicTypeSpecifierSyntax final : public SpecifierSyntax
-{
-    AST_NODE_1K(AtomicTypeSpecifier, Specifier)
+class PSY_C_API AtomicTypeSpecifierSyntax final : public SpecifierSyntax {
+  AST_NODE_1K(AtomicTypeSpecifier, Specifier)
 
 public:
-    SyntaxToken atomicKeyword() const { return tokenAtIndex(atomicKwTkIdx_); }
-    SyntaxToken openParenthesisToken() const { return tokenAtIndex(openParenTkIdx_); }
-    const TypeNameSyntax* typeName() const { return typeName_; }
-    SyntaxToken closeParenthesisToken() const { return tokenAtIndex(closeParenTkIdx_); }
+  SyntaxToken atomicKeyword() const { return tokenAtIndex(atomicKwTkIdx_); }
+  SyntaxToken openParenthesisToken() const {
+    return tokenAtIndex(openParenTkIdx_);
+  }
+  const TypeNameSyntax *typeName() const { return typeName_; }
+  SyntaxToken closeParenthesisToken() const {
+    return tokenAtIndex(closeParenTkIdx_);
+  }
 
 private:
-    LexedTokens::IndexType atomicKwTkIdx_ = LexedTokens::invalidIndex();
-    LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
-    TypeNameSyntax* typeName_ = nullptr;
-    LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
-    AST_CHILD_LST4(atomicKwTkIdx_,
-                   openParenTkIdx_,
-                   typeName_,
-                   closeParenTkIdx_);
+  LexedTokens::IndexType atomicKwTkIdx_ = LexedTokens::invalidIndex();
+  LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
+  TypeNameSyntax *typeName_ = nullptr;
+  LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST4(atomicKwTkIdx_, openParenTkIdx_, typeName_, closeParenTkIdx_);
 };
 
 /**
@@ -148,12 +143,11 @@ private:
  *
  * \remark 6.7.3
  */
-class PSY_C_API TypeQualifierSyntax final : public TrivialSpecifierSyntax
-{
-    AST_NODE_NK(TypeQualifier, TrivialSpecifier)
+class PSY_C_API TypeQualifierSyntax final : public TrivialSpecifierSyntax {
+  AST_NODE_NK(TypeQualifier, TrivialSpecifier)
 
 public:
-    SyntaxToken qualifierKeyword() const { return tokenAtIndex(specTkIdx_); }
+  SyntaxToken qualifierKeyword() const { return tokenAtIndex(specTkIdx_); }
 };
 
 /**
@@ -161,12 +155,11 @@ public:
  *
  * \remark 6.7.4
  */
-class PSY_C_API FunctionSpecifierSyntax final : public TrivialSpecifierSyntax
-{
-    AST_NODE_NK(FunctionSpecifier, TrivialSpecifier)
+class PSY_C_API FunctionSpecifierSyntax final : public TrivialSpecifierSyntax {
+  AST_NODE_NK(FunctionSpecifier, TrivialSpecifier)
 
 public:
-    SyntaxToken specifierKeyword() const { return tokenAtIndex(specTkIdx_); }
+  SyntaxToken specifierKeyword() const { return tokenAtIndex(specTkIdx_); }
 };
 
 /**
@@ -182,18 +175,17 @@ public:
  *
  * \remark 6.7.5
  */
-class PSY_C_API AlignmentSpecifierSyntax final : public SpecifierSyntax
-{
-    AST_NODE_1K(AlignmentSpecifier, Specifier)
+class PSY_C_API AlignmentSpecifierSyntax final : public SpecifierSyntax {
+  AST_NODE_1K(AlignmentSpecifier, Specifier)
 
 public:
-    SyntaxToken alignasKeyword() const { return tokenAtIndex(alignasKwTkIdx_); }
-    const TypeReferenceSyntax* tyReference() const { return tyRef_; }
+  SyntaxToken alignasKeyword() const { return tokenAtIndex(alignasKwTkIdx_); }
+  const TypeReferenceSyntax *tyReference() const { return tyRef_; }
 
 private:
-    LexedTokens::IndexType alignasKwTkIdx_ = LexedTokens::invalidIndex();
-    TypeReferenceSyntax* tyRef_ = nullptr;
-    AST_CHILD_LST2(alignasKwTkIdx_, tyRef_);
+  LexedTokens::IndexType alignasKwTkIdx_ = LexedTokens::invalidIndex();
+  TypeReferenceSyntax *tyRef_ = nullptr;
+  AST_CHILD_LST2(alignasKwTkIdx_, tyRef_);
 };
 
 /**
@@ -210,18 +202,17 @@ private:
  * \attention Thisis a GNU extension:
  * https://gcc.gnu.org/onlinedocs/gcc/Typeof.html#Typeof
  */
-class PSY_C_API ExtGNU_TypeofSyntax final : public SpecifierSyntax
-{
-    AST_NODE_1K(ExtGNU_Typeof, Specifier);
+class PSY_C_API ExtGNU_TypeofSyntax final : public SpecifierSyntax {
+  AST_NODE_1K(ExtGNU_Typeof, Specifier);
 
 public:
-    SyntaxToken typeofKeyword() const { return tokenAtIndex(typeofKwTkIdx_); }
-    const TypeReferenceSyntax* tyReference() const { return tyRef_; }
+  SyntaxToken typeofKeyword() const { return tokenAtIndex(typeofKwTkIdx_); }
+  const TypeReferenceSyntax *tyReference() const { return tyRef_; }
 
 private:
-    LexedTokens::IndexType typeofKwTkIdx_ = LexedTokens::invalidIndex();
-    TypeReferenceSyntax* tyRef_ = nullptr;
-    AST_CHILD_LST2(typeofKwTkIdx_, tyRef_);
+  LexedTokens::IndexType typeofKwTkIdx_ = LexedTokens::invalidIndex();
+  TypeReferenceSyntax *tyRef_ = nullptr;
+  AST_CHILD_LST2(typeofKwTkIdx_, tyRef_);
 };
 
 /**
@@ -230,31 +221,34 @@ private:
  * \attention This is a GNU extension:
  *  https://gcc.gnu.org/onlinedocs/gcc/Attribute-Syntax.html
  */
-class PSY_C_API ExtGNU_AttributeSpecifierSyntax final : public SpecifierSyntax
-{
-    AST_NODE_1K(ExtGNU_AttributeSpecifier, Specifier)
+class PSY_C_API ExtGNU_AttributeSpecifierSyntax final : public SpecifierSyntax {
+  AST_NODE_1K(ExtGNU_AttributeSpecifier, Specifier)
 
 public:
-    SyntaxToken attributeKeyword() const { return tokenAtIndex(attrKwTkIdx_); }
-    SyntaxToken openOuterParenthesisToken() const { return tokenAtIndex(openOuterParenTkIdx_); }
-    SyntaxToken openInnerParenthesisToken() const { return tokenAtIndex(openInnerParenTkIdx_); }
-    const ExtGNU_AttributeListSyntax* attributes() const { return attrs_; }
-    SyntaxToken closeInnerParenthesisToken() const { return tokenAtIndex(closeInnerParenTkIdx_); }
-    SyntaxToken closeOuterParenthesisToken() const { return tokenAtIndex(closeOuterParenTkIdx_); }
+  SyntaxToken attributeKeyword() const { return tokenAtIndex(attrKwTkIdx_); }
+  SyntaxToken openOuterParenthesisToken() const {
+    return tokenAtIndex(openOuterParenTkIdx_);
+  }
+  SyntaxToken openInnerParenthesisToken() const {
+    return tokenAtIndex(openInnerParenTkIdx_);
+  }
+  const ExtGNU_AttributeListSyntax *attributes() const { return attrs_; }
+  SyntaxToken closeInnerParenthesisToken() const {
+    return tokenAtIndex(closeInnerParenTkIdx_);
+  }
+  SyntaxToken closeOuterParenthesisToken() const {
+    return tokenAtIndex(closeOuterParenTkIdx_);
+  }
 
 private:
-    LexedTokens::IndexType attrKwTkIdx_ = LexedTokens::invalidIndex();
-    LexedTokens::IndexType openOuterParenTkIdx_ = LexedTokens::invalidIndex();
-    LexedTokens::IndexType openInnerParenTkIdx_ = LexedTokens::invalidIndex();
-    ExtGNU_AttributeListSyntax* attrs_ = nullptr;
-    LexedTokens::IndexType closeInnerParenTkIdx_ = LexedTokens::invalidIndex();
-    LexedTokens::IndexType closeOuterParenTkIdx_ = LexedTokens::invalidIndex();
-    AST_CHILD_LST6(attrKwTkIdx_,
-                   openOuterParenTkIdx_,
-                   openInnerParenTkIdx_,
-                   attrs_,
-                   closeInnerParenTkIdx_,
-                   closeOuterParenTkIdx_);
+  LexedTokens::IndexType attrKwTkIdx_ = LexedTokens::invalidIndex();
+  LexedTokens::IndexType openOuterParenTkIdx_ = LexedTokens::invalidIndex();
+  LexedTokens::IndexType openInnerParenTkIdx_ = LexedTokens::invalidIndex();
+  ExtGNU_AttributeListSyntax *attrs_ = nullptr;
+  LexedTokens::IndexType closeInnerParenTkIdx_ = LexedTokens::invalidIndex();
+  LexedTokens::IndexType closeOuterParenTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST6(attrKwTkIdx_, openOuterParenTkIdx_, openInnerParenTkIdx_,
+                 attrs_, closeInnerParenTkIdx_, closeOuterParenTkIdx_);
 };
 
 /**
@@ -263,22 +257,27 @@ private:
  * \attention This is a GNU extension:
  * https://gcc.gnu.org/onlinedocs/gcc/Attribute-Syntax.html
  */
-class PSY_C_API ExtGNU_AttributeSyntax final : public SyntaxNode
-{
-    AST_G_NODE_1K(ExtGNU_Attribute)
+class PSY_C_API ExtGNU_AttributeSyntax final : public SyntaxNode {
+  AST_G_NODE_1K(ExtGNU_Attribute)
 
 public:
-    SyntaxToken keywordOrIdentifierToken() const { return tokenAtIndex(kwOrIdentTkIdx_); }
-    SyntaxToken openParenthesisToken() const { return tokenAtIndex(openParenTkIdx_); }
-    const ExpressionListSyntax* expressions() const { return exprs_; }
-    SyntaxToken closeParenthesisToken() const { return tokenAtIndex(closeParenTkIdx_); }
+  SyntaxToken keywordOrIdentifierToken() const {
+    return tokenAtIndex(kwOrIdentTkIdx_);
+  }
+  SyntaxToken openParenthesisToken() const {
+    return tokenAtIndex(openParenTkIdx_);
+  }
+  const ExpressionListSyntax *expressions() const { return exprs_; }
+  SyntaxToken closeParenthesisToken() const {
+    return tokenAtIndex(closeParenTkIdx_);
+  }
 
 private:
-    LexedTokens::IndexType kwOrIdentTkIdx_ = LexedTokens::invalidIndex();
-    LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
-    ExpressionListSyntax* exprs_ = nullptr;
-    LexedTokens::IndexType closeParenTkIdx_  = LexedTokens::invalidIndex();
-    AST_CHILD_LST4(kwOrIdentTkIdx_, openParenTkIdx_, exprs_, closeParenTkIdx_);
+  LexedTokens::IndexType kwOrIdentTkIdx_ = LexedTokens::invalidIndex();
+  LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
+  ExpressionListSyntax *exprs_ = nullptr;
+  LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST4(kwOrIdentTkIdx_, openParenTkIdx_, exprs_, closeParenTkIdx_);
 };
 
 /**
@@ -290,25 +289,25 @@ private:
  * \note Similar to:
  * - \c clang::AsmLabelAttrExpr of LLMV/Clang.
  */
-class PSY_C_API ExtGNU_AsmLabelSyntax final : public SpecifierSyntax
-{
-    AST_NODE_1K(ExtGNU_AsmLabel, Specifier)
+class PSY_C_API ExtGNU_AsmLabelSyntax final : public SpecifierSyntax {
+  AST_NODE_1K(ExtGNU_AsmLabel, Specifier)
 
 public:
-    SyntaxToken asmKeyword() const { return tokenAtIndex(asmKwTkIdx_); }
-    SyntaxToken openParenthesisToken() const { return tokenAtIndex(openParenTkIdx_); }
-    const ExpressionSyntax* stringLiteral() const { return strLit_; }
-    SyntaxToken closeParenthesisToken() const { return tokenAtIndex(closeParenTkIdx_); }
+  SyntaxToken asmKeyword() const { return tokenAtIndex(asmKwTkIdx_); }
+  SyntaxToken openParenthesisToken() const {
+    return tokenAtIndex(openParenTkIdx_);
+  }
+  const ExpressionSyntax *stringLiteral() const { return strLit_; }
+  SyntaxToken closeParenthesisToken() const {
+    return tokenAtIndex(closeParenTkIdx_);
+  }
 
 private:
-    LexedTokens::IndexType asmKwTkIdx_ = LexedTokens::invalidIndex();
-    LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
-    ExpressionSyntax* strLit_ = nullptr;
-    LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
-    AST_CHILD_LST4(asmKwTkIdx_,
-                   openParenTkIdx_,
-                   strLit_,
-                   closeParenTkIdx_);
+  LexedTokens::IndexType asmKwTkIdx_ = LexedTokens::invalidIndex();
+  LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
+  ExpressionSyntax *strLit_ = nullptr;
+  LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST4(asmKwTkIdx_, openParenTkIdx_, strLit_, closeParenTkIdx_);
 };
 
 /**
@@ -316,19 +315,16 @@ private:
  *
  * \attention This is a Psyche-C extension.
  */
-class PSY_C_API ExtPSY_QuantifiedTypeSpecifierSyntax : public SpecifierSyntax
-{
-    AST_NODE_1K(ExtPSY_QuantifiedTypeSpecifier, Specifier)
+class PSY_C_API ExtPSY_QuantifiedTypeSpecifierSyntax : public SpecifierSyntax {
+  AST_NODE_1K(ExtPSY_QuantifiedTypeSpecifier, Specifier)
 
 private:
-    LexedTokens::IndexType quantifierTkIdx_ = LexedTokens::invalidIndex();
-    LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
-    LexedTokens::IndexType identTkIdx_ = LexedTokens::invalidIndex();
-    LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
-    AST_CHILD_LST4(quantifierTkIdx_,
-                   openParenTkIdx_,
-                   identTkIdx_,
-                   closeParenTkIdx_);
+  LexedTokens::IndexType quantifierTkIdx_ = LexedTokens::invalidIndex();
+  LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
+  LexedTokens::IndexType identTkIdx_ = LexedTokens::invalidIndex();
+  LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST4(quantifierTkIdx_, openParenTkIdx_, identTkIdx_,
+                 closeParenTkIdx_);
 };
 
 /**
@@ -336,16 +332,15 @@ private:
  *
  * \remark 6.7.8
  */
-class PSY_C_API TypedefNameSyntax final : public SpecifierSyntax
-{
-    AST_NODE_1K(TypedefName, Specifier)
+class PSY_C_API TypedefNameSyntax final : public SpecifierSyntax {
+  AST_NODE_1K(TypedefName, Specifier)
 
 public:
-    SyntaxToken identifierToken() const { return tokenAtIndex(identTkIdx_); }
+  SyntaxToken identifierToken() const { return tokenAtIndex(identTkIdx_); }
 
 private:
-    LexedTokens::IndexType identTkIdx_ = LexedTokens::invalidIndex();
-    AST_CHILD_LST1(identTkIdx_);
+  LexedTokens::IndexType identTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST1(identTkIdx_);
 };
 
 /* Declarators */
@@ -354,28 +349,25 @@ private:
  *
  * \remark 6.7.6-4
  */
-class PSY_C_API IdentifierDeclaratorSyntax final : public DeclaratorSyntax
-{
-    AST_NODE_1K(IdentifierDeclarator, Declarator)
+class PSY_C_API IdentifierDeclaratorSyntax final : public DeclaratorSyntax {
+  AST_NODE_1K(IdentifierDeclarator, Declarator)
 
 public:
-    const SpecifierListSyntax* attributes() const { return attrs1_; }
-    SyntaxToken identifierToken() const { return tokenAtIndex(identTkIdx_); }
-    const SpecifierListSyntax* attributes_PostIdentifier() const { return attrs2_; }
-    SyntaxToken equalsToken() const { return tokenAtIndex(equalsTkIdx_); }
-    const InitializerSyntax* initializer() const { return init_; }
+  const SpecifierListSyntax *attributes() const { return attrs1_; }
+  SyntaxToken identifierToken() const { return tokenAtIndex(identTkIdx_); }
+  const SpecifierListSyntax *attributes_PostIdentifier() const {
+    return attrs2_;
+  }
+  SyntaxToken equalsToken() const { return tokenAtIndex(equalsTkIdx_); }
+  const InitializerSyntax *initializer() const { return init_; }
 
 private:
-    SpecifierListSyntax* attrs1_ = nullptr;
-    LexedTokens::IndexType identTkIdx_ = LexedTokens::invalidIndex();
-    SpecifierListSyntax* attrs2_ = nullptr;
-    LexedTokens::IndexType equalsTkIdx_ = LexedTokens::invalidIndex();
-    InitializerSyntax* init_ = nullptr;
-    AST_CHILD_LST5(attrs1_,
-                   identTkIdx_,
-                   attrs2_,
-                   equalsTkIdx_,
-                   init_)
+  SpecifierListSyntax *attrs1_ = nullptr;
+  LexedTokens::IndexType identTkIdx_ = LexedTokens::invalidIndex();
+  SpecifierListSyntax *attrs2_ = nullptr;
+  LexedTokens::IndexType equalsTkIdx_ = LexedTokens::invalidIndex();
+  InitializerSyntax *init_ = nullptr;
+  AST_CHILD_LST5(attrs1_, identTkIdx_, attrs2_, equalsTkIdx_, init_)
 };
 
 /**
@@ -383,20 +375,23 @@ private:
  *
  * \remark 6.7.6-6
  */
-class PSY_C_API ParenthesizedDeclaratorSyntax final : public DeclaratorSyntax
-{
-    AST_NODE_1K(ParenthesizedDeclarator, Declarator);
+class PSY_C_API ParenthesizedDeclaratorSyntax final : public DeclaratorSyntax {
+  AST_NODE_1K(ParenthesizedDeclarator, Declarator);
 
 public:
-    SyntaxToken openParenthesisToken() const { return tokenAtIndex(openParenTkIdx_); }
-    const DeclaratorSyntax* innerDeclarator() const { return innerDecltor_; }
-    SyntaxToken closeParenthesisToken() const { return tokenAtIndex(closeParenTkIdx_); }
+  SyntaxToken openParenthesisToken() const {
+    return tokenAtIndex(openParenTkIdx_);
+  }
+  const DeclaratorSyntax *innerDeclarator() const { return innerDecltor_; }
+  SyntaxToken closeParenthesisToken() const {
+    return tokenAtIndex(closeParenTkIdx_);
+  }
 
 private:
-    LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
-    DeclaratorSyntax* innerDecltor_ = nullptr;
-    LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
-    AST_CHILD_LST3(openParenTkIdx_, innerDecltor_, closeParenTkIdx_)
+  LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
+  DeclaratorSyntax *innerDecltor_ = nullptr;
+  LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST3(openParenTkIdx_, innerDecltor_, closeParenTkIdx_)
 };
 
 /**
@@ -407,16 +402,15 @@ private:
  *
  * \remark 6.7.7-2
  */
-class PSY_C_API AbstractDeclaratorSyntax final : public DeclaratorSyntax
-{
-    AST_NODE_1K(AbstractDeclarator, Declarator)
+class PSY_C_API AbstractDeclaratorSyntax final : public DeclaratorSyntax {
+  AST_NODE_1K(AbstractDeclarator, Declarator)
 
 public:
-    const SpecifierListSyntax* attributes() const { return attrs_; }
+  const SpecifierListSyntax *attributes() const { return attrs_; }
 
 private:
-    SpecifierListSyntax* attrs_ = nullptr;
-    AST_CHILD_LST1(attrs_);
+  SpecifierListSyntax *attrs_ = nullptr;
+  AST_CHILD_LST1(attrs_);
 };
 
 /**
@@ -424,31 +418,28 @@ private:
  *
  * \remark 6.7.6.1
  */
-class PSY_C_API PointerDeclaratorSyntax final : public DeclaratorSyntax
-{
-    AST_NODE_1K(PointerDeclarator, Declarator)
+class PSY_C_API PointerDeclaratorSyntax final : public DeclaratorSyntax {
+  AST_NODE_1K(PointerDeclarator, Declarator)
 
 public:
-    const SpecifierListSyntax* attributes() const { return attrs_; }
-    SyntaxToken asteriskToken() const { return tokenAtIndex(asteriskTkIdx_); }
-    const SpecifierListSyntax* qualifiersAndAttributes() const { return qualsAndAttrs_; }
-    const DeclaratorSyntax* innerDeclarator() const { return innerDecltor_; }
-    SyntaxToken equalsToken() const { return tokenAtIndex(equalsTkIdx_); }
-    const InitializerSyntax* initializer() const { return init_; }
+  const SpecifierListSyntax *attributes() const { return attrs_; }
+  SyntaxToken asteriskToken() const { return tokenAtIndex(asteriskTkIdx_); }
+  const SpecifierListSyntax *qualifiersAndAttributes() const {
+    return qualsAndAttrs_;
+  }
+  const DeclaratorSyntax *innerDeclarator() const { return innerDecltor_; }
+  SyntaxToken equalsToken() const { return tokenAtIndex(equalsTkIdx_); }
+  const InitializerSyntax *initializer() const { return init_; }
 
 private:
-    SpecifierListSyntax* attrs_ = nullptr;
-    LexedTokens::IndexType asteriskTkIdx_ = LexedTokens::invalidIndex();
-    SpecifierListSyntax* qualsAndAttrs_ = nullptr;
-    DeclaratorSyntax* innerDecltor_ = nullptr;
-    LexedTokens::IndexType equalsTkIdx_ = LexedTokens::invalidIndex();
-    InitializerSyntax* init_ = nullptr;
-    AST_CHILD_LST6(attrs_,
-                   asteriskTkIdx_,
-                   qualsAndAttrs_,
-                   innerDecltor_,
-                   equalsTkIdx_,
-                   init_)
+  SpecifierListSyntax *attrs_ = nullptr;
+  LexedTokens::IndexType asteriskTkIdx_ = LexedTokens::invalidIndex();
+  SpecifierListSyntax *qualsAndAttrs_ = nullptr;
+  DeclaratorSyntax *innerDecltor_ = nullptr;
+  LexedTokens::IndexType equalsTkIdx_ = LexedTokens::invalidIndex();
+  InitializerSyntax *init_ = nullptr;
+  AST_CHILD_LST6(attrs_, asteriskTkIdx_, qualsAndAttrs_, innerDecltor_,
+                 equalsTkIdx_, init_)
 };
 
 /**
@@ -458,33 +449,30 @@ private:
  *
  * \remark 6.7.6.2 and 6.7.6.3
  */
-class PSY_C_API ArrayOrFunctionDeclaratorSyntax final : public DeclaratorSyntax
-{
-    AST_NODE_NK(ArrayOrFunctionDeclarator, Declarator)
+class PSY_C_API ArrayOrFunctionDeclaratorSyntax final
+    : public DeclaratorSyntax {
+  AST_NODE_NK(ArrayOrFunctionDeclarator, Declarator)
 
 public:
-    const SpecifierListSyntax* attributes() const { return attrs1_; }
-    const DeclaratorSyntax* innerDeclarator() const { return innerDecltor_; }
-    const DeclaratorSuffixSyntax* suffix() const { return suffix_; }
-    const SpecifierListSyntax* attributes_PostDeclarator() const { return attrs2_; }
-    SyntaxToken equalsToken() const { return tokenAtIndex(equalsTkIdx_); }
-    const InitializerSyntax* initializer() const { return init_; }
+  const SpecifierListSyntax *attributes() const { return attrs1_; }
+  const DeclaratorSyntax *innerDeclarator() const { return innerDecltor_; }
+  const DeclaratorSuffixSyntax *suffix() const { return suffix_; }
+  const SpecifierListSyntax *attributes_PostDeclarator() const {
+    return attrs2_;
+  }
+  SyntaxToken equalsToken() const { return tokenAtIndex(equalsTkIdx_); }
+  const InitializerSyntax *initializer() const { return init_; }
 
 public:
-    SpecifierListSyntax* attrs1_ = nullptr;
-    DeclaratorSyntax* innerDecltor_ = nullptr;
-    DeclaratorSuffixSyntax* suffix_ = nullptr;
-    SpecifierListSyntax* attrs2_ = nullptr;
-    LexedTokens::IndexType equalsTkIdx_ = LexedTokens::invalidIndex();
-    InitializerSyntax* init_ = nullptr;
-    AST_CHILD_LST6(attrs1_,
-                   innerDecltor_,
-                   suffix_,
-                   attrs2_,
-                   equalsTkIdx_,
-                   init_)
+  SpecifierListSyntax *attrs1_ = nullptr;
+  DeclaratorSyntax *innerDecltor_ = nullptr;
+  DeclaratorSuffixSyntax *suffix_ = nullptr;
+  SpecifierListSyntax *attrs2_ = nullptr;
+  LexedTokens::IndexType equalsTkIdx_ = LexedTokens::invalidIndex();
+  InitializerSyntax *init_ = nullptr;
+  AST_CHILD_LST6(attrs1_, innerDecltor_, suffix_, attrs2_, equalsTkIdx_, init_)
 
-    mutable Symbol* sym_;
+  mutable Symbol *sym_;
 };
 
 /**
@@ -494,34 +482,36 @@ public:
  *
  * \remark 6.7.6.2
  */
-class PSY_C_API SubscriptSuffixSyntax final : public DeclaratorSuffixSyntax
-{
-    AST_NODE_1K(SubscriptSuffix, DeclaratorSuffix)
+class PSY_C_API SubscriptSuffixSyntax final : public DeclaratorSuffixSyntax {
+  AST_NODE_1K(SubscriptSuffix, DeclaratorSuffix)
 
 public:
-    SyntaxToken openBracketToken() const { return tokenAtIndex(openBracketTkIdx_); }
-    const SpecifierListSyntax* qualifiersAndAttributes() const { return qualsAndAttrs1_; }
-    SyntaxToken staticKeyword() const { return tokenAtIndex(staticKwTkIdx_); }
-    SpecifierListSyntax* qualifiersAndAttributes_PostStatic() const { return qualsAndAttrs2_; }
-    const ExpressionSyntax* expression() const { return expr_; }
-    SyntaxToken asteriskToken() const { return tokenAtIndex(asteriskTkIdx_); }
-    SyntaxToken closeBracketToken() const { return tokenAtIndex(closeBracketTkIdx_); }
+  SyntaxToken openBracketToken() const {
+    return tokenAtIndex(openBracketTkIdx_);
+  }
+  const SpecifierListSyntax *qualifiersAndAttributes() const {
+    return qualsAndAttrs1_;
+  }
+  SyntaxToken staticKeyword() const { return tokenAtIndex(staticKwTkIdx_); }
+  SpecifierListSyntax *qualifiersAndAttributes_PostStatic() const {
+    return qualsAndAttrs2_;
+  }
+  const ExpressionSyntax *expression() const { return expr_; }
+  SyntaxToken asteriskToken() const { return tokenAtIndex(asteriskTkIdx_); }
+  SyntaxToken closeBracketToken() const {
+    return tokenAtIndex(closeBracketTkIdx_);
+  }
 
 private:
-    LexedTokens::IndexType openBracketTkIdx_ = LexedTokens::invalidIndex();
-    SpecifierListSyntax* qualsAndAttrs1_ = nullptr;
-    LexedTokens::IndexType staticKwTkIdx_ = LexedTokens::invalidIndex();
-    SpecifierListSyntax* qualsAndAttrs2_ = nullptr;
-    ExpressionSyntax* expr_ = nullptr;
-    LexedTokens::IndexType asteriskTkIdx_ = LexedTokens::invalidIndex();
-    LexedTokens::IndexType closeBracketTkIdx_ = LexedTokens::invalidIndex();
-    AST_CHILD_LST7(openBracketTkIdx_,
-                   qualsAndAttrs1_,
-                   staticKwTkIdx_,
-                   qualsAndAttrs2_,
-                   expr_,
-                   asteriskTkIdx_,
-                   closeBracketTkIdx_)
+  LexedTokens::IndexType openBracketTkIdx_ = LexedTokens::invalidIndex();
+  SpecifierListSyntax *qualsAndAttrs1_ = nullptr;
+  LexedTokens::IndexType staticKwTkIdx_ = LexedTokens::invalidIndex();
+  SpecifierListSyntax *qualsAndAttrs2_ = nullptr;
+  ExpressionSyntax *expr_ = nullptr;
+  LexedTokens::IndexType asteriskTkIdx_ = LexedTokens::invalidIndex();
+  LexedTokens::IndexType closeBracketTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST7(openBracketTkIdx_, qualsAndAttrs1_, staticKwTkIdx_,
+                 qualsAndAttrs2_, expr_, asteriskTkIdx_, closeBracketTkIdx_)
 };
 
 /**
@@ -531,26 +521,26 @@ private:
  *
  * \remark 6.7.6.3
  */
-class PSY_C_API ParameterSuffixSyntax final : public DeclaratorSuffixSyntax
-{
-    AST_NODE_1K(ParameterSuffix, DeclaratorSuffix)
+class PSY_C_API ParameterSuffixSyntax final : public DeclaratorSuffixSyntax {
+  AST_NODE_1K(ParameterSuffix, DeclaratorSuffix)
 
 public:
-    SyntaxToken openParenthesisToken() const { return tokenAtIndex(openParenTkIdx_); }
-    const ParameterDeclarationListSyntax* parameters() const { return decls_; }
-    SyntaxToken ellipsisToken() const { return tokenAtIndex(ellipsisTkIdx_); }
-    SyntaxToken closeParenthesisToken() const { return tokenAtIndex(closeParenTkIdx_); }
+  SyntaxToken openParenthesisToken() const {
+    return tokenAtIndex(openParenTkIdx_);
+  }
+  const ParameterDeclarationListSyntax *parameters() const { return decls_; }
+  SyntaxToken ellipsisToken() const { return tokenAtIndex(ellipsisTkIdx_); }
+  SyntaxToken closeParenthesisToken() const {
+    return tokenAtIndex(closeParenTkIdx_);
+  }
 
 private:
-    LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
-    ParameterDeclarationListSyntax* decls_ = nullptr;
-    LexedTokens::IndexType ellipsisTkIdx_ = LexedTokens::invalidIndex();
-    LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
-    LexedTokens::IndexType psyOmitTkIdx_ = LexedTokens::invalidIndex();
-    AST_CHILD_LST4(openParenTkIdx_,
-                   decls_,
-                   ellipsisTkIdx_,
-                   closeParenTkIdx_)
+  LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
+  ParameterDeclarationListSyntax *decls_ = nullptr;
+  LexedTokens::IndexType ellipsisTkIdx_ = LexedTokens::invalidIndex();
+  LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
+  LexedTokens::IndexType psyOmitTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST4(openParenTkIdx_, decls_, ellipsisTkIdx_, closeParenTkIdx_)
 };
 
 /**
@@ -558,25 +548,21 @@ private:
  *
  * \remark 6.7.2.1-9
  */
-class PSY_C_API BitfieldDeclaratorSyntax final : public DeclaratorSyntax
-{
-    AST_NODE_1K(BitfieldDeclarator, Declarator)
+class PSY_C_API BitfieldDeclaratorSyntax final : public DeclaratorSyntax {
+  AST_NODE_1K(BitfieldDeclarator, Declarator)
 
 public:
-    const DeclaratorSyntax* innerDeclarator() const { return innerDecltor_; }
-    SyntaxToken colonToken() const { return tokenAtIndex(colonTkIdx_); }
-    const ExpressionSyntax* expression() const { return expr_; }
-    const SpecifierListSyntax* attributes() const { return attrs_; }
+  const DeclaratorSyntax *innerDeclarator() const { return innerDecltor_; }
+  SyntaxToken colonToken() const { return tokenAtIndex(colonTkIdx_); }
+  const ExpressionSyntax *expression() const { return expr_; }
+  const SpecifierListSyntax *attributes() const { return attrs_; }
 
 private:
-    DeclaratorSyntax* innerDecltor_ = nullptr;
-    LexedTokens::IndexType colonTkIdx_ = LexedTokens::invalidIndex();
-    ExpressionSyntax* expr_ = nullptr;
-    SpecifierListSyntax* attrs_ = nullptr;
-    AST_CHILD_LST4(innerDecltor_,
-                   colonTkIdx_,
-                   expr_,
-                   expr_);
+  DeclaratorSyntax *innerDecltor_ = nullptr;
+  LexedTokens::IndexType colonTkIdx_ = LexedTokens::invalidIndex();
+  ExpressionSyntax *expr_ = nullptr;
+  SpecifierListSyntax *attrs_ = nullptr;
+  AST_CHILD_LST4(innerDecltor_, colonTkIdx_, expr_, expr_);
 };
 
 //--------------//
@@ -595,33 +581,31 @@ private:
  * - \c clang::syntax::TranslationUnit of Clang's Libtooling.
  * - \c Microsoft.CodeAnalysis.CSharp.Syntax.CompilationUnitSyntax of Roslyn.
  */
-class PSY_C_API TranslationUnitSyntax final : public SyntaxNode
-{
-    AST_G_NODE_1K(TranslationUnit)
+class PSY_C_API TranslationUnitSyntax final : public SyntaxNode {
+  AST_G_NODE_1K(TranslationUnit)
 
 public:
-    const DeclarationListSyntax* declarations() const { return decls_; }
+  const DeclarationListSyntax *declarations() const { return decls_; }
 
 private:
-    DeclarationListSyntax* decls_ = nullptr;
-    AST_CHILD_LST1(decls_)
+  DeclarationListSyntax *decls_ = nullptr;
+  AST_CHILD_LST1(decls_)
 };
 
 /**
  * \brief The IncompleteDeclarationSyntax class.
  */
-class PSY_C_API IncompleteDeclarationSyntax final : public DeclarationSyntax
-{
-    AST_NODE_1K(IncompleteDeclaration, Declaration)
+class PSY_C_API IncompleteDeclarationSyntax final : public DeclarationSyntax {
+  AST_NODE_1K(IncompleteDeclaration, Declaration)
 
 public:
-    const SpecifierListSyntax* specifiers() const { return specs_; }
-    SyntaxToken semicolonToken() const { return tokenAtIndex(semicolonTkIdx_); }
+  const SpecifierListSyntax *specifiers() const { return specs_; }
+  SyntaxToken semicolonToken() const { return tokenAtIndex(semicolonTkIdx_); }
 
 private:
-    const SpecifierListSyntax* specs_ = nullptr;
-    LexedTokens::IndexType semicolonTkIdx_ = LexedTokens::invalidIndex();
-    AST_CHILD_LST2(specs_, semicolonTkIdx_)
+  const SpecifierListSyntax *specs_ = nullptr;
+  LexedTokens::IndexType semicolonTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST2(specs_, semicolonTkIdx_)
 };
 
 /**
@@ -633,9 +617,8 @@ private:
  * - \c clang::NamedDecl of LLVM/Clang.
  * - \c clang::syntax::SimpleDeclaration of Clang's Libtooling.
  */
-class PSY_C_API NamedDeclarationSyntax : public DeclarationSyntax
-{
-    AST_NODE(NamedDeclaration, Declaration)
+class PSY_C_API NamedDeclarationSyntax : public DeclarationSyntax {
+  AST_NODE(NamedDeclaration, Declaration)
 };
 
 /**
@@ -649,17 +632,16 @@ class PSY_C_API NamedDeclarationSyntax : public DeclarationSyntax
  * - \c clang::TypeDecl of LLVM/Clang.
  * - \c Microsoft.CodeAnalysis.CSharp.Syntax.TypeDeclarationSyntax of Roslyn.
  */
-class PSY_C_API TypeDeclarationSyntax : public NamedDeclarationSyntax
-{
-    AST_NODE(TypeDeclaration, NamedDeclaration)
+class PSY_C_API TypeDeclarationSyntax : public NamedDeclarationSyntax {
+  AST_NODE(TypeDeclaration, NamedDeclaration)
 
-    const TagTypeSpecifierSyntax* typeSpecifier() const { return typeSpec_; }
-    SyntaxToken semicolonToken() const { return tokenAtIndex(semicolonTkIdx_); }
+  const TagTypeSpecifierSyntax *typeSpecifier() const { return typeSpec_; }
+  SyntaxToken semicolonToken() const { return tokenAtIndex(semicolonTkIdx_); }
 
 private:
-    TagTypeSpecifierSyntax* typeSpec_ = nullptr;
-    LexedTokens::IndexType semicolonTkIdx_ = LexedTokens::invalidIndex();
-    AST_CHILD_LST2(typeSpec_, semicolonTkIdx_)
+  TagTypeSpecifierSyntax *typeSpec_ = nullptr;
+  LexedTokens::IndexType semicolonTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST2(typeSpec_, semicolonTkIdx_)
 };
 
 /**
@@ -673,9 +655,8 @@ private:
  * \note Similar to:
  * - \c clang::TagDecl of LLVM/Clang.
  */
-class PSY_C_API TagDeclarationSyntax : public TypeDeclarationSyntax
-{
-    AST_NODE(TagDeclaration, TypeDeclaration)
+class PSY_C_API TagDeclarationSyntax : public TypeDeclarationSyntax {
+  AST_NODE(TagDeclaration, TypeDeclaration)
 };
 
 /**
@@ -690,9 +671,9 @@ class PSY_C_API TagDeclarationSyntax : public TypeDeclarationSyntax
  * - \c Microsoft.CodeAnalysis.CSharp.StructDeclarationSyntax and
  * - \c Microsoft.CodeAnalysis.CSharp.ClassDeclarationSyntax of Roslyn.
  */
-class PSY_C_API StructOrUnionDeclarationSyntax final : public TagDeclarationSyntax
-{
-    AST_NODE_NK(StructOrUnionDeclaration, TagDeclaration)
+class PSY_C_API StructOrUnionDeclarationSyntax final
+    : public TagDeclarationSyntax {
+  AST_NODE_NK(StructOrUnionDeclaration, TagDeclaration)
 };
 
 /**
@@ -704,9 +685,8 @@ class PSY_C_API StructOrUnionDeclarationSyntax final : public TagDeclarationSynt
  * - \c clang::EnumDecl of LLVM/Clang.
  * - \c Microsoft.CodeAnalysis.CSharp.Syntax.EnumDeclarationSyntax of Roslyn.
  */
-class PSY_C_API EnumDeclarationSyntax final : public TagDeclarationSyntax
-{
-    AST_NODE_NK(EnumDeclaration, TagDeclaration)
+class PSY_C_API EnumDeclarationSyntax final : public TagDeclarationSyntax {
+  AST_NODE_NK(EnumDeclaration, TagDeclaration)
 };
 
 /**
@@ -727,18 +707,17 @@ class PSY_C_API EnumDeclarationSyntax final : public TagDeclarationSyntax
  *
  * \remark 6.7.2.1-8
  */
-class PSY_C_API TypeDeclarationAsSpecifierSyntax final : public SpecifierSyntax
-{
-    AST_NODE_1K(TypeDeclarationAsSpecifier, Specifier)
+class PSY_C_API TypeDeclarationAsSpecifierSyntax final
+    : public SpecifierSyntax {
+  AST_NODE_1K(TypeDeclarationAsSpecifier, Specifier)
 
 public:
-    const TypeDeclarationSyntax* typeDeclaration() const { return typeDecl_; }
+  const TypeDeclarationSyntax *typeDeclaration() const { return typeDecl_; }
 
 private:
-    TypeDeclarationSyntax* typeDecl_ = nullptr;
-    AST_CHILD_LST1(typeDecl_);
+  TypeDeclarationSyntax *typeDecl_ = nullptr;
+  AST_CHILD_LST1(typeDecl_);
 };
-
 
 /**
  * \brief The ValueDeclarationSyntax class.
@@ -748,9 +727,8 @@ private:
  * \note Similar to:
  * - \c clang::ValueDecl of LLVM/Clang.
  */
-class PSY_C_API ValueDeclarationSyntax : public DeclarationSyntax
-{
-    AST_NODE(ValueDeclaration, Declaration)
+class PSY_C_API ValueDeclarationSyntax : public DeclarationSyntax {
+  AST_NODE(ValueDeclaration, Declaration)
 };
 
 /**
@@ -760,30 +738,27 @@ class PSY_C_API ValueDeclarationSyntax : public DeclarationSyntax
  *
  * \note Similar to:
  * - \c clang::EnumConstantDecl of LLVM/Clang.
- * - \c Microsoft.CodeAnalysis.CSharp.Syntax.EnumeratorDeclarationSyntax of Roslyn.
+ * - \c Microsoft.CodeAnalysis.CSharp.Syntax.EnumeratorDeclarationSyntax of
+ * Roslyn.
  */
-class PSY_C_API EnumeratorDeclarationSyntax final : public ValueDeclarationSyntax
-{
-    AST_NODE_1K(EnumeratorDeclaration, ValueDeclaration)
+class PSY_C_API EnumeratorDeclarationSyntax final
+    : public ValueDeclarationSyntax {
+  AST_NODE_1K(EnumeratorDeclaration, ValueDeclaration)
 
 public:
-    SyntaxToken identifierToken() const { return tokenAtIndex(identTkIdx_); }
-    const SpecifierListSyntax* attributes() const { return attrs_; }
-    SyntaxToken equalsToken() const { return tokenAtIndex(equalsTkIdx_); }
-    const ExpressionSyntax* expression() const { return expr_; }
-    SyntaxToken commaToken() const { return tokenAtIndex(commaTkIdx_); }
+  SyntaxToken identifierToken() const { return tokenAtIndex(identTkIdx_); }
+  const SpecifierListSyntax *attributes() const { return attrs_; }
+  SyntaxToken equalsToken() const { return tokenAtIndex(equalsTkIdx_); }
+  const ExpressionSyntax *expression() const { return expr_; }
+  SyntaxToken commaToken() const { return tokenAtIndex(commaTkIdx_); }
 
 private:
-    LexedTokens::IndexType identTkIdx_ = LexedTokens::invalidIndex();
-    SpecifierListSyntax* attrs_ = nullptr;
-    LexedTokens::IndexType equalsTkIdx_ = LexedTokens::invalidIndex();
-    ExpressionSyntax* expr_ = nullptr;
-    LexedTokens::IndexType commaTkIdx_ = LexedTokens::invalidIndex();
-    AST_CHILD_LST5(identTkIdx_,
-                   attrs_,
-                   equalsTkIdx_,
-                   expr_,
-                   commaTkIdx_)
+  LexedTokens::IndexType identTkIdx_ = LexedTokens::invalidIndex();
+  SpecifierListSyntax *attrs_ = nullptr;
+  LexedTokens::IndexType equalsTkIdx_ = LexedTokens::invalidIndex();
+  ExpressionSyntax *expr_ = nullptr;
+  LexedTokens::IndexType commaTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST5(identTkIdx_, attrs_, equalsTkIdx_, expr_, commaTkIdx_)
 };
 
 /**
@@ -797,9 +772,8 @@ private:
  * - \c clang::DeclaratorDecl of LLVM/Clang.
  * - \c Microsoft.CodeAnalysis.CSharp.Syntax.VariableDeclaratorSyntax of Roslyn.
  */
-class PSY_C_API DeclaratorDeclarationSyntax : public ValueDeclarationSyntax
-{
-    AST_NODE(DeclaratorDeclaration, ValueDeclaration)
+class PSY_C_API DeclaratorDeclarationSyntax : public ValueDeclarationSyntax {
+  AST_NODE(DeclaratorDeclaration, ValueDeclaration)
 };
 
 /**
@@ -810,10 +784,11 @@ class PSY_C_API DeclaratorDeclarationSyntax : public ValueDeclarationSyntax
  *   - a \b function.
  *
  * It isn't distinguished, by means of a further inherited type, the exact
- * variety of the \a declaration, i.e., there are no \c "VariableDeclarationSyntax"
- * or \c "FunctionDeclarationSyntax" class. Yet, the \a declarator within
- * this \a declaration is refined enough: identifying either an object or
- * a function. The reason for this design is explained through the snippet below:
+ * variety of the \a declaration, i.e., there are no \c
+ * "VariableDeclarationSyntax" or \c "FunctionDeclarationSyntax" class. Yet, the
+ * \a declarator within this \a declaration is refined enough: identifying
+ * either an object or a function. The reason for this design is explained
+ * through the snippet below:
  *
  * \code
  * double x, y();
@@ -824,32 +799,33 @@ class PSY_C_API DeclaratorDeclarationSyntax : public ValueDeclarationSyntax
  * This \a declaration declares a variable named \c x, and a function named
  * \c y. Specifically, the type specifier \c double is shared both declarators
  * (in the latter case, it states the return type of \c y). Therefore, by
- * providing only a "variable and/or function" syntax, we keep the AST consistent
- * and rewritable, without introducing artificial artifacts.
+ * providing only a "variable and/or function" syntax, we keep the AST
+ * consistent and rewritable, without introducing artificial artifacts.
  *
  * \remark 6.7.6-2
  *
  * \note Similar to:
  * - \c clang::VarDecl and \c clang::FunctionDecl of LLVM/Clang.
  * - \c Microsoft.CodeAnalysis.CSharp.Syntax.VariableDeclarationSyntax and
- *   \c Microsoft.CodeAnalysis.CSharp.Syntax.BaseMethodDeclarationSyntax of Roslyn.
+ *   \c Microsoft.CodeAnalysis.CSharp.Syntax.BaseMethodDeclarationSyntax of
+ * Roslyn.
  */
-class PSY_C_API VariableAndOrFunctionDeclarationSyntax : public DeclaratorDeclarationSyntax
-{
-    AST_NODE_1K(VariableAndOrFunctionDeclaration, DeclaratorDeclaration)
+class PSY_C_API VariableAndOrFunctionDeclarationSyntax
+    : public DeclaratorDeclarationSyntax {
+  AST_NODE_1K(VariableAndOrFunctionDeclaration, DeclaratorDeclaration)
 
 public:
-    const SpecifierListSyntax* specifiers() const { return specs_; }
-    const DeclaratorListSyntax* declarators() const { return decltors_; }
-    SyntaxToken semicolonToken() const { return tokenAtIndex(semicolonTkIdx_); }
+  const SpecifierListSyntax *specifiers() const { return specs_; }
+  const DeclaratorListSyntax *declarators() const { return decltors_; }
+  SyntaxToken semicolonToken() const { return tokenAtIndex(semicolonTkIdx_); }
 
 private:
-    SpecifierListSyntax* specs_ = nullptr;
-    DeclaratorListSyntax* decltors_ = nullptr;
-    LexedTokens::IndexType semicolonTkIdx_ = LexedTokens::invalidIndex();
-    AST_CHILD_LST3(specs_, decltors_, semicolonTkIdx_)
+  SpecifierListSyntax *specs_ = nullptr;
+  DeclaratorListSyntax *decltors_ = nullptr;
+  LexedTokens::IndexType semicolonTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST3(specs_, decltors_, semicolonTkIdx_)
 
-    mutable SymbolList<Symbol*>* syms_ = nullptr;
+  mutable SymbolList<Symbol *> *syms_ = nullptr;
 };
 
 /**
@@ -863,24 +839,22 @@ private:
  * \note Similar to:
  * - \c clang::FieldDecl of LLVM/Clang.
  */
-class PSY_C_API FieldDeclarationSyntax final : public DeclaratorDeclarationSyntax
-{
-    AST_NODE_1K(FieldDeclaration, DeclaratorDeclaration)
+class PSY_C_API FieldDeclarationSyntax final
+    : public DeclaratorDeclarationSyntax {
+  AST_NODE_1K(FieldDeclaration, DeclaratorDeclaration)
 
 public:
-    const SpecifierListSyntax* specifiers() const { return specs_; }
-    const DeclaratorListSyntax* declarators() const { return decltors_; }
-    SyntaxToken semicolonToken() const { return tokenAtIndex(semicolonTkIdx_); }
+  const SpecifierListSyntax *specifiers() const { return specs_; }
+  const DeclaratorListSyntax *declarators() const { return decltors_; }
+  SyntaxToken semicolonToken() const { return tokenAtIndex(semicolonTkIdx_); }
 
 private:
-    SpecifierListSyntax* specs_ = nullptr;
-    DeclaratorListSyntax* decltors_ = nullptr;
-    LexedTokens::IndexType semicolonTkIdx_ = LexedTokens::invalidIndex();
-    AST_CHILD_LST3(specs_,
-                   decltors_,
-                   semicolonTkIdx_)
+  SpecifierListSyntax *specs_ = nullptr;
+  DeclaratorListSyntax *decltors_ = nullptr;
+  LexedTokens::IndexType semicolonTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST3(specs_, decltors_, semicolonTkIdx_)
 
-    mutable SymbolList<Symbol*>* syms_ = nullptr;
+  mutable SymbolList<Symbol *> *syms_ = nullptr;
 };
 
 /**
@@ -892,20 +866,20 @@ private:
  * - \c clang::ParmVarDecl of LLVM/Clang.
  * - \c Microsoft.CodeAnalysis.CSharp.Syntax.ParameterSyntax of Roslyn.
  */
-class PSY_C_API ParameterDeclarationSyntax final : public DeclaratorDeclarationSyntax
-{
-    AST_NODE_1K(ParameterDeclaration, DeclaratorDeclaration)
+class PSY_C_API ParameterDeclarationSyntax final
+    : public DeclaratorDeclarationSyntax {
+  AST_NODE_1K(ParameterDeclaration, DeclaratorDeclaration)
 
 public:
-    const SpecifierListSyntax* specifiers() const { return specs_; }
-    const DeclaratorSyntax* declarator() const { return decltor_; }
+  const SpecifierListSyntax *specifiers() const { return specs_; }
+  const DeclaratorSyntax *declarator() const { return decltor_; }
 
 private:
-    SpecifierListSyntax* specs_ = nullptr;
-    DeclaratorSyntax* decltor_ = nullptr;
-    AST_CHILD_LST2(specs_, decltor_)
+  SpecifierListSyntax *specs_ = nullptr;
+  DeclaratorSyntax *decltor_ = nullptr;
+  AST_CHILD_LST2(specs_, decltor_)
 
-    mutable ParameterSymbol* sym_ = nullptr;
+  mutable ParameterSymbol *sym_ = nullptr;
 };
 
 /**
@@ -913,34 +887,34 @@ private:
  *
  * \remark 6.7.10
  */
-class PSY_C_API StaticAssertDeclarationSyntax final : public DeclarationSyntax
-{
-    AST_NODE_1K(StaticAssertDeclaration, Declaration)
+class PSY_C_API StaticAssertDeclarationSyntax final : public DeclarationSyntax {
+  AST_NODE_1K(StaticAssertDeclaration, Declaration)
 
 public:
-    SyntaxToken staticAssertKeyword() const { return tokenAtIndex(staticAssertKwTkIdx_); }
-    SyntaxToken openParenthesisToken() const { return tokenAtIndex(openParenTkIdx_); }
-    const ExpressionSyntax* expression() const { return expr_; }
-    SyntaxToken commaToken() const { return tokenAtIndex(commaTkIdx_); }
-    const ExpressionSyntax* stringLiteral() const { return strLit_; }
-    SyntaxToken closeParenthesisToken() const { return tokenAtIndex(closeParenTkIdx_); }
-    SyntaxToken semicolonToken() const { return tokenAtIndex(semicolonTkIdx_); }
+  SyntaxToken staticAssertKeyword() const {
+    return tokenAtIndex(staticAssertKwTkIdx_);
+  }
+  SyntaxToken openParenthesisToken() const {
+    return tokenAtIndex(openParenTkIdx_);
+  }
+  const ExpressionSyntax *expression() const { return expr_; }
+  SyntaxToken commaToken() const { return tokenAtIndex(commaTkIdx_); }
+  const ExpressionSyntax *stringLiteral() const { return strLit_; }
+  SyntaxToken closeParenthesisToken() const {
+    return tokenAtIndex(closeParenTkIdx_);
+  }
+  SyntaxToken semicolonToken() const { return tokenAtIndex(semicolonTkIdx_); }
 
 private:
-    LexedTokens::IndexType staticAssertKwTkIdx_ = LexedTokens::invalidIndex();
-    LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
-    ExpressionSyntax* expr_ = nullptr;
-    LexedTokens::IndexType commaTkIdx_ = LexedTokens::invalidIndex();
-    ExpressionSyntax* strLit_ = nullptr;
-    LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
-    LexedTokens::IndexType semicolonTkIdx_ = LexedTokens::invalidIndex();
-    AST_CHILD_LST7(staticAssertKwTkIdx_,
-                   openParenTkIdx_,
-                   expr_,
-                   commaTkIdx_,
-                   strLit_,
-                   closeParenTkIdx_,
-                   semicolonTkIdx_);
+  LexedTokens::IndexType staticAssertKwTkIdx_ = LexedTokens::invalidIndex();
+  LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
+  ExpressionSyntax *expr_ = nullptr;
+  LexedTokens::IndexType commaTkIdx_ = LexedTokens::invalidIndex();
+  ExpressionSyntax *strLit_ = nullptr;
+  LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
+  LexedTokens::IndexType semicolonTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST7(staticAssertKwTkIdx_, openParenTkIdx_, expr_, commaTkIdx_,
+                 strLit_, closeParenTkIdx_, semicolonTkIdx_);
 };
 
 /**
@@ -950,24 +924,25 @@ private:
  *
  * \remark 6.9.1
  */
-class PSY_C_API FunctionDefinitionSyntax final : public DeclarationSyntax
-{
-    AST_NODE_1K(FunctionDefinition, Declaration)
+class PSY_C_API FunctionDefinitionSyntax final : public DeclarationSyntax {
+  AST_NODE_1K(FunctionDefinition, Declaration)
 
 public:
-    const SpecifierListSyntax* specifiers() const { return specs_; }
-    const DeclaratorSyntax* declarator() const { return decltor_; }
-    const ExtKR_ParameterDeclarationListSyntax* extKR_params() const { return extKR_params_; }
-    const StatementSyntax* body() const { return body_; }
+  const SpecifierListSyntax *specifiers() const { return specs_; }
+  const DeclaratorSyntax *declarator() const { return decltor_; }
+  const ExtKR_ParameterDeclarationListSyntax *extKR_params() const {
+    return extKR_params_;
+  }
+  const StatementSyntax *body() const { return body_; }
 
 private:
-    SpecifierListSyntax* specs_ = nullptr;
-    DeclaratorSyntax* decltor_ = nullptr;
-    ExtKR_ParameterDeclarationListSyntax* extKR_params_ = nullptr;
-    StatementSyntax* body_ = nullptr;
-    AST_CHILD_LST4(specs_, decltor_, extKR_params_, body_);
+  SpecifierListSyntax *specs_ = nullptr;
+  DeclaratorSyntax *decltor_ = nullptr;
+  ExtKR_ParameterDeclarationListSyntax *extKR_params_ = nullptr;
+  StatementSyntax *body_ = nullptr;
+  AST_CHILD_LST4(specs_, decltor_, extKR_params_, body_);
 
-    mutable FunctionSymbol* sym_;
+  mutable FunctionSymbol *sym_;
 };
 
 /**
@@ -983,22 +958,26 @@ private:
  * \note Similar to:
  * - \c clang::FileScopeAsmDecl of LLVM/Clang.
  */
-class PSY_C_API ExtGNU_AsmStatementDeclarationSyntax final : public DeclarationSyntax
-{
-    AST_NODE_1K(ExtGNU_AsmStatementDeclaration, Declaration)
+class PSY_C_API ExtGNU_AsmStatementDeclarationSyntax final
+    : public DeclarationSyntax {
+  AST_NODE_1K(ExtGNU_AsmStatementDeclaration, Declaration)
 
 public:
-    SyntaxToken asmKeyword() const { return tokenAtIndex(asmTkIdx_); }
-    SyntaxToken openParenthesisToken() const { return tokenAtIndex(openParenTkIdx_); }
-    const SyntaxNode* stringLiteral() const { return strLit_; }
-    SyntaxToken closeParenthesisToken() const { return tokenAtIndex(closeParenTkIdx_); }
+  SyntaxToken asmKeyword() const { return tokenAtIndex(asmTkIdx_); }
+  SyntaxToken openParenthesisToken() const {
+    return tokenAtIndex(openParenTkIdx_);
+  }
+  const SyntaxNode *stringLiteral() const { return strLit_; }
+  SyntaxToken closeParenthesisToken() const {
+    return tokenAtIndex(closeParenTkIdx_);
+  }
 
 private:
-    LexedTokens::IndexType asmTkIdx_ = LexedTokens::invalidIndex();
-    LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
-    ExpressionSyntax* strLit_ = nullptr;
-    LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
-    AST_CHILD_LST4(asmTkIdx_, openParenTkIdx_, strLit_, closeParenTkIdx_);
+  LexedTokens::IndexType asmTkIdx_ = LexedTokens::invalidIndex();
+  LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
+  ExpressionSyntax *strLit_ = nullptr;
+  LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST4(asmTkIdx_, openParenTkIdx_, strLit_, closeParenTkIdx_);
 };
 
 /**
@@ -1006,18 +985,18 @@ private:
  *
  * A Psyche-C \c _Template extension \a declaration.
  */
-class PSY_C_API ExtPSY_TemplateDeclarationSyntax final : public DeclarationSyntax
-{
-    AST_NODE_1K(ExtPSY_TemplateDeclaration, Declaration)
+class PSY_C_API ExtPSY_TemplateDeclarationSyntax final
+    : public DeclarationSyntax {
+  AST_NODE_1K(ExtPSY_TemplateDeclaration, Declaration)
 
 public:
-    SyntaxToken templateToken() const { return tokenAtIndex(templateTkIdx_); }
-    const DeclarationSyntax* declaration() const { return decl_; }
+  SyntaxToken templateToken() const { return tokenAtIndex(templateTkIdx_); }
+  const DeclarationSyntax *declaration() const { return decl_; }
 
 private:
-    LexedTokens::IndexType templateTkIdx_ = LexedTokens::invalidIndex();
-    DeclarationSyntax* decl_ = nullptr;
-    AST_CHILD_LST2(templateTkIdx_, decl_)
+  LexedTokens::IndexType templateTkIdx_ = LexedTokens::invalidIndex();
+  DeclarationSyntax *decl_ = nullptr;
+  AST_CHILD_LST2(templateTkIdx_, decl_)
 };
 
 /**
@@ -1035,33 +1014,32 @@ private:
  * }
  * \endcode
  */
-class PSY_C_API ExtKR_ParameterDeclarationSyntax final : public DeclaratorDeclarationSyntax
-{
-    AST_NODE_1K(ExtKR_ParameterDeclaration, DeclaratorDeclaration)
+class PSY_C_API ExtKR_ParameterDeclarationSyntax final
+    : public DeclaratorDeclarationSyntax {
+  AST_NODE_1K(ExtKR_ParameterDeclaration, DeclaratorDeclaration)
 
 public:
-    const SpecifierListSyntax* specifiers() const { return specs_; }
-    const DeclaratorListSyntax* declarators() const { return decltors_; }
-    SyntaxToken semicolonToken() const { return tokenAtIndex(semicolonTkIdx_); }
+  const SpecifierListSyntax *specifiers() const { return specs_; }
+  const DeclaratorListSyntax *declarators() const { return decltors_; }
+  SyntaxToken semicolonToken() const { return tokenAtIndex(semicolonTkIdx_); }
 
 private:
-    SpecifierListSyntax* specs_ = nullptr;
-    DeclaratorListSyntax* decltors_ = nullptr;
-    LexedTokens::IndexType semicolonTkIdx_ = LexedTokens::invalidIndex();
-    AST_CHILD_LST3(specs_, decltors_, semicolonTkIdx_)
+  SpecifierListSyntax *specs_ = nullptr;
+  DeclaratorListSyntax *decltors_ = nullptr;
+  LexedTokens::IndexType semicolonTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST3(specs_, decltors_, semicolonTkIdx_)
 };
 
 /* Initializers */
-class PSY_C_API ExpressionInitializerSyntax final : public InitializerSyntax
-{
-    AST_NODE_1K(ExpressionInitializer, Initializer)
+class PSY_C_API ExpressionInitializerSyntax final : public InitializerSyntax {
+  AST_NODE_1K(ExpressionInitializer, Initializer)
 
 public:
-    const ExpressionSyntax* expression() const { return expr_; }
+  const ExpressionSyntax *expression() const { return expr_; }
 
 private:
-    ExpressionSyntax* expr_ = nullptr;
-    AST_CHILD_LST1(expr_);
+  ExpressionSyntax *expr_ = nullptr;
+  AST_CHILD_LST1(expr_);
 };
 
 /**
@@ -1076,20 +1054,19 @@ private:
  * \note Similar to:
  * - \c clang::InitListExpr of LLMV/Clang.
  */
-class BraceEnclosedInitializerSyntax final : public InitializerSyntax
-{
-    AST_NODE_1K(BraceEnclosedInitializer, Initializer)
+class BraceEnclosedInitializerSyntax final : public InitializerSyntax {
+  AST_NODE_1K(BraceEnclosedInitializer, Initializer)
 
 public:
-    SyntaxToken openBraceToken() const { return tokenAtIndex(openBraceTkIdx_); }
-    const InitializerListSyntax* initializerList() const { return initList_; }
-    SyntaxToken closeBraceToken() const { return tokenAtIndex(closeBraceTkIdx_); }
+  SyntaxToken openBraceToken() const { return tokenAtIndex(openBraceTkIdx_); }
+  const InitializerListSyntax *initializerList() const { return initList_; }
+  SyntaxToken closeBraceToken() const { return tokenAtIndex(closeBraceTkIdx_); }
 
 private:
-    LexedTokens::IndexType openBraceTkIdx_ = LexedTokens::invalidIndex();
-    InitializerListSyntax* initList_ = nullptr;
-    LexedTokens::IndexType closeBraceTkIdx_ = LexedTokens::invalidIndex();
-    AST_CHILD_LST3(openBraceTkIdx_, initList_, closeBraceTkIdx_)
+  LexedTokens::IndexType openBraceTkIdx_ = LexedTokens::invalidIndex();
+  InitializerListSyntax *initList_ = nullptr;
+  LexedTokens::IndexType closeBraceTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST3(openBraceTkIdx_, initList_, closeBraceTkIdx_)
 };
 
 /**
@@ -1104,24 +1081,22 @@ private:
  *
  * \note Similar to:
  * - \c clang::DesignatedInitExpr of LLMV/Clang.
- * - \c Microsoft.CodeAnalysis.CSharp.Syntax.InitializerExpressionSyntax of Roslyn.
+ * - \c Microsoft.CodeAnalysis.CSharp.Syntax.InitializerExpressionSyntax of
+ * Roslyn.
  */
-class DesignatedInitializerSyntax final : public InitializerSyntax
-{
-    AST_NODE_1K(DesignatedInitializer, Initializer)
+class DesignatedInitializerSyntax final : public InitializerSyntax {
+  AST_NODE_1K(DesignatedInitializer, Initializer)
 
 public:
-    const DesignatorListSyntax* designators() const { return desigs_; }
-    SyntaxToken equalsToken() const { return tokenAtIndex(equalsTkIdx_); }
-    const InitializerSyntax* initializer() const { return init_; }
+  const DesignatorListSyntax *designators() const { return desigs_; }
+  SyntaxToken equalsToken() const { return tokenAtIndex(equalsTkIdx_); }
+  const InitializerSyntax *initializer() const { return init_; }
 
 private:
-    DesignatorListSyntax* desigs_ = nullptr;
-    LexedTokens::IndexType equalsTkIdx_ = LexedTokens::invalidIndex();
-    InitializerSyntax* init_ = nullptr;
-    AST_CHILD_LST3(desigs_,
-                   equalsTkIdx_,
-                   init_);
+  DesignatorListSyntax *desigs_ = nullptr;
+  LexedTokens::IndexType equalsTkIdx_ = LexedTokens::invalidIndex();
+  InitializerSyntax *init_ = nullptr;
+  AST_CHILD_LST3(desigs_, equalsTkIdx_, init_);
 };
 
 /**
@@ -1132,9 +1107,8 @@ private:
  * \note Similar to:
  * - \c clang::DesignatedInitExpr::Designator of LLMV/Clang.
  */
-class DesignatorSyntax : public SyntaxNode
-{
-    AST_G_NODE(Designator)
+class DesignatorSyntax : public SyntaxNode {
+  AST_G_NODE(Designator)
 };
 
 /**
@@ -1148,19 +1122,17 @@ class DesignatorSyntax : public SyntaxNode
  * \note Similar to:
  * - \c clang::DesignatedInitExpr::FieldDesignator of LLMV/Clang.
  */
-class FieldDesignatorSyntax final : public DesignatorSyntax
-{
-    AST_NODE_1K(FieldDesignator, Designator)
+class FieldDesignatorSyntax final : public DesignatorSyntax {
+  AST_NODE_1K(FieldDesignator, Designator)
 
 public:
-    SyntaxToken dotToken() const { return tokenAtIndex(dotTkIdx_); }
-    SyntaxToken identifierToken() const { return tokenAtIndex(identTkIdx_); }
+  SyntaxToken dotToken() const { return tokenAtIndex(dotTkIdx_); }
+  SyntaxToken identifierToken() const { return tokenAtIndex(identTkIdx_); }
 
 private:
-    LexedTokens::IndexType dotTkIdx_ = LexedTokens::invalidIndex();
-    LexedTokens::IndexType identTkIdx_ = LexedTokens::invalidIndex();
-    AST_CHILD_LST2(dotTkIdx_,
-                   identTkIdx_);
+  LexedTokens::IndexType dotTkIdx_ = LexedTokens::invalidIndex();
+  LexedTokens::IndexType identTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST2(dotTkIdx_, identTkIdx_);
 };
 
 /**
@@ -1175,45 +1147,44 @@ private:
  * \note Similar to:
  * - \c clang::DesignatedInitExpr::ArrayOrRangeDesignator of LLMV/Clang.
  */
-class ArrayDesignatorSyntax final : public DesignatorSyntax
-{
-    AST_NODE_1K(ArrayDesignator, Designator)
+class ArrayDesignatorSyntax final : public DesignatorSyntax {
+  AST_NODE_1K(ArrayDesignator, Designator)
 
 public:
-    SyntaxToken openBracketToken() const { return tokenAtIndex(openBracketTkIdx_); }
-    const ExpressionSyntax* expression() const { return expr_; }
-    SyntaxToken closeBracketToken() const { return tokenAtIndex(closeBracketTkIdx_); }
+  SyntaxToken openBracketToken() const {
+    return tokenAtIndex(openBracketTkIdx_);
+  }
+  const ExpressionSyntax *expression() const { return expr_; }
+  SyntaxToken closeBracketToken() const {
+    return tokenAtIndex(closeBracketTkIdx_);
+  }
 
 public:
-    LexedTokens::IndexType openBracketTkIdx_ = LexedTokens::invalidIndex();
-    ExpressionSyntax* expr_ = nullptr;
-    LexedTokens::IndexType closeBracketTkIdx_ = LexedTokens::invalidIndex();
-    AST_CHILD_LST3(openBracketTkIdx_,
-                   expr_,
-                   closeBracketTkIdx_);
+  LexedTokens::IndexType openBracketTkIdx_ = LexedTokens::invalidIndex();
+  ExpressionSyntax *expr_ = nullptr;
+  LexedTokens::IndexType closeBracketTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST3(openBracketTkIdx_, expr_, closeBracketTkIdx_);
 };
 
 /**
  * \brief The OffsetOfDesignatorSyntax class.
  *
  */
-class OffsetOfDesignatorSyntax final : public DesignatorSyntax
-{
-    AST_NODE_1K(OffsetOfDesignator, Designator)
+class OffsetOfDesignatorSyntax final : public DesignatorSyntax {
+  AST_NODE_1K(OffsetOfDesignator, Designator)
 
 public:
-    SyntaxToken identifierToken() const { return tokenAtIndex(identTkIdx_); }
-    const DesignatorListSyntax* designators() const { return desigs_; }
+  SyntaxToken identifierToken() const { return tokenAtIndex(identTkIdx_); }
+  const DesignatorListSyntax *designators() const { return desigs_; }
 
 private:
-    LexedTokens::IndexType identTkIdx_ = LexedTokens::invalidIndex();
-    DesignatorListSyntax* desigs_ = nullptr;
+  LexedTokens::IndexType identTkIdx_ = LexedTokens::invalidIndex();
+  DesignatorListSyntax *desigs_ = nullptr;
 
-    AST_CHILD_LST2(identTkIdx_, desigs_)
+  AST_CHILD_LST2(identTkIdx_, desigs_)
 };
 
-
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

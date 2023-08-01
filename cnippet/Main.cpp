@@ -24,16 +24,12 @@
 
 using namespace cnip;
 
-int main(int argc, char* argv[])
-{
-    try
-    {
-        Driver driver;
-        return driver.execute(argc, argv);
-    }
-    catch (...)
-    {
-        std::cerr << "unhandled exception" << std::endl;
-        return 1;
-    }
+int main(int argc, char *argv[]) {
+  try {
+    Driver driver;
+    return driver.execute(argc, argv);
+  } catch (...) {
+    std::cerr << "unhandled exception" << std::endl;
+    return 1;
+  }
 }

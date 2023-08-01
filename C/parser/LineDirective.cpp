@@ -24,25 +24,12 @@
 using namespace psy;
 using namespace C;
 
-LineDirective::LineDirective(unsigned int lineno,
-                             const std::string& fileName,
+LineDirective::LineDirective(unsigned int lineno, const std::string &fileName,
                              unsigned int offset)
-    : lineno_(lineno)
-    , fileName_(fileName)
-    , offset_(offset)
-{}
+    : lineno_(lineno), fileName_(fileName), offset_(offset) {}
 
-std::string LineDirective::fileName() const
-{
-    return fileName_;
-}
+std::string LineDirective::fileName() const { return fileName_; }
 
-unsigned int LineDirective::lineno() const
-{
-    return lineno_;
-}
+unsigned int LineDirective::lineno() const { return lineno_; }
 
-unsigned int LineDirective::offset() const
-{
-    return offset_;
-}
+unsigned int LineDirective::offset() const { return offset_; }

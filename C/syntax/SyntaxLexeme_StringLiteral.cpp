@@ -25,26 +25,22 @@ using namespace psy;
 using namespace C;
 
 StringLiteral::StringLiteral(const char *chars, unsigned int size)
-    : SyntaxLexeme(chars,
-                   size,
-                   Kind::StringLiteral)
-{
-    checkVariousPrefixesAndSuffixes();
+    : SyntaxLexeme(chars, size, Kind::StringLiteral) {
+  checkVariousPrefixesAndSuffixes();
 }
 
-StringLiteral::Variant StringLiteral::variant() const
-{
-    if (BF_.L_)
-        return Variant::L_wchar_t;
+StringLiteral::Variant StringLiteral::variant() const {
+  if (BF_.L_)
+    return Variant::L_wchar_t;
 
-    if (BF_.u8_)
-        return Variant::u8_char;
+  if (BF_.u8_)
+    return Variant::u8_char;
 
-    if (BF_.u_)
-        return Variant::u_char16_t;
+  if (BF_.u_)
+    return Variant::u_char16_t;
 
-    if (BF_.U_)
-        return Variant::U_char32_t;
+  if (BF_.U_)
+    return Variant::U_char32_t;
 
-    return Variant::Plain_char;
+  return Variant::Plain_char;
 }

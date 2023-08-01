@@ -37,55 +37,52 @@ namespace C {
  * This API is inspired by that of \c Microsoft.CodeAnalysis.IMethodSymbol
  * from Roslyn, the .NET Compiler Platform.
  */
-class PSY_C_API FunctionSymbol final : public Symbol
-                                     , public TypeClass_NameableSymbol
-                                     , public TypeClass_TypeableSymbol
-{
+class PSY_C_API FunctionSymbol final : public Symbol,
+                                       public TypeClass_NameableSymbol,
+                                       public TypeClass_TypeableSymbol {
 public:
-    //!@{
-    /**
-     * Cast \c this Symbol as a FunctionSymbol.
-     */
-    virtual FunctionSymbol* asFunction() override { return this; }
-    virtual const FunctionSymbol* asFunction() const override { return this; }
-    //!@}
+  //!@{
+  /**
+   * Cast \c this Symbol as a FunctionSymbol.
+   */
+  virtual FunctionSymbol *asFunction() override { return this; }
+  virtual const FunctionSymbol *asFunction() const override { return this; }
+  //!@}
 
-    /**
-     * The SymbolName of \c this Symbol.
-     */
-    const SymbolName* name() const;
+  /**
+   * The SymbolName of \c this Symbol.
+   */
+  const SymbolName *name() const;
 
-    /**
-     * The type of \c this FunctionSymbol.
-     *
-     * \sa FunctionSymbol::returnType
-     */
-    const TypeSymbol* type() const;
+  /**
+   * The type of \c this FunctionSymbol.
+   *
+   * \sa FunctionSymbol::returnType
+   */
+  const TypeSymbol *type() const;
 
-    /**
-     * The return type of \c this FunctionSymbol.
-     *
-     * \sa FunctionSymbol::type
-     */
-    const TypeSymbol* returnType() const;
+  /**
+   * The return type of \c this FunctionSymbol.
+   *
+   * \sa FunctionSymbol::type
+   */
+  const TypeSymbol *returnType() const;
 
-PSY_INTERNAL_AND_RESTRICTED:
-    PSY_GRANT_ACCESS(Binder);
+  PSY_INTERNAL_AND_RESTRICTED : PSY_GRANT_ACCESS(Binder);
 
-    FunctionSymbol(const SyntaxTree* tree,
-                   const Scope* scope,
-                   const Symbol* containingSym);
+  FunctionSymbol(const SyntaxTree *tree, const Scope *scope,
+                 const Symbol *containingSym);
 
-    virtual void setName(std::unique_ptr<SymbolName> symName) override;
-    virtual void setType(const TypeSymbol* tySym) override;
+  virtual void setName(std::unique_ptr<SymbolName> symName) override;
+  virtual void setType(const TypeSymbol *tySym) override;
 
 protected:
-    DECL_PIMPL_SUB(FunctionSymbol);
+  DECL_PIMPL_SUB(FunctionSymbol);
 };
 
-std::string PSY_C_API to_string(const FunctionSymbol& sym);
+std::string PSY_C_API to_string(const FunctionSymbol &sym);
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

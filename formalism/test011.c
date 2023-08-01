@@ -1,5 +1,4 @@
-T1 f()
-{
-    int x;
-    return x;
+T1 f() {
+  int x;
+  return x;
 }

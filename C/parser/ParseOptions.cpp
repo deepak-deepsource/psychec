@@ -25,60 +25,52 @@ using namespace psy;
 using namespace C;
 
 ParseOptions::ParseOptions()
-    : ParseOptions(LanguageDialect(),
-                   LanguageExtensions())
-{}
+    : ParseOptions(LanguageDialect(), LanguageExtensions()) {}
 
 ParseOptions::ParseOptions(LanguageDialect dialect,
                            LanguageExtensions extensions)
-    : dialect_(std::move(dialect))
-    , extensions_(std::move(extensions))
-    , bits_(0)
-{
-    setTreatmentOfIdentifiers(TreatmentOfIdentifiers::Classify);
-    setTreatmentOfComments(TreatmentOfComments::None);
-    setTreatmentOfAmbiguities(TreatmentOfAmbiguities::DisambiguateAlgorithmicallyOrHeuristically);
+    : dialect_(std::move(dialect)), extensions_(std::move(extensions)),
+      bits_(0) {
+  setTreatmentOfIdentifiers(TreatmentOfIdentifiers::Classify);
+  setTreatmentOfComments(TreatmentOfComments::None);
+  setTreatmentOfAmbiguities(
+      TreatmentOfAmbiguities::DisambiguateAlgorithmicallyOrHeuristically);
 }
 
-const LanguageDialect& ParseOptions::dialect() const
-{
-    return dialect_;
+const LanguageDialect &ParseOptions::dialect() const { return dialect_; }
+
+const LanguageExtensions &ParseOptions::extensions() const {
+  return extensions_;
 }
 
-const LanguageExtensions& ParseOptions::extensions() const
-{
-    return extensions_;
+ParseOptions &
+ParseOptions::setTreatmentOfIdentifiers(TreatmentOfIdentifiers treatOfIdent) {
+  BF_.treatmentOfIdentifiers_ = static_cast<int>(treatOfIdent);
+  return *this;
 }
 
-ParseOptions& ParseOptions::setTreatmentOfIdentifiers(TreatmentOfIdentifiers treatOfIdent)
-{
-    BF_.treatmentOfIdentifiers_ = static_cast<int>(treatOfIdent);
-    return *this;
+ParseOptions::TreatmentOfIdentifiers
+ParseOptions::treatmentOfIdentifiers() const {
+  return static_cast<TreatmentOfIdentifiers>(BF_.treatmentOfIdentifiers_);
 }
 
-ParseOptions::TreatmentOfIdentifiers ParseOptions::treatmentOfIdentifiers() const
-{
-    return static_cast<TreatmentOfIdentifiers>(BF_.treatmentOfIdentifiers_);
+ParseOptions &
+ParseOptions::setTreatmentOfComments(TreatmentOfComments treatOfComments) {
+  BF_.treatmentOfComments_ = static_cast<int>(treatOfComments);
+  return *this;
 }
 
-ParseOptions& ParseOptions::setTreatmentOfComments(TreatmentOfComments treatOfComments)
-{
-    BF_.treatmentOfComments_ = static_cast<int>(treatOfComments);
-    return *this;
+ParseOptions::TreatmentOfComments ParseOptions::treatmentOfComments() const {
+  return static_cast<TreatmentOfComments>(BF_.treatmentOfComments_);
 }
 
-ParseOptions::TreatmentOfComments ParseOptions::treatmentOfComments() const
-{
-    return static_cast<TreatmentOfComments>(BF_.treatmentOfComments_);
+ParseOptions &
+ParseOptions::setTreatmentOfAmbiguities(TreatmentOfAmbiguities treatOfAmbigs) {
+  BF_.treatmentOfAmbiguities_ = static_cast<int>(treatOfAmbigs);
+  return *this;
 }
 
-ParseOptions &ParseOptions::setTreatmentOfAmbiguities(TreatmentOfAmbiguities treatOfAmbigs)
-{
-    BF_.treatmentOfAmbiguities_ = static_cast<int>(treatOfAmbigs);
-    return *this;
-}
-
-ParseOptions::TreatmentOfAmbiguities ParseOptions::treatmentOfAmbiguities() const
-{
-    return static_cast<TreatmentOfAmbiguities>(BF_.treatmentOfAmbiguities_);
+ParseOptions::TreatmentOfAmbiguities
+ParseOptions::treatmentOfAmbiguities() const {
+  return static_cast<TreatmentOfAmbiguities>(BF_.treatmentOfAmbiguities_);
 }

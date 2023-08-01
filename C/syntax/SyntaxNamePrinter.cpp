@@ -33,113 +33,108 @@ namespace {
 
 int CUR_LEVEL;
 
-std::string formatSnippet(std::string& snippet)
-{
-    std::replace_if(snippet.begin(), snippet.end(),
-                 [] (char c) { return c == '\n' || c == '\t'; },
-                 ' ');
+std::string formatSnippet(std::string &snippet) {
+  std::replace_if(
+      snippet.begin(), snippet.end(),
+      [](char c) { return c == '\n' || c == '\t'; }, ' ');
 
-    while (true) {
-        auto pos = snippet.find("  ");
-        if (pos == std::string::npos)
+  while (true) {
+    auto pos = snippet.find("  ");
+    if (pos == std::string::npos)
+      break;
+    snippet = snippet.replace(pos, 2, " ");
+  }
+
+  static const auto MAX_LEN = 30;
+  if (snippet.length() > MAX_LEN) {
+    snippet = snippet.substr(0, MAX_LEN);
+    snippet += "...";
+  }
+
+  return snippet;
+}
+
+} // namespace
+
+void SyntaxNamePrinter::print(const SyntaxNode *node, Style style) {
+  print(node, style, std::cout);
+}
+
+void SyntaxNamePrinter::print(const SyntaxNode *node, Style style,
+                              std::ostream &os) {
+  CUR_LEVEL = 0;
+
+  nonterminal(node);
+
+  auto source = node->syntaxTree()->text().rawText();
+
+  os << std::endl;
+  for (auto i = 0U; i < dump_.size(); ++i) {
+    auto node = std::get<0>(dump_[i]);
+    auto nodeLevel = std::get<1>(dump_[i]);
+
+    if (style == Style::Plain) {
+      os << std::string(nodeLevel * 4, ' ');
+      os << to_string(node->kind()) << std::endl;
+      continue;
+    }
+
+    auto levelCnt = 0;
+    while (nodeLevel > levelCnt) {
+      if (nodeLevel == levelCnt + 1) {
+        os << '|';
+        os << std::string(2, '-');
+      } else {
+        int nextLevelBelow;
+        for (auto j = i + 1; j < dump_.size(); ++j) {
+          nextLevelBelow = std::get<1>(dump_[j]);
+          if (nextLevelBelow <= levelCnt + 1)
             break;
-        snippet = snippet.replace(pos, 2, " ");
+        }
+        if (nextLevelBelow == levelCnt + 1)
+          os << '|';
+        else
+          os << ' ';
+        os << std::string(2, ' ');
+      }
+      ++levelCnt;
     }
 
-    static const auto MAX_LEN = 30;
-    if (snippet.length() > MAX_LEN) {
-        snippet = snippet.substr(0, MAX_LEN);
-        snippet += "...";
+    os << to_string(node->kind()) << " ";
+
+    if (node->kind() == TranslationUnit) {
+      os << std::endl;
+      continue;
     }
 
-    return snippet;
-}
+    os << " <";
+    auto firstTk = node->firstToken();
+    auto lastTk = node->lastToken();
+    if (firstTk.isValid())
+      os << firstTk.location().lineSpan().span().start();
+    os << "..";
+    if (lastTk.isValid())
+      os << lastTk.location().lineSpan().span().end();
+    os << "> ";
 
-} // anonymous
-
-void SyntaxNamePrinter::print(const SyntaxNode* node, Style style)
-{
-    print(node, style, std::cout);
-}
-
-void SyntaxNamePrinter::print(const SyntaxNode* node, Style style, std::ostream& os)
-{
-    CUR_LEVEL = 0;
-
-    nonterminal(node);
-
-    auto source = node->syntaxTree()->text().rawText();
+    if (firstTk.isValid() && lastTk.isValid()) {
+      auto firstTkStart = source.c_str() + firstTk.span().start();
+      auto lastTkEnd = source.c_str() + lastTk.span().end();
+      std::string snippet(firstTkStart, lastTkEnd - firstTkStart);
+      os << " `" << formatSnippet(snippet) << "`";
+    }
 
     os << std::endl;
-    for (auto i = 0U; i < dump_.size(); ++i) {
-        auto node = std::get<0>(dump_[i]);
-        auto nodeLevel = std::get<1>(dump_[i]);
-
-        if (style == Style::Plain) {
-            os << std::string(nodeLevel * 4, ' ');
-            os << to_string(node->kind()) << std::endl;
-            continue;
-        }
-
-        auto levelCnt = 0;
-        while (nodeLevel > levelCnt) {
-            if (nodeLevel == levelCnt + 1) {
-                os << '|';
-                os << std::string(2, '-');
-            }
-            else {
-                int nextLevelBelow;
-                for (auto j = i + 1; j < dump_.size(); ++j) {
-                    nextLevelBelow = std::get<1>(dump_[j]);
-                    if (nextLevelBelow <= levelCnt + 1)
-                        break;
-                }
-                if (nextLevelBelow == levelCnt + 1)
-                    os << '|';
-                else
-                    os << ' ';
-                os << std::string(2, ' ');
-            }
-            ++levelCnt;
-        }
-
-        os << to_string(node->kind()) << " ";
-
-        if (node->kind() == TranslationUnit) {
-            os << std::endl;
-            continue;
-        }
-
-        os << " <";
-        auto firstTk = node->firstToken();
-        auto lastTk = node->lastToken();
-        if (firstTk.isValid())
-            os << firstTk.location().lineSpan().span().start();
-        os << "..";
-        if (lastTk.isValid())
-            os << lastTk.location().lineSpan().span().end();
-        os << "> ";
-
-        if (firstTk.isValid() && lastTk.isValid()) {
-            auto firstTkStart = source.c_str() + firstTk.span().start();
-            auto lastTkEnd = source.c_str() + lastTk.span().end();
-            std::string snippet(firstTkStart, lastTkEnd - firstTkStart);
-            os << " `" << formatSnippet(snippet) << "`";
-        }
-
-        os << std::endl;
-    }
+  }
 }
 
-void SyntaxNamePrinter::nonterminal(const SyntaxNode* node)
-{
-    if (!node)
-        return;
+void SyntaxNamePrinter::nonterminal(const SyntaxNode *node) {
+  if (!node)
+    return;
 
-    dump_.push_back(std::make_tuple(node, CUR_LEVEL));
+  dump_.push_back(std::make_tuple(node, CUR_LEVEL));
 
-    ++CUR_LEVEL;
-    visit(node);
-    --CUR_LEVEL;
+  ++CUR_LEVEL;
+  visit(node);
+  --CUR_LEVEL;
 }
-
