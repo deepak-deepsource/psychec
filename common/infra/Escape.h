@@ -23,13 +23,12 @@
 
 #include <iostream>
 
-#define PSY_ESCAPE(STMT) \
-do { \
-    std::cout << "[ESCAPE] at " \
-              << __FILE__ << ":" << __LINE__ << " " \
-              << std::endl; \
-    STMT; \
-} while (0)
+#define PSY_ESCAPE(STMT)                                                       \
+  do {                                                                         \
+    std::cout << "[ESCAPE] at " << __FILE__ << ":" << __LINE__ << " "          \
+              << std::endl;                                                    \
+    STMT;                                                                      \
+  } while (0)
 
 #define PSY_ESCAPE_VIA_RETURN(EXPR) PSY_ESCAPE(return EXPR)
 #define PSY_ESCAPE_VIA_BREAK PSY_ESCAPE(break)

@@ -39,98 +39,95 @@ namespace C {
  *
  * Options to the lexer are also specified through this class.
  */
-class PSY_C_API ParseOptions
-{
+class PSY_C_API ParseOptions {
 public:
-    //!@{
-    /**
-     * Create ParseOptions.
-     */
-    ParseOptions();
-    ParseOptions(LanguageDialect dialect,
-                 LanguageExtensions extensions);
-    //!@}
+  //!@{
+  /**
+   * Create ParseOptions.
+   */
+  ParseOptions();
+  ParseOptions(LanguageDialect dialect, LanguageExtensions extensions);
+  //!@}
 
-    /**
-     * The LanguageDialect of \c this ParseOptions.
-     */
-    const LanguageDialect& dialect() const;
+  /**
+   * The LanguageDialect of \c this ParseOptions.
+   */
+  const LanguageDialect &dialect() const;
 
-    /**
-     * The LanguageExtensions of \c this ParseOptions.
-     */
-    const LanguageExtensions& extensions() const;
+  /**
+   * The LanguageExtensions of \c this ParseOptions.
+   */
+  const LanguageExtensions &extensions() const;
 
-    //!@{
-    /**
-     * \brief The alternatives for TreatmentOfIdentifiers during parse.
-     */
-    enum class TreatmentOfIdentifiers : std::uint8_t
-    {
-        None,    /**< No special treatment. */
-        Classify /**< Classify into keywords and non-keywords ("plain identifiers"). */
-    };
-    /**
-     * The TreatmentOfIdentifiers of \c this ParserOptions.
-     */
-    ParseOptions& setTreatmentOfIdentifiers(TreatmentOfIdentifiers treatOfIdent);
-    TreatmentOfIdentifiers treatmentOfIdentifiers() const;
-    //!@}
+  //!@{
+  /**
+   * \brief The alternatives for TreatmentOfIdentifiers during parse.
+   */
+  enum class TreatmentOfIdentifiers : std::uint8_t {
+    None,    /**< No special treatment. */
+    Classify /**< Classify into keywords and non-keywords ("plain identifiers").
+              */
+  };
+  /**
+   * The TreatmentOfIdentifiers of \c this ParserOptions.
+   */
+  ParseOptions &setTreatmentOfIdentifiers(TreatmentOfIdentifiers treatOfIdent);
+  TreatmentOfIdentifiers treatmentOfIdentifiers() const;
+  //!@}
 
-    //!@{
-    /**
-     * \brief The alternatives for TreatmentOfComments during parse.
-     */
-    enum class TreatmentOfComments : std::uint8_t
-    {
-        None,                 /**< No special treatment. */
-        Keep,                 /**< Keep comments. */
-        KeepDocumentationOnly /**< Keep documentation comments only. */
-    };
-    /**
-     * The TreatmentOfComments of \c this ParserOptions.
-     */
-    ParseOptions& setTreatmentOfComments(TreatmentOfComments treatOfComments);
-    TreatmentOfComments treatmentOfComments() const;
-    //!@}
+  //!@{
+  /**
+   * \brief The alternatives for TreatmentOfComments during parse.
+   */
+  enum class TreatmentOfComments : std::uint8_t {
+    None,                 /**< No special treatment. */
+    Keep,                 /**< Keep comments. */
+    KeepDocumentationOnly /**< Keep documentation comments only. */
+  };
+  /**
+   * The TreatmentOfComments of \c this ParserOptions.
+   */
+  ParseOptions &setTreatmentOfComments(TreatmentOfComments treatOfComments);
+  TreatmentOfComments treatmentOfComments() const;
+  //!@}
 
-    //!@{
-    /**
-     * * \brief The alternatives for TreatmentOfAmbiguities during parse.
-     */
-    enum class TreatmentOfAmbiguities : std::uint8_t
-    {
-        None,                                       /**< No special treatment (ambiguities are preserved). */
-        Diagnose,                                   /**< Diagnose ambiguities. */
-        DisambiguateAlgorithmically,                /**< Disambiguate ambiguities algorithmically. */
-        DisambiguateAlgorithmicallyOrHeuristically, /**< Disambiguate ambiguities algorithmically/heristically. */
-        DisambiguateHeuristically,                  /**< Disambiguate ambiguities heuristically. */
-    };
-    /**
-     * The TreatmentOfAmbiguities of \c this ParserOptions.
-     */
-    ParseOptions& setTreatmentOfAmbiguities(TreatmentOfAmbiguities treatOfAmbigs);
-    TreatmentOfAmbiguities treatmentOfAmbiguities() const;
-    //!@}
+  //!@{
+  /**
+   * * \brief The alternatives for TreatmentOfAmbiguities during parse.
+   */
+  enum class TreatmentOfAmbiguities : std::uint8_t {
+    None,     /**< No special treatment (ambiguities are preserved). */
+    Diagnose, /**< Diagnose ambiguities. */
+    DisambiguateAlgorithmically, /**< Disambiguate ambiguities algorithmically.
+                                  */
+    DisambiguateAlgorithmicallyOrHeuristically, /**< Disambiguate ambiguities
+                                                   algorithmically/heristically.
+                                                 */
+    DisambiguateHeuristically, /**< Disambiguate ambiguities heuristically. */
+  };
+  /**
+   * The TreatmentOfAmbiguities of \c this ParserOptions.
+   */
+  ParseOptions &setTreatmentOfAmbiguities(TreatmentOfAmbiguities treatOfAmbigs);
+  TreatmentOfAmbiguities treatmentOfAmbiguities() const;
+  //!@}
 
 private:
-    LanguageDialect dialect_;
-    LanguageExtensions extensions_;
+  LanguageDialect dialect_;
+  LanguageExtensions extensions_;
 
-    struct BitFields
-    {
-        std::uint16_t treatmentOfIdentifiers_ : 2;
-        std::uint16_t treatmentOfComments_ : 2;
-        std::uint16_t treatmentOfAmbiguities_ : 2;
-    };
-    union
-    {
-        BitFields BF_;
-        std::uint16_t bits_;
-    };
+  struct BitFields {
+    std::uint16_t treatmentOfIdentifiers_ : 2;
+    std::uint16_t treatmentOfComments_ : 2;
+    std::uint16_t treatmentOfAmbiguities_ : 2;
+  };
+  union {
+    BitFields BF_;
+    std::uint16_t bits_;
+  };
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

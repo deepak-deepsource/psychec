@@ -24,46 +24,28 @@ using namespace psy;
 using namespace C;
 
 SyntaxHolder::SyntaxHolder(LexedTokens::IndexType tkIdx)
-    : syntax_(tkIdx)
-    , variant_(Variant::Token)
-{}
+    : syntax_(tkIdx), variant_(Variant::Token) {}
 
-SyntaxHolder::SyntaxHolder(const SyntaxNode* node)
-    : syntax_(node)
-    , variant_(Variant::Node)
-{}
+SyntaxHolder::SyntaxHolder(const SyntaxNode *node)
+    : syntax_(node), variant_(Variant::Node) {}
 
-SyntaxHolder::SyntaxHolder(const SyntaxNodeList* nodeList)
-    : syntax_(nodeList)
-    , variant_(Variant::NodeList)
-{}
+SyntaxHolder::SyntaxHolder(const SyntaxNodeList *nodeList)
+    : syntax_(nodeList), variant_(Variant::NodeList) {}
 
-LexedTokens::IndexType SyntaxHolder::tokenIndex() const
-{
-    return std::get<LexedTokens::IndexType>(syntax_);
+LexedTokens::IndexType SyntaxHolder::tokenIndex() const {
+  return std::get<LexedTokens::IndexType>(syntax_);
 }
 
-const SyntaxNode* SyntaxHolder::node() const
-{
-    return std::get<const SyntaxNode*>(syntax_);
+const SyntaxNode *SyntaxHolder::node() const {
+  return std::get<const SyntaxNode *>(syntax_);
 }
 
-const SyntaxNodeList* SyntaxHolder::nodeList() const
-{
-    return std::get<const SyntaxNodeList*>(syntax_);
+const SyntaxNodeList *SyntaxHolder::nodeList() const {
+  return std::get<const SyntaxNodeList *>(syntax_);
 }
 
-bool SyntaxHolder::isToken() const
-{
-    return variant_ == Variant::Token;
-}
+bool SyntaxHolder::isToken() const { return variant_ == Variant::Token; }
 
-bool SyntaxHolder::isNode() const
-{
-    return variant_ == Variant::Node;
-}
+bool SyntaxHolder::isNode() const { return variant_ == Variant::Node; }
 
-bool SyntaxHolder::isNodeList() const
-{
-    return variant_ == Variant::NodeList;
-}
+bool SyntaxHolder::isNodeList() const { return variant_ == Variant::NodeList; }

@@ -27,103 +27,75 @@
 using namespace psy;
 using namespace C;
 
-struct NamedTypeSymbol::NamedTypeSymbolImpl : TypeSymbolImpl
-{
-    NamedTypeSymbolImpl(const SyntaxTree* tree,
-                        const Scope* scope,
-                        const Symbol* containingSym,
-                        NamedTypeKind namedTypeKind)
-        : TypeSymbolImpl(tree,
-                         scope,
-                         containingSym,
-                         TypeKind::Named)
-        , name_(nullptr)
-        , namedTypeKind_(namedTypeKind)
-    {}
+struct NamedTypeSymbol::NamedTypeSymbolImpl : TypeSymbolImpl {
+  NamedTypeSymbolImpl(const SyntaxTree *tree, const Scope *scope,
+                      const Symbol *containingSym, NamedTypeKind namedTypeKind)
+      : TypeSymbolImpl(tree, scope, containingSym, TypeKind::Named),
+        name_(nullptr), namedTypeKind_(namedTypeKind) {}
 
-    std::unique_ptr<SymbolName> name_;
-    NamedTypeKind namedTypeKind_;
-    BuiltinTypeKind builtTyKind_;
+  std::unique_ptr<SymbolName> name_;
+  NamedTypeKind namedTypeKind_;
+  BuiltinTypeKind builtTyKind_;
 };
 
-NamedTypeSymbol::NamedTypeSymbol(const SyntaxTree* tree,
-                                 const Scope* scope,
-                                 const Symbol* containingSym,
+NamedTypeSymbol::NamedTypeSymbol(const SyntaxTree *tree, const Scope *scope,
+                                 const Symbol *containingSym,
                                  BuiltinTypeKind builtTyKind)
-    : TypeSymbol(new NamedTypeSymbolImpl(tree,
-                                         scope,
-                                         containingSym,
-                                         NamedTypeKind::Builtin))
-{
-    patchBuiltinTypeKind(builtTyKind);
+    : TypeSymbol(new NamedTypeSymbolImpl(tree, scope, containingSym,
+                                         NamedTypeKind::Builtin)) {
+  patchBuiltinTypeKind(builtTyKind);
 }
 
-NamedTypeSymbol::NamedTypeSymbol(const SyntaxTree* tree,
-                                 const Scope* scope,
-                                 const Symbol* containingSym,
-                                 const std::string& name)
-    : TypeSymbol(new NamedTypeSymbolImpl(tree,
-                                         scope,
-                                         containingSym,
-                                         NamedTypeKind::Synonym))
-{
-    P_CAST->name_.reset(new PlainSymbolName(name));
+NamedTypeSymbol::NamedTypeSymbol(const SyntaxTree *tree, const Scope *scope,
+                                 const Symbol *containingSym,
+                                 const std::string &name)
+    : TypeSymbol(new NamedTypeSymbolImpl(tree, scope, containingSym,
+                                         NamedTypeKind::Synonym)) {
+  P_CAST->name_.reset(new PlainSymbolName(name));
 }
 
-NamedTypeSymbol::NamedTypeSymbol(const SyntaxTree* tree,
-                                 const Scope* scope,
-                                 const Symbol* containingSym,
+NamedTypeSymbol::NamedTypeSymbol(const SyntaxTree *tree, const Scope *scope,
+                                 const Symbol *containingSym,
                                  TagSymbolName::TagChoice tagChoice,
-                                 const std::string& tag)
+                                 const std::string &tag)
     : TypeSymbol(new NamedTypeSymbolImpl(
-                        tree,
-                        scope,
-                        containingSym,
-                        tagChoice == TagSymbolName::TagChoice::Struct
-                            ? NamedTypeKind::Structure
-                            : tagChoice == TagSymbolName::TagChoice::Union
-                                ? NamedTypeKind::Union
-                                : tagChoice == TagSymbolName::TagChoice::Enum
-                                    ? NamedTypeKind::Enumeration
-                                    : NamedTypeKind::UNSPECIFIED))
-{
-    P_CAST->name_.reset(new TagSymbolName(tagChoice, tag));
+          tree, scope, containingSym,
+          tagChoice == TagSymbolName::TagChoice::Struct
+              ? NamedTypeKind::Structure
+          : tagChoice == TagSymbolName::TagChoice::Union ? NamedTypeKind::Union
+          : tagChoice == TagSymbolName::TagChoice::Enum
+              ? NamedTypeKind::Enumeration
+              : NamedTypeKind::UNSPECIFIED)) {
+  P_CAST->name_.reset(new TagSymbolName(tagChoice, tag));
 }
 
-const SymbolName* NamedTypeSymbol::name() const
-{
-    return P_CAST->name_.get();
+const SymbolName *NamedTypeSymbol::name() const { return P_CAST->name_.get(); }
+
+NamedTypeKind NamedTypeSymbol::namedTypeKind() const {
+  return P_CAST->namedTypeKind_;
 }
 
-NamedTypeKind NamedTypeSymbol::namedTypeKind() const
-{
-    return P_CAST->namedTypeKind_;
+BuiltinTypeKind NamedTypeSymbol::builtinTypeKind() const {
+  return P_CAST->builtTyKind_;
 }
 
-BuiltinTypeKind NamedTypeSymbol::builtinTypeKind() const
-{
-    return P_CAST->builtTyKind_;
-}
-
-void NamedTypeSymbol::patchBuiltinTypeKind(BuiltinTypeKind builtTyKind)
-{
-    P_CAST->name_.reset(new PlainSymbolName(canonicalText(builtTyKind)));
-    P_CAST->builtTyKind_ = builtTyKind;
+void NamedTypeSymbol::patchBuiltinTypeKind(BuiltinTypeKind builtTyKind) {
+  P_CAST->name_.reset(new PlainSymbolName(canonicalText(builtTyKind)));
+  P_CAST->builtTyKind_ = builtTyKind;
 }
 
 namespace psy {
 namespace C {
 
-std::string to_string(const NamedTypeSymbol& tySym)
-{
-    std::ostringstream oss;
-    oss << "<$named-type |";
-    if (tySym.name())
-        oss << " " << to_string(*tySym.name());
-    oss << " $>";
+std::string to_string(const NamedTypeSymbol &tySym) {
+  std::ostringstream oss;
+  oss << "<$named-type |";
+  if (tySym.name())
+    oss << " " << to_string(*tySym.name());
+  oss << " $>";
 
-    return oss.str();
+  return oss.str();
 }
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy

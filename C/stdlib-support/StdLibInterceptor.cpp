@@ -23,18 +23,14 @@
 #include "syntax/SyntaxLexeme_ALL.h"
 #include "syntax/SyntaxNodes.h"
 
-#include <iostream>
 #include <cstring>
+#include <iostream>
 
 using namespace psy;
 using namespace C;
 
-bool StdLibInterceptor::intercept(DeclaratorDeclarationSyntax*)
-{
-    return false;
+bool StdLibInterceptor::intercept(DeclaratorDeclarationSyntax *) {
+  return false;
 }
 
-bool StdLibInterceptor::intercept(FunctionDefinitionSyntax*)
-{
-    return false;
-}
+bool StdLibInterceptor::intercept(FunctionDefinitionSyntax *) { return false; }

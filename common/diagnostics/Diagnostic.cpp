@@ -24,47 +24,40 @@
 
 using namespace psy;
 
-Diagnostic::Diagnostic(DiagnosticDescriptor descriptor,
-                       Location location,
+Diagnostic::Diagnostic(DiagnosticDescriptor descriptor, Location location,
                        std::string snippet)
-    : descriptor_(std::move(descriptor))
-    , location_(std::move(location))
-    , snippet_(std::move(snippet))
-    , outputIndent_(0)
-{}
+    : descriptor_(std::move(descriptor)), location_(std::move(location)),
+      snippet_(std::move(snippet)), outputIndent_(0) {}
 
-DiagnosticSeverity Diagnostic::severity() const
-{
-    // TODO: Implement "warning as error".
+DiagnosticSeverity Diagnostic::severity() const {
+  // TODO: Implement "warning as error".
 
-    return descriptor_.defaultSeverity();
+  return descriptor_.defaultSeverity();
 }
 
 namespace psy {
 
-std::ostream& operator<<(std::ostream& os, const Diagnostic& diagnostic)
-{
-    if (diagnostic.outputIndent_)
-        os << std::string(diagnostic.outputIndent_, '\t');
+std::ostream &operator<<(std::ostream &os, const Diagnostic &diagnostic) {
+  if (diagnostic.outputIndent_)
+    os << std::string(diagnostic.outputIndent_, '\t');
 
-    os << diagnostic.location().lineSpan().path() << ":"
-       << diagnostic.location().lineSpan().span().start() << " "
-       << diagnostic.severity() << ": "
-       << diagnostic.descriptor().description();
+  os << diagnostic.location().lineSpan().path() << ":"
+     << diagnostic.location().lineSpan().span().start() << " "
+     << diagnostic.severity() << ": " << diagnostic.descriptor().description();
 
-    if (!diagnostic.snippet().empty()) {
-        os << "\n";
+  if (!diagnostic.snippet().empty()) {
+    os << "\n";
 
-        auto s = diagnostic.snippet();
-        if (diagnostic.outputIndent_) {
-            std::string indent(diagnostic.outputIndent_, '\t');
-            os << indent;
-            s = std::regex_replace(s, std::regex("\n"), "\n" + indent);
-        }
-        os << s;
+    auto s = diagnostic.snippet();
+    if (diagnostic.outputIndent_) {
+      std::string indent(diagnostic.outputIndent_, '\t');
+      os << indent;
+      s = std::regex_replace(s, std::regex("\n"), "\n" + indent);
     }
+    os << s;
+  }
 
-    return os;
+  return os;
 }
 
-} // psy
+} // namespace psy

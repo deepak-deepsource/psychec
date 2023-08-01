@@ -25,17 +25,16 @@
 
 namespace psy {
 
-enum class DiagnosticCategory : char
-{
-    UNSPECIFIED = 0,
+enum class DiagnosticCategory : char {
+  UNSPECIFIED = 0,
 
-    Syntax,
-    Binding,
-    Typing,
+  Syntax,
+  Binding,
+  Typing,
 };
 
-std::ostream& operator<<(std::ostream& os, DiagnosticCategory category);
+std::ostream &operator<<(std::ostream &os, DiagnosticCategory category);
 
-} // psy
+} // namespace psy
 
 #endif

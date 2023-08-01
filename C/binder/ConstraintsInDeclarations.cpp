@@ -23,16 +23,15 @@
 using namespace psy;
 using namespace C;
 
-const std::string ConstraintsInDeclarations::ID_of_UselessDeclaration = "Binder-000";
+const std::string ConstraintsInDeclarations::ID_of_UselessDeclaration =
+    "Binder-000";
 
-void ConstraintsInDeclarations::UselessDeclaration(SyntaxToken tk,
-                                                   Binder::DiagnosticsReporter* diagReporter)
-{
-    diagReporter->diagnose(DiagnosticDescriptor(
-                               ID_of_UselessDeclaration,
-                               "[[useless declaration]]",
-                               "declaration does not declare anything",
-                               DiagnosticSeverity::Error,
-                               DiagnosticCategory::Binding),
-                           tk);
+void ConstraintsInDeclarations::UselessDeclaration(
+    SyntaxToken tk, Binder::DiagnosticsReporter *diagReporter) {
+  diagReporter->diagnose(
+      DiagnosticDescriptor(ID_of_UselessDeclaration, "[[useless declaration]]",
+                           "declaration does not declare anything",
+                           DiagnosticSeverity::Error,
+                           DiagnosticCategory::Binding),
+      tk);
 }

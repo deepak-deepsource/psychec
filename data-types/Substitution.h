@@ -25,54 +25,44 @@
 
 namespace psy {
 
-template <class T>
-class Substitution
-{
+template <class T> class Substitution {
 public:
-    Substitution()
-        : from_()
-        , to_()
-    {}
+  Substitution() : from_(), to_() {}
 
-    Substitution(const T& from, const T& to)
-        : from_(from)
-        , to_(to)
-    {}
+  Substitution(const T &from, const T &to) : from_(from), to_(to) {}
 
-    const T& from() const { return from_; }
-    const T& to() const { return to_; }
+  const T &from() const { return from_; }
+  const T &to() const { return to_; }
 
-    static Substitution<T> Trivial;
+  static Substitution<T> Trivial;
 
 private:
-    T from_;
-    T to_;
+  T from_;
+  T to_;
 };
 
 template <class SubT, class ContentT>
-ContentT applyAll(const Substitution<SubT>& sub, const ContentT& input);
+ContentT applyAll(const Substitution<SubT> &sub, const ContentT &input);
 
 template <class SeqT, class ContentT>
-ContentT applyAll(const SeqT& seq, const ContentT& input);
+ContentT applyAll(const SeqT &seq, const ContentT &input);
 
 template <class SubT, class ContentT>
-ContentT applyOnce(const Substitution<SubT>& sub, const ContentT& input);
+ContentT applyOnce(const Substitution<SubT> &sub, const ContentT &input);
 
 template <class SeqT, class ContentT>
-ContentT applyOnce(const SeqT& seq, const ContentT& input);
+ContentT applyOnce(const SeqT &seq, const ContentT &input);
 
 template <class T>
-bool operator==(const Substitution<T>& s1, const Substitution<T>& s2)
-{
-    return s1.from() == s2.from() && s1.to() == s2.to();
+bool operator==(const Substitution<T> &s1, const Substitution<T> &s2) {
+  return s1.from() == s2.from() && s1.to() == s2.to();
 }
 
 template <class T>
-bool operator!=(const Substitution<T>& s1, const Substitution<T>& s2)
-{
-    return !(s1 == s2);
+bool operator!=(const Substitution<T> &s1, const Substitution<T> &s2) {
+  return !(s1 == s2);
 }
 
-} // psy
+} // namespace psy
 
 #endif

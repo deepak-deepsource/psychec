@@ -25,34 +25,25 @@ using namespace C;
 
 const std::string ParserTester::Name = "PARSER";
 
-void ParserTester::testParser()
-{
-    return run<ParserTester>(tests_);
+void ParserTester::testParser() { return run<ParserTester>(tests_); }
+
+void ParserTester::parseDeclaration(std::string text, Expectation X) {
+  (static_cast<InternalsTestSuite *>(suite_)->parseDeclaration(text, X));
 }
 
-void ParserTester::parseDeclaration(std::string text, Expectation X)
-{
-    (static_cast<InternalsTestSuite*>(suite_)->parseDeclaration(text, X));
+void ParserTester::parseExpression(std::string text, Expectation X) {
+  (static_cast<InternalsTestSuite *>(suite_)->parseExpression(text, X));
 }
 
-void ParserTester::parseExpression(std::string text, Expectation X)
-{
-    (static_cast<InternalsTestSuite*>(suite_)->parseExpression(text, X));
+void ParserTester::parseStatement(std::string text, Expectation X) {
+  (static_cast<InternalsTestSuite *>(suite_)->parseStatement(text, X));
 }
 
-void ParserTester::parseStatement(std::string text, Expectation X)
-{
-    (static_cast<InternalsTestSuite*>(suite_)->parseStatement(text, X));
+void ParserTester::parse(std::string text, Expectation X,
+                         SyntaxTree::SyntaxCategory synCat) {
+  (static_cast<InternalsTestSuite *>(suite_)->parse(text, X, synCat));
 }
 
-void ParserTester::parse(std::string text, Expectation X, SyntaxTree::SyntaxCategory synCat)
-{
-    (static_cast<InternalsTestSuite*>(suite_)->parse(text, X, synCat));
-}
+void ParserTester::setUp() {}
 
-void ParserTester::setUp()
-{}
-
-void ParserTester::tearDown()
-{
-}
+void ParserTester::tearDown() {}

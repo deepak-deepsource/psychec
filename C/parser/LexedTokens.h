@@ -37,30 +37,28 @@ namespace C {
  *
  * The container of all tokens lexed by the Lexer.
  */
-class PSY_C_NON_API LexedTokens
-{
+class PSY_C_NON_API LexedTokens {
 public:
-    using SizeType = std::vector<SyntaxToken>::size_type;
-    using IndexType = SizeType;
+  using SizeType = std::vector<SyntaxToken>::size_type;
+  using IndexType = SizeType;
 
-    SyntaxToken& tokenAt(IndexType tkIdx);
-    SizeType count() const;
+  SyntaxToken &tokenAt(IndexType tkIdx);
+  SizeType count() const;
 
-    static IndexType invalidIndex();
+  static IndexType invalidIndex();
 
-PSY_INTERNAL_AND_RESTRICTED:
-    PSY_GRANT_ACCESS(SyntaxTree);
+  PSY_INTERNAL_AND_RESTRICTED : PSY_GRANT_ACCESS(SyntaxTree);
 
-    IndexType freeSlot() const;
-    void add(SyntaxToken tk);
+  IndexType freeSlot() const;
+  void add(SyntaxToken tk);
 
 private:
-    std::vector<SyntaxToken> tks_;
+  std::vector<SyntaxToken> tks_;
 
-    void clear();
+  void clear();
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

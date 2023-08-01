@@ -32,27 +32,22 @@
 namespace psy {
 namespace C {
 
-class PSY_C_API SyntaxNamePrinter final : public SyntaxDumper
-{
+class PSY_C_API SyntaxNamePrinter final : public SyntaxDumper {
 public:
-    using SyntaxDumper::SyntaxDumper;
+  using SyntaxDumper::SyntaxDumper;
 
-    enum class Style : char
-    {
-        Plain,
-        Decorated
-    };
+  enum class Style : char { Plain, Decorated };
 
-    void print(const SyntaxNode* node, Style style);
-    void print(const SyntaxNode* node, Style style, std::ostream& os);
+  void print(const SyntaxNode *node, Style style);
+  void print(const SyntaxNode *node, Style style, std::ostream &os);
 
 private:
-    virtual void nonterminal(const SyntaxNode* node) override;
+  virtual void nonterminal(const SyntaxNode *node) override;
 
-    std::vector<std::tuple<const SyntaxNode*, int>> dump_;
+  std::vector<std::tuple<const SyntaxNode *, int>> dump_;
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

@@ -28,30 +28,27 @@ using namespace psy;
 
 namespace {
 
-std::pair<int, std::string> executeCore(const char* cmd)
-{
-    FILE* pipe = popen(cmd, "r");
-    if (!pipe)
-        return std::make_pair(1, "");
+std::pair<int, std::string> executeCore(const char *cmd) {
+  FILE *pipe = popen(cmd, "r");
+  if (!pipe)
+    return std::make_pair(1, "");
 
-    std::string all;
-    while (!feof(pipe)) {
-        std::array<char, 512> buf;
-        if (fgets(buf.data(), 512, pipe))
-            all += buf.data();
-    }
+  std::string all;
+  while (!feof(pipe)) {
+    std::array<char, 512> buf;
+    if (fgets(buf.data(), 512, pipe))
+      all += buf.data();
+  }
 
-    return std::make_pair(pclose(pipe), all);
+  return std::make_pair(pclose(pipe), all);
 }
 
-} // anonymous
+} // namespace
 
-std::pair<int, std::string> Process::execute(std::string&& s)
-{
-    return executeCore(s.c_str());
+std::pair<int, std::string> Process::execute(std::string &&s) {
+  return executeCore(s.c_str());
 }
 
-std::pair<int, std::string> Process::execute(const std::string &s)
-{
-    return executeCore(s.c_str());
+std::pair<int, std::string> Process::execute(const std::string &s) {
+  return executeCore(s.c_str());
 }

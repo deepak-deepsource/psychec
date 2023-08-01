@@ -34,51 +34,50 @@ namespace psy {
  *
  * \see TextElementTable
  */
-class PSY_API TextElement
-{
+class PSY_API TextElement {
 public:
-    TextElement(const char* c_str, unsigned int size);
-    TextElement(const TextElement& other) = delete;
-    virtual ~TextElement();
-    void operator=(const TextElement& other) = delete;
+  TextElement(const char *c_str, unsigned int size);
+  TextElement(const TextElement &other) = delete;
+  virtual ~TextElement();
+  void operator=(const TextElement &other) = delete;
 
-    typedef const char* iterator;
-    typedef iterator const_iterator;
+  typedef const char *iterator;
+  typedef iterator const_iterator;
 
-    iterator begin() const { return chars_; }
-    iterator end() const { return chars_ + size_; }
+  iterator begin() const { return chars_; }
+  iterator end() const { return chars_ + size_; }
 
-    //!@{
-    /**
-     * The number of characters in the text.
-     */
-    unsigned int size() const { return size_; }
-    unsigned int length() const { return size_; }
-    //!@}
+  //!@{
+  /**
+   * The number of characters in the text.
+   */
+  unsigned int size() const { return size_; }
+  unsigned int length() const { return size_; }
+  //!@}
 
-    /**
-     * The character at the given index \c idx.
-     */
-    char at(unsigned int idx) const { return chars_[idx]; }
+  /**
+   * The character at the given index \c idx.
+   */
+  char at(unsigned int idx) const { return chars_[idx]; }
 
-    /**
-     * A null-terminated C-style string of the text.
-     */
-    const char* c_str() const { return chars_; }
+  /**
+   * A null-terminated C-style string of the text.
+   */
+  const char *c_str() const { return chars_; }
 
 private:
-    template <class> friend class TextElementTable;
-    friend bool operator==(const TextElement& a, const TextElement& b);
+  template <class> friend class TextElementTable;
+  friend bool operator==(const TextElement &a, const TextElement &b);
 
-    unsigned int size_;
-    char* chars_;
-    unsigned int hashCode_;
-    TextElement* next_;
+  unsigned int size_;
+  char *chars_;
+  unsigned int hashCode_;
+  TextElement *next_;
 
-    unsigned int hashCode() const { return hashCode_; }
-    static unsigned int hashCode(const char* c_str, unsigned int size);
+  unsigned int hashCode() const { return hashCode_; }
+  static unsigned int hashCode(const char *c_str, unsigned int size);
 };
 
-} // psy
+} // namespace psy
 
 #endif

@@ -37,28 +37,27 @@ namespace psy {
  * This API is inspired by that of \c Microsoft.CodeAnalysis.Location
  * from Roslyn, the .NET Compiler Platform.
  */
-class PSY_API Location
-{
+class PSY_API Location {
 public:
-    static Location create(std::string filePath, LinePositionSpan lineSpan);
-    static Location create(FileLinePositionSpan fileLineSpan);
+  static Location create(std::string filePath, LinePositionSpan lineSpan);
+  static Location create(FileLinePositionSpan fileLineSpan);
 
-    /**
-     * The file, line, and column of \c this Location.
-     */
-    const FileLinePositionSpan& lineSpan() const { return fileLineSpan_; }
+  /**
+   * The file, line, and column of \c this Location.
+   */
+  const FileLinePositionSpan &lineSpan() const { return fileLineSpan_; }
 
 private:
-    Location(std::string filePath, LinePositionSpan lineSpan);
-    Location(FileLinePositionSpan fileLineSpan);
+  Location(std::string filePath, LinePositionSpan lineSpan);
+  Location(FileLinePositionSpan fileLineSpan);
 
-    FileLinePositionSpan fileLineSpan_;
+  FileLinePositionSpan fileLineSpan_;
 };
 
-bool operator==(const Location& a, const Location& b);
+bool operator==(const Location &a, const Location &b);
 
-std::ostream& operator<<(std::ostream& os, const Location& loc);
+std::ostream &operator<<(std::ostream &os, const Location &loc);
 
-} // psy
+} // namespace psy
 
 #endif

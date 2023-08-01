@@ -21,93 +21,85 @@
 #include "Configuration_C.h"
 
 namespace {
-const char* const kCStd = "c-std";
-const char* const kHostCCompiler = "host-cc";
-const char* const kExpandCPPIncludeDirectives = "cpp-includes";
-const char* const kDefineCPPMacro = "cpp-D";
-const char* const KUndefineCPPMacro = "cpp-U";
-const char* const kAddDirToCPPSearchPath = "cpp-I";
-}
+const char *const kCStd = "c-std";
+const char *const kHostCCompiler = "host-cc";
+const char *const kExpandCPPIncludeDirectives = "cpp-includes";
+const char *const kDefineCPPMacro = "cpp-D";
+const char *const KUndefineCPPMacro = "cpp-U";
+const char *const kAddDirToCPPSearchPath = "cpp-I";
+} // namespace
 
 using namespace cnip;
 
-void ConfigurationForC::extend(cxxopts::Options& cmdLineOpts)
-{
-    cmdLineOpts.add_options()
-            // https://gcc.gnu.org/onlinedocs/gcc/C-Dialect-Options.html#C-Dialect-Options
-            (kCStd,
-                "Specify the C standard.",
-                cxxopts::value<std::string>()->default_value("c11"),
-                "<c89|c90|c99|c11|c17>")
+void ConfigurationForC::extend(cxxopts::Options &cmdLineOpts) {
+  cmdLineOpts.add_options()
+      // https://gcc.gnu.org/onlinedocs/gcc/C-Dialect-Options.html#C-Dialect-Options
+      (kCStd, "Specify the C standard.",
+       cxxopts::value<std::string>()->default_value("c11"),
+       "<c89|c90|c99|c11|c17>")
 
-            (kHostCCompiler,
-                "Specify a host C compiler.",
-                cxxopts::value<std::string>()->default_value("gcc"),
-                "<gcc|clang>")
+          (kHostCCompiler, "Specify a host C compiler.",
+           cxxopts::value<std::string>()->default_value("gcc"), "<gcc|clang>")
 
-            // https://gcc.gnu.org/onlinedocs/cpp/Include-Syntax.html
-            (kExpandCPPIncludeDirectives,
-                "Expand `#include' directives of the C preprocessor.",
-                cxxopts::value<bool>()->default_value("false"))
+      // https://gcc.gnu.org/onlinedocs/cpp/Include-Syntax.html
+      (kExpandCPPIncludeDirectives,
+       "Expand `#include' directives of the C preprocessor.",
+       cxxopts::value<bool>()->default_value("false"))
 
-            // https://gcc.gnu.org/onlinedocs/gcc/Directory-Options.html
-            (kAddDirToCPPSearchPath,
-                "Add a directory to the `#include' search path of the C preprocessor.",
-                cxxopts::value<std::vector<std::string>>(),
-                "path")
+      // https://gcc.gnu.org/onlinedocs/gcc/Directory-Options.html
+      (kAddDirToCPPSearchPath,
+       "Add a directory to the `#include' search path of the C preprocessor.",
+       cxxopts::value<std::vector<std::string>>(), "path")
 
-            // https://gcc.gnu.org/onlinedocs/gcc/Preprocessor-Options.html
-            (kDefineCPPMacro,
-                "Predefine a C preprocessor macro.",
-                cxxopts::value<std::vector<std::string>>(),
-                "<name|name=definition>")
-            (KUndefineCPPMacro,
-                "Undefine a C preprocessor macro.",
-                cxxopts::value<std::vector<std::string>>(),
-                "<name>")
+      // https://gcc.gnu.org/onlinedocs/gcc/Preprocessor-Options.html
+      (kDefineCPPMacro, "Predefine a C preprocessor macro.",
+       cxxopts::value<std::vector<std::string>>(), "<name|name=definition>")(
+          KUndefineCPPMacro, "Undefine a C preprocessor macro.",
+          cxxopts::value<std::vector<std::string>>(), "<name>")
 
-        /* Ambiguity */
-            ("C-ParseOptions-TreatmentOfAmbiguities",
-                "Treatment of ambiguities.",
-                cxxopts::value<std::string>()
-                    ->default_value("DisambiguateAlgorithmicallyOrHeuristically"),
-                "<None|Diagnose|DisambiguateAlgorithmically|DisambiguateAlgorithmicallyOrHeuristically|DisambiguateHeuristically>")
+      /* Ambiguity */
+      ("C-ParseOptions-TreatmentOfAmbiguities", "Treatment of ambiguities.",
+       cxxopts::value<std::string>()->default_value(
+           "DisambiguateAlgorithmicallyOrHeuristically"),
+       "<None|Diagnose|DisambiguateAlgorithmically|"
+       "DisambiguateAlgorithmicallyOrHeuristically|DisambiguateHeuristically>")
 
-        /* Type inference */
-            ("C-infer", "Infer the definition of missing types.")
-            ("o,output", "Specify output file",
-                cxxopts::value<std::string>()->default_value("a.cstr"))
-        ;
+      /* Type inference */
+      ("C-infer", "Infer the definition of missing types.")(
+          "o,output", "Specify output file",
+          cxxopts::value<std::string>()->default_value("a.cstr"));
 }
 
-ConfigurationForC::ConfigurationForC(const cxxopts::ParseResult& parsedCmdLine)
-    : Configuration(parsedCmdLine)
-{
-    auto cc_std = parsedCmdLine[kCStd].as<std::string>();
-    std::for_each(cc_std.begin(),
-                  cc_std.end(),
-                  [] (char& c) { c = ::tolower(c); });
-    if (cc_std == "c89" || cc_std == "c90")
-        langStd = LanguageDialect::Std::C89_90;
-    else if (cc_std == "c99")
-        langStd = LanguageDialect::Std::C99;
-    else if (cc_std == "c17" || cc_std == "c18")
-        langStd = LanguageDialect::Std::C17_18;
-    else
-        langStd = LanguageDialect::Std::C11;
+ConfigurationForC::ConfigurationForC(const cxxopts::ParseResult &parsedCmdLine)
+    : Configuration(parsedCmdLine) {
+  auto cc_std = parsedCmdLine[kCStd].as<std::string>();
+  std::for_each(cc_std.begin(), cc_std.end(),
+                [](char &c) { c = ::tolower(c); });
+  if (cc_std == "c89" || cc_std == "c90")
+    langStd = LanguageDialect::Std::C89_90;
+  else if (cc_std == "c99")
+    langStd = LanguageDialect::Std::C99;
+  else if (cc_std == "c17" || cc_std == "c18")
+    langStd = LanguageDialect::Std::C17_18;
+  else
+    langStd = LanguageDialect::Std::C11;
 
-    hostCompiler = parsedCmdLine[kHostCCompiler].as<std::string>();
+  hostCompiler = parsedCmdLine[kHostCCompiler].as<std::string>();
 
-    expandIncludes = parsedCmdLine[kExpandCPPIncludeDirectives].as<bool>();
-    if (parsedCmdLine.count(kDefineCPPMacro))
-        macrosToDefine = parsedCmdLine[kDefineCPPMacro].as<std::vector<std::string>>();
-    if (parsedCmdLine.count(KUndefineCPPMacro))
-        macrosToUndef = parsedCmdLine[KUndefineCPPMacro].as<std::vector<std::string>>();
+  expandIncludes = parsedCmdLine[kExpandCPPIncludeDirectives].as<bool>();
+  if (parsedCmdLine.count(kDefineCPPMacro))
+    macrosToDefine =
+        parsedCmdLine[kDefineCPPMacro].as<std::vector<std::string>>();
+  if (parsedCmdLine.count(KUndefineCPPMacro))
+    macrosToUndef =
+        parsedCmdLine[KUndefineCPPMacro].as<std::vector<std::string>>();
 
-    if (parsedCmdLine.count(kAddDirToCPPSearchPath))
-        headerSearchPaths = parsedCmdLine[kAddDirToCPPSearchPath].as<std::vector<std::string>>();
+  if (parsedCmdLine.count(kAddDirToCPPSearchPath))
+    headerSearchPaths =
+        parsedCmdLine[kAddDirToCPPSearchPath].as<std::vector<std::string>>();
 
-    ParseOptions_TreatmentOfAmbiguities = parsedCmdLine["C-ParseOptions-TreatmentOfAmbiguities"].as<std::string>();
+  ParseOptions_TreatmentOfAmbiguities =
+      parsedCmdLine["C-ParseOptions-TreatmentOfAmbiguities"].as<std::string>();
 
-    inferMissingTypes = parsedCmdLine.count("infer");
+  inferMissingTypes = parsedCmdLine.count("infer");
 }

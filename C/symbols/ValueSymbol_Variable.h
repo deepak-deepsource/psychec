@@ -33,28 +33,25 @@ namespace C {
  * This API is inspired by that of \c Microsoft.CodeAnalysis.ILocalSymbol
  * from Roslyn, the .NET Compiler Platform.
  */
-class PSY_C_API VariableSymbol final : public ValueSymbol
-{
+class PSY_C_API VariableSymbol final : public ValueSymbol {
 public:
-    //!@{
-    /**
-     * Cast \c this Symbol as a VariableSymbol.
-     */
-    virtual VariableSymbol* asVariable() override { return this; }
-    virtual const VariableSymbol* asVariable() const override { return this; }
-    //!@}
+  //!@{
+  /**
+   * Cast \c this Symbol as a VariableSymbol.
+   */
+  virtual VariableSymbol *asVariable() override { return this; }
+  virtual const VariableSymbol *asVariable() const override { return this; }
+  //!@}
 
-PSY_INTERNAL_AND_RESTRICTED:
-    PSY_GRANT_ACCESS(Binder);
+  PSY_INTERNAL_AND_RESTRICTED : PSY_GRANT_ACCESS(Binder);
 
-    VariableSymbol(const SyntaxTree* tree,
-                   const Scope* scope,
-                   const Symbol* containingSym);
+  VariableSymbol(const SyntaxTree *tree, const Scope *scope,
+                 const Symbol *containingSym);
 };
 
-std::string PSY_C_API to_string(const VariableSymbol& sym);
+std::string PSY_C_API to_string(const VariableSymbol &sym);
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

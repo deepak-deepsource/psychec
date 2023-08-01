@@ -36,33 +36,31 @@ namespace C {
 /**
  * \brief The ValueKind enum.
  */
-enum class PSY_C_API ValueKind : std::uint8_t
-{
-    UNSPECIFIED = 0,
+enum class PSY_C_API ValueKind : std::uint8_t {
+  UNSPECIFIED = 0,
 
-    Enumerator,
-    Field,
-    Parameter,
-    Variable
+  Enumerator,
+  Field,
+  Parameter,
+  Variable
 };
 
-inline std::string PSY_C_API to_string(ValueKind valK)
-{
-    switch (valK) {
-        case ValueKind::Enumerator:
-            return "Enumerator";
-        case ValueKind::Field:
-            return "Field";
-        case ValueKind::Parameter:
-            return "Parameter";
-        case ValueKind::Variable:
-            return "Variable";
-        default:
-            PSY_ESCAPE_VIA_RETURN("<INVALID or UNSPECIFIED ValueKind>");
-    }
+inline std::string PSY_C_API to_string(ValueKind valK) {
+  switch (valK) {
+  case ValueKind::Enumerator:
+    return "Enumerator";
+  case ValueKind::Field:
+    return "Field";
+  case ValueKind::Parameter:
+    return "Parameter";
+  case ValueKind::Variable:
+    return "Variable";
+  default:
+    PSY_ESCAPE_VIA_RETURN("<INVALID or UNSPECIFIED ValueKind>");
+  }
 }
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

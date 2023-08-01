@@ -1,8 +1,7 @@
-int k()
-{
-    const int x;
-    T y;
-    x = y;
+int k() {
+  const int x;
+  T y;
+  x = y;
 
-    return 23;
+  return 23;
 }

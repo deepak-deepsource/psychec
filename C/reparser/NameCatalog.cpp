@@ -30,97 +30,84 @@ using namespace C;
 
 #include <algorithm>
 
-NameCatalog::~NameCatalog()
-{}
+NameCatalog::~NameCatalog() {}
 
-void NameCatalog::createLevelAndEnter(const SyntaxNode* node)
-{
-    PSY_ASSERT(node, return);
-    PSY_ASSERT(!levelExists(node), return);
+void NameCatalog::createLevelAndEnter(const SyntaxNode *node) {
+  PSY_ASSERT(node, return);
+  PSY_ASSERT(!levelExists(node), return);
 
-    TypeNames types;
-    Names nonTypes;
-    if (!levelKeys_.empty()) {
-        auto levelIt = levels_.find(levelKeys_.top());
-        PSY_ASSERT(levelIt != levels_.end(), return);
+  TypeNames types;
+  Names nonTypes;
+  if (!levelKeys_.empty()) {
+    auto levelIt = levels_.find(levelKeys_.top());
+    PSY_ASSERT(levelIt != levels_.end(), return);
 
-        types = levelIt->second.first;
-        nonTypes = levelIt->second.second;
-    }
+    types = levelIt->second.first;
+    nonTypes = levelIt->second.second;
+  }
 
-    levels_.insert(std::make_pair(node, std::make_pair(types, nonTypes)));
+  levels_.insert(std::make_pair(node, std::make_pair(types, nonTypes)));
 
-    enterLevel(node);
+  enterLevel(node);
 }
 
-void NameCatalog::enterLevel(const SyntaxNode* node)
-{
-    PSY_ASSERT(node, return);
-    PSY_ASSERT(levelExists(node), return);
+void NameCatalog::enterLevel(const SyntaxNode *node) {
+  PSY_ASSERT(node, return);
+  PSY_ASSERT(levelExists(node), return);
 
-    levelKeys_.push(node);
+  levelKeys_.push(node);
 }
 
-void NameCatalog::exitLevel()
-{
-    levelKeys_.pop();
+void NameCatalog::exitLevel() { levelKeys_.pop(); }
+
+void NameCatalog::catalogTypeName(std::string s) {
+  auto level = currentLevel();
+  level->first.insert(std::move(s));
 }
 
-void NameCatalog::catalogTypeName(std::string s)
-{
-    auto level = currentLevel();
-    level->first.insert(std::move(s));
+void NameCatalog::catalogName(std::string s) {
+  auto level = currentLevel();
+  level->second.insert(std::move(s));
 }
 
-void NameCatalog::catalogName(std::string s)
-{
-    auto level = currentLevel();
-    level->second.insert(std::move(s));
+bool NameCatalog::containsTypeName(const std::string &s) const {
+  auto level = currentLevel();
+  return level->first.find(s) != level->first.end();
 }
 
-bool NameCatalog::containsTypeName(const std::string& s) const
-{
-    auto level = currentLevel();
-    return level->first.find(s) != level->first.end();
+bool NameCatalog::containsName(const std::string &s) const {
+  auto level = currentLevel();
+  return level->second.find(s) != level->first.end();
 }
 
-bool NameCatalog::containsName(const std::string &s) const
-{
-    auto level = currentLevel();
-    return level->second.find(s) != level->first.end();
+bool NameCatalog::levelExists(const SyntaxNode *node) const {
+  return levels_.count(node) != 0;
 }
 
-bool NameCatalog::levelExists(const SyntaxNode* node) const
-{
-    return levels_.count(node) != 0;
-}
+NameCatalog::NameIndex *NameCatalog::currentLevel() const {
+  PSY_ASSERT(!levelKeys_.empty(), return nullptr);
+  PSY_ASSERT(levelExists(levelKeys_.top()), return nullptr);
 
-NameCatalog::NameIndex* NameCatalog::currentLevel() const
-{
-    PSY_ASSERT(!levelKeys_.empty(), return nullptr);
-    PSY_ASSERT(levelExists(levelKeys_.top()), return nullptr);
-
-    return &levels_[levelKeys_.top()];
+  return &levels_[levelKeys_.top()];
 }
 
 namespace psy {
 namespace C {
 
-std::ostream& operator<<(std::ostream& os, const NameCatalog& disambigCatalog)
-{
-    for (const auto& p : disambigCatalog.levels_) {
-        os << to_string(p.first->kind()) << std::endl;
-        os << "\tTypes: ";
-        for (const auto& t : p.second.first)
-            os << t << " ";
-        std::cout << std::endl;
-        os << "\tAny: ";
-        for (const auto& v : p.second.second)
-            os << v << " ";
-        os << std::endl;
-    }
-    return os;
+std::ostream &operator<<(std::ostream &os, const NameCatalog &disambigCatalog) {
+  for (const auto &p : disambigCatalog.levels_) {
+    os << to_string(p.first->kind()) << std::endl;
+    os << "\tTypes: ";
+    for (const auto &t : p.second.first)
+      os << t << " ";
+    std::cout << std::endl;
+    os << "\tAny: ";
+    for (const auto &v : p.second.second)
+      os << v << " ";
+    os << std::endl;
+  }
+  return os;
 }
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy

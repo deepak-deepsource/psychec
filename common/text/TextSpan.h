@@ -35,39 +35,36 @@ namespace psy {
  *
  * \attention
  * The memory under which a piece of text is stored is unknown to this class;
- * it is reponsibility of the user to employ this abstraction in consistent manner.
+ * it is reponsibility of the user to employ this abstraction in consistent
+ * manner.
  *
  * \note
  * This API is inspired by that of \c Microsoft.CodeAnalysis.Text.TextSpan
  * from Roslyn, the .NET Compiler Platform.
  */
-class PSY_API TextSpan
-{
+class PSY_API TextSpan {
 public:
-    TextSpan(unsigned int start, unsigned int  end)
-        : start_(start)
-        , end_(end)
-    {}
+  TextSpan(unsigned int start, unsigned int end) : start_(start), end_(end) {}
 
-    /**
-     * The start of \c this span.
-     */
-    unsigned int start() const { return start_; }
+  /**
+   * The start of \c this span.
+   */
+  unsigned int start() const { return start_; }
 
-    /**
-     * The end of \c this span.
-     */
-    unsigned int end() const { return end_; }
+  /**
+   * The end of \c this span.
+   */
+  unsigned int end() const { return end_; }
 
 private:
-    unsigned int start_;
-    unsigned int end_;
+  unsigned int start_;
+  unsigned int end_;
 };
 
-bool operator==(const TextSpan& a, const TextSpan& b);
+bool operator==(const TextSpan &a, const TextSpan &b);
 
-std::ostream& operator<<(std::ostream& os, const TextSpan& span);
+std::ostream &operator<<(std::ostream &os, const TextSpan &span);
 
-} // psy
+} // namespace psy
 
 #endif

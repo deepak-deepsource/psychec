@@ -23,32 +23,22 @@
 using namespace psy;
 using namespace C;
 
-std::string PlainSymbolName::text() const
-{
-    return s_;
-}
+std::string PlainSymbolName::text() const { return s_; }
 
-PlainSymbolName::PlainSymbolName(std::string s)
-    : s_(std::move(s))
-{}
+PlainSymbolName::PlainSymbolName(std::string s) : s_(std::move(s)) {}
 
 namespace psy {
 namespace C {
 
-std::string to_string(const PlainSymbolName& name)
-{
-    return name.s_;
+std::string to_string(const PlainSymbolName &name) { return name.s_; }
+
+bool operator==(const PlainSymbolName &a, const PlainSymbolName &b) {
+  return a.s_ == b.s_;
 }
 
-bool operator==(const PlainSymbolName& a, const PlainSymbolName& b)
-{
-    return a.s_ == b.s_;
+bool operator!=(const PlainSymbolName &a, const PlainSymbolName &b) {
+  return !(a == b);
 }
 
-bool operator!=(const PlainSymbolName& a, const PlainSymbolName& b)
-{
-    return !(a == b);
-}
-
-} // C
-} // psy
+} // namespace C
+} // namespace psy

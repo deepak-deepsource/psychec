@@ -1,6 +1,5 @@
-T f()
-{
-    T abc;
-    abc = 2;
-    return abc;
+T f() {
+  T abc;
+  abc = 2;
+  return abc;
 }

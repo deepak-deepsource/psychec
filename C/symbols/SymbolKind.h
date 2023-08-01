@@ -39,33 +39,31 @@ namespace C {
  * This API is inspired by that of \c Microsoft.CodeAnalysis.SymbolKind
  * from Roslyn, the .NET Compiler Platform.
  */
-enum class PSY_C_API SymbolKind : std::uint8_t
-{
-    UNSPECIFIED = 0,
+enum class PSY_C_API SymbolKind : std::uint8_t {
+  UNSPECIFIED = 0,
 
-    Library,
-    Function,
-    Value,
-    Type,
+  Library,
+  Function,
+  Value,
+  Type,
 };
 
-inline std::string PSY_C_API to_string(SymbolKind kind)
-{
-    switch (kind) {
-        case SymbolKind::Library:
-            return "Library";
-        case SymbolKind::Function:
-            return "Function";
-        case SymbolKind::Value:
-            return "Value";
-        case SymbolKind::Type:
-            return "Type";
-        default:
-            PSY_ESCAPE_VIA_RETURN("<INVALID or UNSPECIFIED SymbolKind>");
-    }
+inline std::string PSY_C_API to_string(SymbolKind kind) {
+  switch (kind) {
+  case SymbolKind::Library:
+    return "Library";
+  case SymbolKind::Function:
+    return "Function";
+  case SymbolKind::Value:
+    return "Value";
+  case SymbolKind::Type:
+    return "Type";
+  default:
+    PSY_ESCAPE_VIA_RETURN("<INVALID or UNSPECIFIED SymbolKind>");
+  }
 }
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

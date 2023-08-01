@@ -37,204 +37,177 @@ namespace C {
  *
  * The base class of every constant.
  */
-class PSY_C_API Constant : public SyntaxLexeme
-{
+class PSY_C_API Constant : public SyntaxLexeme {
 protected:
-    Constant(const char* chars,
-             unsigned int size,
-             Kind kind);
+  Constant(const char *chars, unsigned int size, Kind kind);
 };
 
 /**
  * \brief The IntegerConstant class.
  */
-class PSY_C_API IntegerConstant final : public Constant
-{
+class PSY_C_API IntegerConstant final : public Constant {
 public:
-    //!@{
-    /**
-     * Cast \c this SyntaxLexeme as an IntegerConstant.
-     */
-    virtual IntegerConstant* asIntegerConstant() override { return this; }
-    //!@}
+  //!@{
+  /**
+   * Cast \c this SyntaxLexeme as an IntegerConstant.
+   */
+  virtual IntegerConstant *asIntegerConstant() override { return this; }
+  //!@}
 
-    /**
-     * \brief The IntegerConstant::Signedness enumeration.
-     */
-    enum class Signedness : std::uint8_t
-    {
-        Signed,
-        Unsigned,
-    };
+  /**
+   * \brief The IntegerConstant::Signedness enumeration.
+   */
+  enum class Signedness : std::uint8_t {
+    Signed,
+    Unsigned,
+  };
 
-    /**
-     * The Signedness of \c this IntegerConstant.
-     */
-    Signedness signedness() const;
+  /**
+   * The Signedness of \c this IntegerConstant.
+   */
+  Signedness signedness() const;
 
-    /**
-     * \brief The IntegerConstant::Variant enumeration.
-     */
-    enum class Variant : std::uint8_t
-    {
-        Int,
-        Long,
-        LongLong
-    };
+  /**
+   * \brief The IntegerConstant::Variant enumeration.
+   */
+  enum class Variant : std::uint8_t { Int, Long, LongLong };
 
-    /**
-     * The Variant of \c this IntegerConstant.
-     */
-    Variant variant() const;
+  /**
+   * The Variant of \c this IntegerConstant.
+   */
+  Variant variant() const;
 
-    // TODO: Make internal.
-    IntegerConstant(const char* chars, unsigned int size);
+  // TODO: Make internal.
+  IntegerConstant(const char *chars, unsigned int size);
 };
 
 /**
  * \brief The FloatingConstant class.
  */
-class PSY_C_API FloatingConstant final : public Constant
-{
+class PSY_C_API FloatingConstant final : public Constant {
 public:
-    //!@{
-    /**
-     * Cast \c this SyntaxLexeme as a FloatingConstant.
-     */
-    virtual FloatingConstant* asFloatingConstant() override { return this; }
-    //!@}
+  //!@{
+  /**
+   * Cast \c this SyntaxLexeme as a FloatingConstant.
+   */
+  virtual FloatingConstant *asFloatingConstant() override { return this; }
+  //!@}
 
-    /**
-     * \brief The FloatingConstant::Variant enumeration.
-     */
-    enum class Variant : std::uint8_t
-    {
-        Float,
-        Double,
-        LongDouble
-    };
+  /**
+   * \brief The FloatingConstant::Variant enumeration.
+   */
+  enum class Variant : std::uint8_t { Float, Double, LongDouble };
 
-    /**
-     * The Variant of \c this FloatingConstant.
-     */
-    Variant variant() const;
+  /**
+   * The Variant of \c this FloatingConstant.
+   */
+  Variant variant() const;
 
-    // TODO: Make internal.
-    FloatingConstant(const char* chars, unsigned int size);
+  // TODO: Make internal.
+  FloatingConstant(const char *chars, unsigned int size);
 };
 
 /**
  * \brief The CharacterConstant class.
  */
-class PSY_C_API CharacterConstant final : public Constant
-{
+class PSY_C_API CharacterConstant final : public Constant {
 public:
-    //!@{
-    /**
-     * Cast \c this SyntaxLexeme as a CharacterConstant.
-     */
-    virtual CharacterConstant* asCharacterConstant() override { return this; }
-    //!@}
+  //!@{
+  /**
+   * Cast \c this SyntaxLexeme as a CharacterConstant.
+   */
+  virtual CharacterConstant *asCharacterConstant() override { return this; }
+  //!@}
 
-    /**
-     * \brief The CharacterConstant::Variant enumeration.
-     */
-    enum class Variant : std::uint8_t
-    {
-        Plain_u_char,
-        L_wchar_t,
-        u_char16_t,
-        U_char32_t
-    };
+  /**
+   * \brief The CharacterConstant::Variant enumeration.
+   */
+  enum class Variant : std::uint8_t {
+    Plain_u_char,
+    L_wchar_t,
+    u_char16_t,
+    U_char32_t
+  };
 
-    /**
-     * The Variant of \c this CharacterConstant.
-     */
-    Variant variant() const;
+  /**
+   * The Variant of \c this CharacterConstant.
+   */
+  Variant variant() const;
 
-    // TODO: Make internal.
-    CharacterConstant(const char* chars, unsigned int size);
+  // TODO: Make internal.
+  CharacterConstant(const char *chars, unsigned int size);
 };
 
 /**
  * \brief The ImaginaryIntegerConstant class.
  */
-class PSY_C_API ImaginaryIntegerConstant final : public Constant
-{
+class PSY_C_API ImaginaryIntegerConstant final : public Constant {
 public:
-    //!@{
-    /**
-     * Cast \c this SyntaxLexeme as an ImaginaryIntegerConstant.
-     */
-    virtual ImaginaryIntegerConstant* asImaginaryIntegerConstant() override { return this; }
-    //!@}
+  //!@{
+  /**
+   * Cast \c this SyntaxLexeme as an ImaginaryIntegerConstant.
+   */
+  virtual ImaginaryIntegerConstant *asImaginaryIntegerConstant() override {
+    return this;
+  }
+  //!@}
 
-    /**
-     * \brief The ImaginaryIntegerConstant::Signedness enumeration.
-     */
-    enum class Signedness : std::uint8_t
-    {
-        Signed,
-        Unsigned,
-    };
+  /**
+   * \brief The ImaginaryIntegerConstant::Signedness enumeration.
+   */
+  enum class Signedness : std::uint8_t {
+    Signed,
+    Unsigned,
+  };
 
-    /**
-     * The Signedness of \c this ImaginaryIntegerConstant.
-     */
-    Signedness signedness() const;
+  /**
+   * The Signedness of \c this ImaginaryIntegerConstant.
+   */
+  Signedness signedness() const;
 
-    /**
-     * \brief The ImaginaryIntegerConstant::Variant enumeration.
-     */
-    enum class Variant : std::uint8_t
-    {
-        Int,
-        Long,
-        LongLong
-    };
+  /**
+   * \brief The ImaginaryIntegerConstant::Variant enumeration.
+   */
+  enum class Variant : std::uint8_t { Int, Long, LongLong };
 
-    /**
-     * The Variant of \c this ImaginaryIntegerConstant.
-     */
-    Variant variant() const;
+  /**
+   * The Variant of \c this ImaginaryIntegerConstant.
+   */
+  Variant variant() const;
 
-    // TODO: Make internal.
-    ImaginaryIntegerConstant(const char* chars, unsigned int size);
+  // TODO: Make internal.
+  ImaginaryIntegerConstant(const char *chars, unsigned int size);
 };
 
 /**
  * \brief The ImaginaryFloatingConstant class.
  */
-class PSY_C_API ImaginaryFloatingConstant final : public Constant
-{
+class PSY_C_API ImaginaryFloatingConstant final : public Constant {
 public:
-    //!@{
-    /**
-     * Cast \c this SyntaxLexemeas an ImaginaryFloatingConstant.
-     */
-    virtual ImaginaryFloatingConstant* asImaginaryFloatingConstant() override { return this; }
-    //!@}
+  //!@{
+  /**
+   * Cast \c this SyntaxLexemeas an ImaginaryFloatingConstant.
+   */
+  virtual ImaginaryFloatingConstant *asImaginaryFloatingConstant() override {
+    return this;
+  }
+  //!@}
 
-    /**
-     * \brief The ImaginaryFloatingConstant::Variant enumeration.
-     */
-    enum class Variant : std::uint8_t
-    {
-        Float,
-        Double,
-        LongDouble
-    };
+  /**
+   * \brief The ImaginaryFloatingConstant::Variant enumeration.
+   */
+  enum class Variant : std::uint8_t { Float, Double, LongDouble };
 
-    /**
-     * The Variant of \c this ImaginaryFloatingConstant.
-     */
-    Variant variant() const;
+  /**
+   * The Variant of \c this ImaginaryFloatingConstant.
+   */
+  Variant variant() const;
 
-    // TODO: Make internal.
-    ImaginaryFloatingConstant(const char* chars, unsigned int size);
+  // TODO: Make internal.
+  ImaginaryFloatingConstant(const char *chars, unsigned int size);
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

@@ -28,29 +28,23 @@
 using namespace psy;
 using namespace C;
 
-VariableSymbol::VariableSymbol(const SyntaxTree* tree,
-                               const Scope* scope,
-                               const Symbol* containingSym)
-    : ValueSymbol(tree,
-                  scope,
-                  containingSym,
-                  ValueKind::Variable)
-{}
+VariableSymbol::VariableSymbol(const SyntaxTree *tree, const Scope *scope,
+                               const Symbol *containingSym)
+    : ValueSymbol(tree, scope, containingSym, ValueKind::Variable) {}
 
 namespace psy {
 namespace C {
 
-std::string to_string(const VariableSymbol& sym)
-{
-    std::ostringstream oss;
-    oss << "{`variable |";
-    oss << " " << (sym.name() ? to_string(*sym.name()) : "name:NULL");
-    oss << " " << (sym.type() ? to_string(*sym.type()) : "type:NULL");
-    oss << " " << (sym.scope() ? to_string(sym.scope()->kind()) : "scope:NULL");
-    oss << " `}";
+std::string to_string(const VariableSymbol &sym) {
+  std::ostringstream oss;
+  oss << "{`variable |";
+  oss << " " << (sym.name() ? to_string(*sym.name()) : "name:NULL");
+  oss << " " << (sym.type() ? to_string(*sym.type()) : "type:NULL");
+  oss << " " << (sym.scope() ? to_string(sym.scope()->kind()) : "scope:NULL");
+  oss << " `}";
 
-    return oss.str();
+  return oss.str();
 }
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy

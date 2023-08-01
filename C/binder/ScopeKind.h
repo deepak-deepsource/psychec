@@ -37,33 +37,31 @@ namespace C {
  *
  * \remark 6.2.1-4
  */
-enum class PSY_C_API ScopeKind : uint8_t
-{
-    UNSPECIFIED = 0,
+enum class PSY_C_API ScopeKind : uint8_t {
+  UNSPECIFIED = 0,
 
-    File,
-    Function,
-    FunctionPrototype,
-    Block
+  File,
+  Function,
+  FunctionPrototype,
+  Block
 };
 
-inline std::string PSY_C_API to_string(ScopeKind scopeK)
-{
-    switch (scopeK) {
-        case ScopeKind::File:
-            return "File";
-        case ScopeKind::Function:
-            return "Function";
-        case ScopeKind::FunctionPrototype:
-            return "FunctionPrototype";
-        case ScopeKind::Block:
-            return "Block";
-        default:
-            PSY_ESCAPE_VIA_RETURN("<INVALID or UNSPECIFIED ScopeKind>");
-    }
+inline std::string PSY_C_API to_string(ScopeKind scopeK) {
+  switch (scopeK) {
+  case ScopeKind::File:
+    return "File";
+  case ScopeKind::Function:
+    return "Function";
+  case ScopeKind::FunctionPrototype:
+    return "FunctionPrototype";
+  case ScopeKind::Block:
+    return "Block";
+  default:
+    PSY_ESCAPE_VIA_RETURN("<INVALID or UNSPECIFIED ScopeKind>");
+  }
 }
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

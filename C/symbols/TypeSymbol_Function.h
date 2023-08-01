@@ -33,44 +33,40 @@ namespace C {
  *
  * \remark 6.2.5-20
  */
-class PSY_C_API FunctionTypeSymbol final : public TypeSymbol
-{
+class PSY_C_API FunctionTypeSymbol final : public TypeSymbol {
 public:
-    //!@{
-    /**
-     * Cast \c this TypeSymbol as a FunctionTypeSymbol.
-     */
-    virtual FunctionTypeSymbol* asFunctionType() { return this; }
-    virtual const FunctionTypeSymbol* asFunctionType() const { return this; }
-    //!@}
+  //!@{
+  /**
+   * Cast \c this TypeSymbol as a FunctionTypeSymbol.
+   */
+  virtual FunctionTypeSymbol *asFunctionType() { return this; }
+  virtual const FunctionTypeSymbol *asFunctionType() const { return this; }
+  //!@}
 
-    /**
-     * The return type of \c this FunctionTypeSymbol.
-     */
-    const TypeSymbol* returnType() const;
+  /**
+   * The return type of \c this FunctionTypeSymbol.
+   */
+  const TypeSymbol *returnType() const;
 
-    /**
-     * The parameter types of \c this FunctionTypeSymbol.
-     */
-    std::vector<const TypeSymbol*> parameterTypes() const;
+  /**
+   * The parameter types of \c this FunctionTypeSymbol.
+   */
+  std::vector<const TypeSymbol *> parameterTypes() const;
 
-PSY_INTERNAL_AND_RESTRICTED:
-    PSY_GRANT_ACCESS(Binder);
+  PSY_INTERNAL_AND_RESTRICTED : PSY_GRANT_ACCESS(Binder);
 
-    FunctionTypeSymbol(const SyntaxTree* tree,
-                       const Scope* scope,
-                       const Symbol* containingSym,
-                       const TypeSymbol* retTySym);
+  FunctionTypeSymbol(const SyntaxTree *tree, const Scope *scope,
+                     const Symbol *containingSym, const TypeSymbol *retTySym);
 
-    void addParameter(const TypeSymbol* parmTySym);
+  void addParameter(const TypeSymbol *parmTySym);
 
 private:
-    DECL_PIMPL_SUB(FunctionTypeSymbol)
+  DECL_PIMPL_SUB(FunctionTypeSymbol)
 };
 
-std::string PSY_C_API to_string(const FunctionTypeSymbol& tySym);
+std::string PSY_C_API to_string(const FunctionTypeSymbol &tySym);
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

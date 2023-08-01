@@ -30,23 +30,20 @@
 using namespace psy;
 using namespace C;
 
-void Unparser::unparse(const SyntaxNode* node, std::ostream& os)
-{
-    os_ = &os;
-    visit(node);
+void Unparser::unparse(const SyntaxNode *node, std::ostream &os) {
+  os_ = &os;
+  visit(node);
 }
 
-void Unparser::terminal(const SyntaxToken& tk, const SyntaxNode*)
-{
-    if (tk.kind() == EndOfFile)
-        return;
+void Unparser::terminal(const SyntaxToken &tk, const SyntaxNode *) {
+  if (tk.kind() == EndOfFile)
+    return;
 
-    *os_ << tk.valueText_c_str();
+  *os_ << tk.valueText_c_str();
 
-    if (tk.kind() == CloseBraceToken
-            || tk.kind() == OpenBraceToken
-            || tk.kind() == SemicolonToken)
-        *os_ << "\n";
-    else
-        *os_ << " ";
+  if (tk.kind() == CloseBraceToken || tk.kind() == OpenBraceToken ||
+      tk.kind() == SemicolonToken)
+    *os_ << "\n";
+  else
+    *os_ << " ";
 }

@@ -26,39 +26,38 @@
 
 namespace psy {
 
-template <class T>
-Substitution<T> Substitution<T>::Trivial;
+template <class T> Substitution<T> Substitution<T>::Trivial;
 
 template <>
-std::string applyAll(const Substitution<std::string>& sub, const std::string& input)
-{
+std::string applyAll(const Substitution<std::string> &sub,
+                     const std::string &input) {
+  if (sub == Substitution<std::string>::Trivial)
+    return input;
+
+  std::string substituted = input;
+  std::string::size_type pos = 0;
+  while ((pos = substituted.find(sub.from(), pos)) != std::string::npos) {
+    substituted.replace(pos, sub.from().size(), sub.to());
+    pos += sub.to().size();
+  }
+  return substituted;
+}
+
+template <>
+std::string applyOnce(const std::vector<Substitution<std::string>> &seq,
+                      const std::string &input) {
+  std::string substituted = input;
+  std::string::size_type pos = 0;
+  for (const auto &sub : seq) {
     if (sub == Substitution<std::string>::Trivial)
-        return input;
+      continue;
 
-    std::string substituted = input;
-    std::string::size_type pos = 0;
-    while ((pos = substituted.find(sub.from(), pos)) != std::string::npos) {
-        substituted.replace(pos, sub.from().size(), sub.to());
-        pos += sub.to().size();
+    if ((pos = substituted.find(sub.from(), pos)) != std::string::npos) {
+      substituted.replace(pos, sub.from().size(), sub.to());
+      pos += sub.to().size();
     }
-    return substituted;
+  }
+  return substituted;
 }
 
-template <>
-std::string applyOnce(const std::vector<Substitution<std::string>>& seq, const std::string& input)
-{
-    std::string substituted = input;
-    std::string::size_type pos = 0;
-    for (const auto& sub : seq) {
-        if (sub == Substitution<std::string>::Trivial)
-            continue;
-
-        if ((pos = substituted.find(sub.from(), pos)) != std::string::npos) {
-            substituted.replace(pos, sub.from().size(), sub.to());
-            pos += sub.to().size();
-        }
-    }
-    return substituted;
-}
-
-} // psy
+} // namespace psy

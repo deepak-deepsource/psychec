@@ -34,21 +34,20 @@ namespace C {
  * This API is inspired by that of \c Microsoft.CodeAnalysis.SyntaxReference
  * from Roslyn, the .NET Compiler Platform.
  */
-class PSY_C_API SyntaxReference
-{
+class PSY_C_API SyntaxReference {
 public:
-    /**
-     * The SyntaxTree referenced by \c this SyntaxReference.
-     */
-    const SyntaxTree* syntaxTree() const;
+  /**
+   * The SyntaxTree referenced by \c this SyntaxReference.
+   */
+  const SyntaxTree *syntaxTree() const;
 
-    /**
-     * The SyntaxNode referenced by \c this SyntaxReference.
-     */
-    const SyntaxNode* syntax() const;
+  /**
+   * The SyntaxNode referenced by \c this SyntaxReference.
+   */
+  const SyntaxNode *syntax() const;
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

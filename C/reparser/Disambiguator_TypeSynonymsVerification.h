@@ -28,13 +28,12 @@
 namespace psy {
 namespace C {
 
-class PSY_C_NON_API TypeSynonymsVerificationReparser : public SyntaxVisitor
-{
+class PSY_C_NON_API TypeSynonymsVerificationReparser : public SyntaxVisitor {
 public:
-    TypeSynonymsVerificationReparser(SyntaxTree* tree);
+  TypeSynonymsVerificationReparser(SyntaxTree *tree);
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

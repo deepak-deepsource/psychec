@@ -37,39 +37,38 @@ namespace C {
 /**
  * \brief The SymbolName class.
  */
-class PSY_C_API SymbolName
-{
+class PSY_C_API SymbolName {
 public:
-    virtual ~SymbolName();
+  virtual ~SymbolName();
 
-    //!@{
-    /**
-     * Cast \c this SymbolName.
-     */
-    virtual PlainSymbolName* asPlainSymbolName() { return nullptr; }
-    virtual const PlainSymbolName* asPlainSymbolName() const { return nullptr; }
-    virtual TagSymbolName* asTagSymbolName() { return nullptr; }
-    virtual const TagSymbolName* asTagSymbolName() const { return nullptr; }
-    virtual EmptySymbolName* asEmptySymbolName() { return nullptr; }
-    virtual const EmptySymbolName* asEmptySymbolName() const { return nullptr; }
+  //!@{
+  /**
+   * Cast \c this SymbolName.
+   */
+  virtual PlainSymbolName *asPlainSymbolName() { return nullptr; }
+  virtual const PlainSymbolName *asPlainSymbolName() const { return nullptr; }
+  virtual TagSymbolName *asTagSymbolName() { return nullptr; }
+  virtual const TagSymbolName *asTagSymbolName() const { return nullptr; }
+  virtual EmptySymbolName *asEmptySymbolName() { return nullptr; }
+  virtual const EmptySymbolName *asEmptySymbolName() const { return nullptr; }
 
-    /**
-     * The SymbolName of \c this SymbolName.
-     */
-    SymbolNameKind kind() const;
+  /**
+   * The SymbolName of \c this SymbolName.
+   */
+  SymbolNameKind kind() const;
 
-    /**
-     * The text of \c this SymbolName.
-     */
-    virtual std::string text() const = 0;
+  /**
+   * The text of \c this SymbolName.
+   */
+  virtual std::string text() const = 0;
 
 protected:
-    SymbolName();
+  SymbolName();
 };
 
-std::string to_string(const SymbolName& name);
+std::string to_string(const SymbolName &name);
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

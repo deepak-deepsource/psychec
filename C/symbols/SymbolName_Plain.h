@@ -31,38 +31,38 @@ namespace C {
 /**
  * \brief The PlainSymbolName class.
  */
-class PSY_C_API PlainSymbolName final : public SymbolName
-{
-    friend std::string to_string(const PlainSymbolName& name);
-    friend bool operator==(const PlainSymbolName& a, const PlainSymbolName& b);
+class PSY_C_API PlainSymbolName final : public SymbolName {
+  friend std::string to_string(const PlainSymbolName &name);
+  friend bool operator==(const PlainSymbolName &a, const PlainSymbolName &b);
 
 public:
-    //!@{
-    /**
-     * Cast \c this SymbolName as a PlainSymbolName.
-     */
-    virtual PlainSymbolName* asPlainSymbolName() override { return this; }
-    virtual const PlainSymbolName* asPlainSymbolName() const override { return this; }
-    //!@}
+  //!@{
+  /**
+   * Cast \c this SymbolName as a PlainSymbolName.
+   */
+  virtual PlainSymbolName *asPlainSymbolName() override { return this; }
+  virtual const PlainSymbolName *asPlainSymbolName() const override {
+    return this;
+  }
+  //!@}
 
-    /**
-     * The text of \c this SymbolName.
-     */
-    virtual std::string text() const override;
+  /**
+   * The text of \c this SymbolName.
+   */
+  virtual std::string text() const override;
 
-PSY_INTERNAL_AND_RESTRICTED:
-    PSY_GRANT_ACCESS(Binder);
-    PSY_GRANT_ACCESS(NamedTypeSymbol);
+  PSY_INTERNAL_AND_RESTRICTED : PSY_GRANT_ACCESS(Binder);
+  PSY_GRANT_ACCESS(NamedTypeSymbol);
 
-    PlainSymbolName(std::string s);
+  PlainSymbolName(std::string s);
 
 private:
-    std::string s_;
+  std::string s_;
 };
 
-bool operator!=(const PlainSymbolName& a, const PlainSymbolName& b);
+bool operator!=(const PlainSymbolName &a, const PlainSymbolName &b);
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

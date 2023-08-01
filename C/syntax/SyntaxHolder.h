@@ -36,38 +36,36 @@ namespace C {
  *
  * A wrapper for any syntax form (or a handle to it).
  */
-class PSY_C_NON_API SyntaxHolder
-{
+class PSY_C_NON_API SyntaxHolder {
 public:
-    enum class Variant : char
-    {
-        Token,
-        Node,
-        NodeList,
-    };
+  enum class Variant : char {
+    Token,
+    Node,
+    NodeList,
+  };
 
-    Variant variant() const { return variant_; }
+  Variant variant() const { return variant_; }
 
-    bool isToken() const;
-    bool isNode() const;
-    bool isNodeList() const;
+  bool isToken() const;
+  bool isNode() const;
+  bool isNodeList() const;
 
-    SyntaxHolder(LexedTokens::IndexType tkIdx);
-    SyntaxHolder(const SyntaxNode* node);
-    SyntaxHolder(const SyntaxNodeList* nodeList);
+  SyntaxHolder(LexedTokens::IndexType tkIdx);
+  SyntaxHolder(const SyntaxNode *node);
+  SyntaxHolder(const SyntaxNodeList *nodeList);
 
-    LexedTokens::IndexType tokenIndex() const;
-    const SyntaxNode* node() const;
-    const SyntaxNodeList* nodeList() const;
+  LexedTokens::IndexType tokenIndex() const;
+  const SyntaxNode *node() const;
+  const SyntaxNodeList *nodeList() const;
 
 private:
-    std::variant<LexedTokens::IndexType,
-                 const SyntaxNode*,
-                 const SyntaxNodeList*> syntax_;
-    Variant variant_;
+  std::variant<LexedTokens::IndexType, const SyntaxNode *,
+               const SyntaxNodeList *>
+      syntax_;
+  Variant variant_;
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

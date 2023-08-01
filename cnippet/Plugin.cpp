@@ -23,106 +23,95 @@
 #include "plugin-api/DeclarationInterceptor.h"
 #include "plugin-api/SourceInspector.h"
 
-#include <dlfcn.h>
 #include <cassert>
+#include <dlfcn.h>
 #include <iostream>
 
 using namespace cnip;
 using namespace psy;
 using namespace C;
 
-void* Plugin::handle_ { nullptr };
-DeclarationInterceptor* Plugin::interceptor_ { nullptr };
-SourceInspector* Plugin::inspector_ { nullptr };
-VisitorObserver* Plugin::observer_ { nullptr };
+void *Plugin::handle_{nullptr};
+DeclarationInterceptor *Plugin::interceptor_{nullptr};
+SourceInspector *Plugin::inspector_{nullptr};
+VisitorObserver *Plugin::observer_{nullptr};
 
 namespace {
 
-std::string appendSuffix(std::string s)
-{
-    return s +
-        #if __APPLE__
-            ".dylib";
-        #else
-            ".so";
-        #endif
+std::string appendSuffix(std::string s) {
+  return s +
+#if __APPLE__
+         ".dylib";
+#else
+         ".so";
+#endif
 }
 
-} // anonymous
+} // namespace
 
-void Plugin::load(const std::string& name)
-{
-    const std::string file = appendSuffix(name);
-    handle_ = dlopen(file.c_str(), RTLD_LOCAL | RTLD_LAZY);
+void Plugin::load(const std::string &name) {
+  const std::string file = appendSuffix(name);
+  handle_ = dlopen(file.c_str(), RTLD_LOCAL | RTLD_LAZY);
 }
 
-bool Plugin::isLoaded()
-{
-    return handle_;
+bool Plugin::isLoaded() { return handle_; }
+
+void Plugin::unload() {
+  if (!handle_)
+    return;
+
+  destroy(interceptor_, "deleteInterceptor");
+  destroy(inspector_, "deleteInspector");
+  destroy(observer_, "deleteObserver");
 }
 
-void Plugin::unload()
-{
-    if (!handle_)
-        return;
-
-    destroy(interceptor_, "deleteInterceptor");
-    destroy(inspector_, "deleteInspector");
-    destroy(observer_, "deleteObserver");
+DeclarationInterceptor *Plugin::createInterceptor() {
+  interceptor_ = create<DeclarationInterceptor>("newInterceptor");
+  return interceptor_;
 }
 
-DeclarationInterceptor* Plugin::createInterceptor()
-{
-    interceptor_ = create<DeclarationInterceptor>("newInterceptor");
-    return interceptor_;
+SourceInspector *Plugin::createInspector() {
+  inspector_ = create<SourceInspector>("newInspector");
+  return inspector_;
 }
 
-SourceInspector* Plugin::createInspector()
-{
-    inspector_ = create<SourceInspector>("newInspector");
-    return inspector_;
+VisitorObserver *Plugin::createObserver() {
+  observer_ = create<VisitorObserver>("newObserver");
+  return observer_;
 }
 
-VisitorObserver* Plugin::createObserver()
-{
-    observer_ = create<VisitorObserver>("newObserver");
-    return observer_;
+template <class RetT> RetT *Plugin::create(const char *name) {
+  if (!handle_)
+    return nullptr;
+
+  using FuncT = RetT *(*)();
+
+  dlerror();
+  FuncT func = (FuncT)dlsym(handle_, name);
+  if (dlerror())
+    return nullptr;
+
+  return (*func)();
 }
 
-template <class RetT>
-RetT* Plugin::create(const char* name)
-{
-    if (!handle_)
-        return nullptr;
+template <class ParamT> void Plugin::destroy(ParamT *p, const char *name) {
+  using FuncT = void (*)(ParamT *);
 
-    using FuncT = RetT* (*) ();
-
+  if (p) {
     dlerror();
     FuncT func = (FuncT)dlsym(handle_, name);
-    if (dlerror())
-        return nullptr;
-
-    return (*func)();
-}
-
-template <class ParamT>
-void Plugin::destroy(ParamT* p, const char* name)
-{
-    using FuncT = void (*) (ParamT*);
-
-    if (p) {
-        dlerror();
-        FuncT func = (FuncT)dlsym(handle_, name);
-        if (!dlerror())
-            (*func)(p);
-    }
+    if (!dlerror())
+      (*func)(p);
+  }
 }
 
 // Explicit instantiations
-template DeclarationInterceptor* Plugin::create<DeclarationInterceptor>(const char*);
-template SourceInspector* Plugin::create<SourceInspector>(const char*);
-template VisitorObserver* Plugin::create<VisitorObserver>(const char*);
+template DeclarationInterceptor *
+Plugin::create<DeclarationInterceptor>(const char *);
+template SourceInspector *Plugin::create<SourceInspector>(const char *);
+template VisitorObserver *Plugin::create<VisitorObserver>(const char *);
 
-template void Plugin::destroy<DeclarationInterceptor>(DeclarationInterceptor*, const char*);
-template void Plugin::destroy<SourceInspector>(SourceInspector*, const char*);
-template void Plugin::destroy<VisitorObserver>(VisitorObserver*, const char*);
+template void Plugin::destroy<DeclarationInterceptor>(DeclarationInterceptor *,
+                                                      const char *);
+template void Plugin::destroy<SourceInspector>(SourceInspector *, const char *);
+template void Plugin::destroy<VisitorObserver>(VisitorObserver *, const char *);

@@ -20,35 +20,32 @@
 
 #include "TestSuite.h"
 
-#include "C/tests/TestSuite_Internals.h"
 #include "C/tests/TestSuite_API.h"
+#include "C/tests/TestSuite_Internals.h"
 
 #include <iostream>
 
 using namespace psy;
 
-void TestSuite::runTests()
-{
-    std::cout << "TESTS..." << std::endl;
+void TestSuite::runTests() {
+  std::cout << "TESTS..." << std::endl;
 
-    C::InternalsTestSuite suite0;
-    auto [passed0, failed0] = suite0.testAll();
+  C::InternalsTestSuite suite0;
+  auto [passed0, failed0] = suite0.testAll();
 
-    C::APITestSuite suite1;
-    auto [passed1, failed1] = suite1.testAll();
+  C::APITestSuite suite1;
+  auto [passed1, failed1] = suite1.testAll();
 
-    std::cout << suite0.description() << std::endl;
-    suite0.printSummary();
+  std::cout << suite0.description() << std::endl;
+  suite0.printSummary();
 
-    std::cout << suite1.description() << std::endl;
-    suite1.printSummary();
+  std::cout << suite1.description() << std::endl;
+  suite1.printSummary();
 
-    auto accErrorCnt = failed0 + failed1;
-    if (!accErrorCnt)
-        std::cout << "All passed" << std::endl;
-    else
-        std::cout << std::string(17, '.') << " \n"
-                  << "> Total failures: "
-                  << failed0 + failed1
-                  << std::endl;
+  auto accErrorCnt = failed0 + failed1;
+  if (!accErrorCnt)
+    std::cout << "All passed" << std::endl;
+  else
+    std::cout << std::string(17, '.') << " \n"
+              << "> Total failures: " << failed0 + failed1 << std::endl;
 }

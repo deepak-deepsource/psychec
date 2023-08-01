@@ -39,34 +39,32 @@ namespace C {
  * \remark 6.2.3-1
  * \remark Footnote 32
  */
-enum class PSY_C_API NameSpaceKind : std::uint8_t
-{
-    UNSPECIFIED = 0,
+enum class PSY_C_API NameSpaceKind : std::uint8_t {
+  UNSPECIFIED = 0,
 
-    Labels,
-    Tags,
-    Members,
-    Ordinary,
+  Labels,
+  Tags,
+  Members,
+  Ordinary,
 };
 
-inline std::string PSY_C_API to_string(NameSpaceKind nsK)
-{
-    switch (nsK) {
-        case NameSpaceKind::Labels:
-            return "Labels";
-        case NameSpaceKind::Tags:
-            return "Tags";
-        case NameSpaceKind::Members:
-            return "Members";
-        case NameSpaceKind::Ordinary:
-            return "Ordinary";
+inline std::string PSY_C_API to_string(NameSpaceKind nsK) {
+  switch (nsK) {
+  case NameSpaceKind::Labels:
+    return "Labels";
+  case NameSpaceKind::Tags:
+    return "Tags";
+  case NameSpaceKind::Members:
+    return "Members";
+  case NameSpaceKind::Ordinary:
+    return "Ordinary";
 
-        default:
-            PSY_ESCAPE_VIA_RETURN("<INVALID or UNSPECIFIED NameSpaceKind>");
-    }
+  default:
+    PSY_ESCAPE_VIA_RETURN("<INVALID or UNSPECIFIED NameSpaceKind>");
+  }
 }
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

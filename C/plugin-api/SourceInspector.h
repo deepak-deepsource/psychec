@@ -21,8 +21,8 @@
 #ifndef PSYCHE_C_SOURCE_INSPECTOR_H__
 #define PSYCHE_C_SOURCE_INSPECTOR_H__
 
-#include "PluginConfig.h"
 #include "Fwds.h"
+#include "PluginConfig.h"
 
 #include <string>
 #include <vector>
@@ -30,15 +30,15 @@
 namespace psy {
 namespace C {
 
-class PLUGIN_API SourceInspector
-{
+class PLUGIN_API SourceInspector {
 public:
-    virtual ~SourceInspector() = default;
+  virtual ~SourceInspector() = default;
 
-    virtual std::vector<std::string> detectRequiredHeaders(const std::string&) = 0;
+  virtual std::vector<std::string>
+  detectRequiredHeaders(const std::string &) = 0;
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

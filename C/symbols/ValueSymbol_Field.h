@@ -33,28 +33,25 @@ namespace C {
  * This API is inspired by that of \c Microsoft.CodeAnalysis.IFieldSymbol
  * from Roslyn, the .NET Compiler Platform.
  */
-class PSY_C_API FieldSymbol final : public ValueSymbol
-{
+class PSY_C_API FieldSymbol final : public ValueSymbol {
 public:
-    //!@{
-    /**
-     * Cast \c this ValueSymbol as a FieldSymbol.
-     */
-    virtual FieldSymbol* asField() override { return this; }
-    virtual const FieldSymbol* asField() const override { return this; }
-    //!@}
+  //!@{
+  /**
+   * Cast \c this ValueSymbol as a FieldSymbol.
+   */
+  virtual FieldSymbol *asField() override { return this; }
+  virtual const FieldSymbol *asField() const override { return this; }
+  //!@}
 
-PSY_INTERNAL_AND_RESTRICTED:
-    PSY_GRANT_ACCESS(Binder);
+  PSY_INTERNAL_AND_RESTRICTED : PSY_GRANT_ACCESS(Binder);
 
-    FieldSymbol(const SyntaxTree* tree,
-                const Scope* scope,
-                const Symbol* containingSym);
+  FieldSymbol(const SyntaxTree *tree, const Scope *scope,
+              const Symbol *containingSym);
 };
 
-std::string PSY_C_API to_string(const FieldSymbol& sym);
+std::string PSY_C_API to_string(const FieldSymbol &sym);
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

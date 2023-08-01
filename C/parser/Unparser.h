@@ -30,20 +30,19 @@
 namespace psy {
 namespace C {
 
-class PSY_C_NON_API Unparser : public SyntaxDumper
-{
+class PSY_C_NON_API Unparser : public SyntaxDumper {
 public:
-    using SyntaxDumper::SyntaxDumper;
+  using SyntaxDumper::SyntaxDumper;
 
-    void unparse(const SyntaxNode* node, std::ostream& os);
+  void unparse(const SyntaxNode *node, std::ostream &os);
 
 protected:
-    void terminal(const SyntaxToken& tk, const SyntaxNode* node) override;
+  void terminal(const SyntaxToken &tk, const SyntaxNode *node) override;
 
-    std::ostream* os_;
+  std::ostream *os_;
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

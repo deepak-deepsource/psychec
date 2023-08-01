@@ -29,28 +29,25 @@ namespace C {
 /**
  * \brief The EnumeratorSymbol class.
  */
-class PSY_C_API EnumeratorSymbol final : public ValueSymbol
-{
+class PSY_C_API EnumeratorSymbol final : public ValueSymbol {
 public:
-    //!@{
-    /**
-     * Cast \c this ValueSymbol as a EnumeratorSymbol.
-     */
-    virtual EnumeratorSymbol* asEnumerator() { return this; }
-    virtual const EnumeratorSymbol* asEnumerator() const { return this; }
-    //!@}
+  //!@{
+  /**
+   * Cast \c this ValueSymbol as a EnumeratorSymbol.
+   */
+  virtual EnumeratorSymbol *asEnumerator() { return this; }
+  virtual const EnumeratorSymbol *asEnumerator() const { return this; }
+  //!@}
 
-PSY_INTERNAL_AND_RESTRICTED:
-    PSY_GRANT_ACCESS(Binder);
+  PSY_INTERNAL_AND_RESTRICTED : PSY_GRANT_ACCESS(Binder);
 
-    EnumeratorSymbol(const SyntaxTree* tree,
-                     const Scope* scope,
-                     const Symbol* containingSym);
+  EnumeratorSymbol(const SyntaxTree *tree, const Scope *scope,
+                   const Symbol *containingSym);
 };
 
-std::string PSY_C_API to_string(const EnumeratorSymbol& sym);
+std::string PSY_C_API to_string(const EnumeratorSymbol &sym);
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

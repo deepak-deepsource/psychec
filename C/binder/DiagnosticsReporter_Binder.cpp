@@ -25,7 +25,7 @@
 using namespace psy;
 using namespace C;
 
-void Binder::DiagnosticsReporter::diagnose(DiagnosticDescriptor&& desc, SyntaxToken tk)
-{
-    binder_->tree_->newDiagnostic(desc, tk);
+void Binder::DiagnosticsReporter::diagnose(DiagnosticDescriptor &&desc,
+                                           SyntaxToken tk) {
+  binder_->tree_->newDiagnostic(desc, tk);
 };

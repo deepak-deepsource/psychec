@@ -22,10 +22,10 @@
 
 #include "SyntaxTree.h"
 
-#include "reparser/NameCataloger.h"
 #include "reparser/Disambiguator_GuidelineImposition.h"
 #include "reparser/Disambiguator_SyntaxCorrelation.h"
 #include "reparser/Disambiguator_TypeSynonymsVerification.h"
+#include "reparser/NameCataloger.h"
 #include "syntax/SyntaxNode.h"
 
 #include "../common/infra/Escape.h"
@@ -34,42 +34,39 @@ using namespace psy;
 using namespace C;
 
 Reparser::Reparser()
-    : disambigStrategy_(DisambiguationStrategy::SyntaxCorrelation)
-    , permitHeuristic_(false)
-{}
+    : disambigStrategy_(DisambiguationStrategy::SyntaxCorrelation),
+      permitHeuristic_(false) {}
 
-void Reparser::setDisambiguationStrategy(DisambiguationStrategy strategy)
-{
-    disambigStrategy_ = strategy;
+void Reparser::setDisambiguationStrategy(DisambiguationStrategy strategy) {
+  disambigStrategy_ = strategy;
 }
 
-void Reparser::setPermitHeuristic(bool heuristic)
-{
-    permitHeuristic_ = heuristic;
+void Reparser::setPermitHeuristic(bool heuristic) {
+  permitHeuristic_ = heuristic;
 }
 
-void Reparser::reparse(SyntaxTree* tree)
-{
-    if (disambigStrategy_ == Reparser::DisambiguationStrategy::GuidelineImposition) {
-        // TODO
-        return;
-    }
+void Reparser::reparse(SyntaxTree *tree) {
+  if (disambigStrategy_ ==
+      Reparser::DisambiguationStrategy::GuidelineImposition) {
+    // TODO
+    return;
+  }
 
-    NameCataloger cataloger(tree);
-    auto catalog = cataloger.catalogFor(tree->root());
+  NameCataloger cataloger(tree);
+  auto catalog = cataloger.catalogFor(tree->root());
 
-    switch (disambigStrategy_) {
-        case Reparser::DisambiguationStrategy::SyntaxCorrelation: {
-            SyntaxCorrelationDisambiguator disambiguator(tree);
-            disambiguator.acquireCatalog(std::move(catalog));
-            disambiguator.disambiguate();
-            break;
-        }
+  switch (disambigStrategy_) {
+  case Reparser::DisambiguationStrategy::SyntaxCorrelation: {
+    SyntaxCorrelationDisambiguator disambiguator(tree);
+    disambiguator.acquireCatalog(std::move(catalog));
+    disambiguator.disambiguate();
+    break;
+  }
 
-        case Reparser::DisambiguationStrategy::TypeSynonymsVerification:
-            break;
+  case Reparser::DisambiguationStrategy::TypeSynonymsVerification:
+    break;
 
-        default:
-            PSY_ESCAPE();
-    }
+  default:
+    PSY_ESCAPE();
+  }
 }

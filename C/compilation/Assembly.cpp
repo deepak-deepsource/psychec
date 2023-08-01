@@ -25,19 +25,15 @@
 using namespace psy;
 using namespace C;
 
-std::vector<const Symbol*> Assembly::symbols() const
-{
-    std::vector<const Symbol*> syms;
-    std::transform(symDEFs_.begin(),
-                   symDEFs_.end(),
-                   std::back_inserter(syms),
-                   [] (auto& sym) { return sym.get();});
-    return syms;
+std::vector<const Symbol *> Assembly::symbols() const {
+  std::vector<const Symbol *> syms;
+  std::transform(symDEFs_.begin(), symDEFs_.end(), std::back_inserter(syms),
+                 [](auto &sym) { return sym.get(); });
+  return syms;
 }
 
-Symbol* Assembly::findSymDEF(std::function<bool (const std::unique_ptr<Symbol>&)> pred) const
-{
-    auto it = std::find_if(symDEFs_.begin(), symDEFs_.end(), pred);
-    return it == symDEFs_.end() ? nullptr
-                                : it->get();
+Symbol *Assembly::findSymDEF(
+    std::function<bool(const std::unique_ptr<Symbol> &)> pred) const {
+  auto it = std::find_if(symDEFs_.begin(), symDEFs_.end(), pred);
+  return it == symDEFs_.end() ? nullptr : it->get();
 }

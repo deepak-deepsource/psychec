@@ -26,19 +26,14 @@
 using namespace psy;
 using namespace C;
 
-Managed::Managed()
-{}
+Managed::Managed() {}
 
-Managed::~Managed()
-{}
+Managed::~Managed() {}
 
-void* Managed::operator new(size_t size, MemoryPool* pool)
-{
-    return pool->allocate(size);
+void *Managed::operator new(size_t size, MemoryPool *pool) {
+  return pool->allocate(size);
 }
 
-void Managed::operator delete(void*)
-{}
+void Managed::operator delete(void *) {}
 
-void Managed::operator delete(void*, MemoryPool*)
-{}
+void Managed::operator delete(void *, MemoryPool *) {}

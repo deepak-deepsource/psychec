@@ -22,27 +22,26 @@
 
 namespace psy {
 
-std::ostream& operator<<(std::ostream& os, DiagnosticCategory category)
-{
-    switch (category) {
-        case DiagnosticCategory::Syntax:
-            os << "syntax";
-            break;
+std::ostream &operator<<(std::ostream &os, DiagnosticCategory category) {
+  switch (category) {
+  case DiagnosticCategory::Syntax:
+    os << "syntax";
+    break;
 
-        case DiagnosticCategory::Binding:
-            os << "binding";
-            break;
+  case DiagnosticCategory::Binding:
+    os << "binding";
+    break;
 
-        case DiagnosticCategory::Typing:
-            os << "typing";
-            break;
+  case DiagnosticCategory::Typing:
+    os << "typing";
+    break;
 
-        case DiagnosticCategory::UNSPECIFIED:
-            os << "generic";
-            break;
-    }
+  case DiagnosticCategory::UNSPECIFIED:
+    os << "generic";
+    break;
+  }
 
-    return os;
+  return os;
 }
 
-} // psy
+} // namespace psy

@@ -28,37 +28,36 @@
 
 #include "C/SyntaxTree.h"
 
-#include <utility>
 #include <string>
+#include <utility>
 
 namespace cnip {
 
 /*!
  * \brief The CCompilerFrontend class.
  */
-class CCompilerFrontend : public CompilerFrontend
-{
+class CCompilerFrontend : public CompilerFrontend {
 public:
-    CCompilerFrontend(const cxxopts::ParseResult& parsedCmdLine);
-    virtual ~CCompilerFrontend();
+  CCompilerFrontend(const cxxopts::ParseResult &parsedCmdLine);
+  virtual ~CCompilerFrontend();
 
-    int run(const std::string& srcText, const psy::FileInfo& fi) override;
+  int run(const std::string &srcText, const psy::FileInfo &fi) override;
 
 private:
+  int extendWithStdLibHeaders(const std::string &srcText,
+                              const psy::FileInfo &fi);
+  int preprocess(const std::string &srcText, const psy::FileInfo &fi);
+  int constructSyntaxTree(const std::string &srcText, const psy::FileInfo &fi);
+  int computeSemanticModel(std::unique_ptr<psy::C::SyntaxTree> tree);
 
-    int extendWithStdLibHeaders(const std::string& srcText, const psy::FileInfo& fi);
-    int preprocess(const std::string& srcText, const psy::FileInfo& fi);
-    int constructSyntaxTree(const std::string& srcText, const psy::FileInfo& fi);
-    int computeSemanticModel(std::unique_ptr<psy::C::SyntaxTree> tree);
+  static constexpr int ERROR_PreprocessorInvocationFailure = 100;
+  static constexpr int ERROR_PreprocessedFileWritingFailure = 101;
+  static constexpr int ERROR_UnsuccessfulParsing = 102;
+  static constexpr int ERROR_InvalidSyntaxTree = 103;
 
-    static constexpr int ERROR_PreprocessorInvocationFailure = 100;
-    static constexpr int ERROR_PreprocessedFileWritingFailure = 101;
-    static constexpr int ERROR_UnsuccessfulParsing = 102;
-    static constexpr int ERROR_InvalidSyntaxTree = 103;
-
-    std::unique_ptr<ConfigurationForC> config_;
+  std::unique_ptr<ConfigurationForC> config_;
 };
 
-} // cnip
+} // namespace cnip
 
 #endif

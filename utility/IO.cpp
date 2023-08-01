@@ -26,31 +26,29 @@
 
 namespace psy {
 
-std::pair<int, std::string> readFile(const std::string& fileName)
-{
-    std::ifstream ifs(fileName);
-    if (!ifs) {
-        std::cerr << "file input error: " << fileName << std::endl;
-        return std::make_pair(1, "");
-    }
+std::pair<int, std::string> readFile(const std::string &fileName) {
+  std::ifstream ifs(fileName);
+  if (!ifs) {
+    std::cerr << "file input error: " << fileName << std::endl;
+    return std::make_pair(1, "");
+  }
 
-    std::stringstream ss;
-    ss << ifs.rdbuf();
-    ifs.close();
-    return std::make_pair(0, ss.str());
+  std::stringstream ss;
+  ss << ifs.rdbuf();
+  ifs.close();
+  return std::make_pair(0, ss.str());
 }
 
-int writeFile(const std::string& fileName, const std::string& content)
-{
-    std::ofstream ofs(fileName);
-    if (!ofs) {
-        std::cerr << "file output error: " << fileName << std::endl;
-        return 1;
-    }
+int writeFile(const std::string &fileName, const std::string &content) {
+  std::ofstream ofs(fileName);
+  if (!ofs) {
+    std::cerr << "file output error: " << fileName << std::endl;
+    return 1;
+  }
 
-    ofs << content;
-    ofs.close();
-    return 0;
+  ofs << content;
+  ofs.close();
+  return 0;
 }
 
-} // psy
+} // namespace psy

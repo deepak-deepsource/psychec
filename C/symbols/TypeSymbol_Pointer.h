@@ -35,56 +35,56 @@ namespace C {
  * This API is inspired by that of \c Microsoft.CodeAnalysis.IPointerTypeSymbol
  * from Roslyn, the .NET Compiler Platform.
  */
-class PSY_C_API PointerTypeSymbol final : public TypeSymbol
-{
+class PSY_C_API PointerTypeSymbol final : public TypeSymbol {
 public:
-    //!@{
-    /**
-     * Cast \c this TypeSymbol as a PointerTypeSymbol.
-     */
-    virtual PointerTypeSymbol* asPointerType() override { return this; }
-    virtual const PointerTypeSymbol* asPointerType() const override { return this; }
-    //!@}
+  //!@{
+  /**
+   * Cast \c this TypeSymbol as a PointerTypeSymbol.
+   */
+  virtual PointerTypeSymbol *asPointerType() override { return this; }
+  virtual const PointerTypeSymbol *asPointerType() const override {
+    return this;
+  }
+  //!@}
 
-    /**
-     * The <em>referenced type</em> of \c this PointerTypeSymbol.
-     *
-     * \remark 6.2.5-20
-     */
-    const TypeSymbol* referencedType() const;
+  /**
+   * The <em>referenced type</em> of \c this PointerTypeSymbol.
+   *
+   * \remark 6.2.5-20
+   */
+  const TypeSymbol *referencedType() const;
 
-    /**
-     * Whether \c this PointerTypeSymbol arises from an array of type to pointer to type decay.
-     *
-     * \remark 6.7.6.3-7
-     */
-    bool arisesFromArrayDecay() const;
+  /**
+   * Whether \c this PointerTypeSymbol arises from an array of type to pointer
+   * to type decay.
+   *
+   * \remark 6.7.6.3-7
+   */
+  bool arisesFromArrayDecay() const;
 
-    /**
-     * Whether \c this PointerTypeSymbol arises from a function type to pointer to function type decay.
-     *
-     * \remark 6.7.6.3-8
-     */
-    bool arisesFromFunctionDecay() const;
+  /**
+   * Whether \c this PointerTypeSymbol arises from a function type to pointer to
+   * function type decay.
+   *
+   * \remark 6.7.6.3-8
+   */
+  bool arisesFromFunctionDecay() const;
 
-PSY_INTERNAL_AND_RESTRICTED:
-    PSY_GRANT_ACCESS(Binder);
+  PSY_INTERNAL_AND_RESTRICTED : PSY_GRANT_ACCESS(Binder);
 
-    PointerTypeSymbol(const SyntaxTree* tree,
-                      const Scope* scope,
-                      const Symbol* containingSym,
-                      const TypeSymbol* refedTySym);
+  PointerTypeSymbol(const SyntaxTree *tree, const Scope *scope,
+                    const Symbol *containingSym, const TypeSymbol *refedTySym);
 
-    void markAsArisingFromArrayDecay();
-    void markAsArisingFromFunctionDecay();
+  void markAsArisingFromArrayDecay();
+  void markAsArisingFromFunctionDecay();
 
 private:
-    DECL_PIMPL_SUB(PointerTypeSymbol)
+  DECL_PIMPL_SUB(PointerTypeSymbol)
 };
 
-std::string PSY_C_API to_string(const PointerTypeSymbol& tySym);
+std::string PSY_C_API to_string(const PointerTypeSymbol &tySym);
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif
