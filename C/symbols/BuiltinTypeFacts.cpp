@@ -23,29 +23,29 @@
 using namespace psy;
 using namespace C;
 
-bool BuiltinTypeFacts::areEquivalent(BuiltinTypeKind builtTyKind_a, BuiltinTypeKind builtTyKind_b)
-{
-    if (builtTyKind_a == builtTyKind_b)
-        return true;
+bool BuiltinTypeFacts::areEquivalent(BuiltinTypeKind builtTyKind_a,
+                                     BuiltinTypeKind builtTyKind_b) {
+  if (builtTyKind_a == builtTyKind_b)
+    return true;
 
-    switch (builtTyKind_a) {
-        case BuiltinTypeKind::Short:
-            return builtTyKind_b == BuiltinTypeKind::Short_S;
-        case BuiltinTypeKind::Short_S:
-            return builtTyKind_b == BuiltinTypeKind::Short;
-        case BuiltinTypeKind::Int:
-            return builtTyKind_b == BuiltinTypeKind::Int_S;
-        case BuiltinTypeKind::Int_S:
-            return builtTyKind_b == BuiltinTypeKind::Int;
-        case BuiltinTypeKind::Long:
-            return builtTyKind_b == BuiltinTypeKind::Long_S;
-        case BuiltinTypeKind::Long_S:
-            return builtTyKind_b == BuiltinTypeKind::Long;
-        case BuiltinTypeKind::LongLong:
-            return builtTyKind_b == BuiltinTypeKind::LongLong_S;
-        case BuiltinTypeKind::LongLong_S:
-            return builtTyKind_b == BuiltinTypeKind::LongLong;
-        default:
-            return false;
-    }
+  switch (builtTyKind_a) {
+  case BuiltinTypeKind::Short:
+    return builtTyKind_b == BuiltinTypeKind::Short_S;
+  case BuiltinTypeKind::Short_S:
+    return builtTyKind_b == BuiltinTypeKind::Short;
+  case BuiltinTypeKind::Int:
+    return builtTyKind_b == BuiltinTypeKind::Int_S;
+  case BuiltinTypeKind::Int_S:
+    return builtTyKind_b == BuiltinTypeKind::Int;
+  case BuiltinTypeKind::Long:
+    return builtTyKind_b == BuiltinTypeKind::Long_S;
+  case BuiltinTypeKind::Long_S:
+    return builtTyKind_b == BuiltinTypeKind::Long;
+  case BuiltinTypeKind::LongLong:
+    return builtTyKind_b == BuiltinTypeKind::LongLong_S;
+  case BuiltinTypeKind::LongLong_S:
+    return builtTyKind_b == BuiltinTypeKind::LongLong;
+  default:
+    return false;
+  }
 }

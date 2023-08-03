@@ -29,17 +29,16 @@
 using namespace psy;
 using namespace C;
 
-void SemanticsOfTypeQualifiers::qualify(SyntaxToken tyQualTk,
-                                       TypeSymbol* tySym,
-                                       Binder::DiagnosticsReporter* diagReporter)
-{
-    const auto tkK = tyQualTk.kind();
-    switch (tkK) {
-        case Keyword_const:
-            tySym->qualifyWithConst();
-            break;
+void SemanticsOfTypeQualifiers::qualify(
+    SyntaxToken tyQualTk, TypeSymbol *tySym,
+    Binder::DiagnosticsReporter *diagReporter) {
+  const auto tkK = tyQualTk.kind();
+  switch (tkK) {
+  case Keyword_const:
+    tySym->qualifyWithConst();
+    break;
 
-        default:
-            PSY_ESCAPE_VIA_BREAK;
-    }
+  default:
+    PSY_ESCAPE_VIA_BREAK;
+  }
 }

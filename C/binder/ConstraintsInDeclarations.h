@@ -30,18 +30,18 @@
 namespace psy {
 namespace C {
 
-class PSY_C_NON_API ConstraintsInDeclarations
-{
-    friend class BinderTester;
+class PSY_C_NON_API ConstraintsInDeclarations {
+  friend class BinderTester;
 
 public:
-    static void UselessDeclaration(SyntaxToken declTk, Binder::DiagnosticsReporter* diagReporter);
+  static void UselessDeclaration(SyntaxToken declTk,
+                                 Binder::DiagnosticsReporter *diagReporter);
 
 private:
-    static const std::string ID_of_UselessDeclaration;
+  static const std::string ID_of_UselessDeclaration;
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

@@ -28,53 +28,58 @@
 #define PSY__internals__EQ_OPTR(A, B) A == B
 #define PSY__internals__EQ_STD(A, B) std::equal(A.begin(), A.end(), B.begin())
 
-#define PSY__internals__FAIL(MSG) \
-    do { \
-        std::cout << "\n!\tFAIL\n" \
-                  << "\tReason: " << MSG << "\n" \
-                  << "\t\t" << __FILE__ << ":" << __LINE__ << std::endl; \
-        throw TestFailed(); \
-    } while (0)
+#define PSY__internals__FAIL(MSG)                                              \
+  do {                                                                         \
+    std::cout << "\n!\tFAIL\n"                                                 \
+              << "\tReason: " << MSG << "\n"                                   \
+              << "\t\t" << __FILE__ << ":" << __LINE__ << std::endl;           \
+    throw TestFailed();                                                        \
+  } while (0)
 
+#define PSY__internals__EXPECT_EQ(ACTUAL, EXPECTED, EQ)                        \
+  do {                                                                         \
+    if (!(EQ(ACTUAL, EXPECTED))) {                                             \
+      std::cout << "\n!\tFAIL\n"                                               \
+                << "\t\tActual  : " << ACTUAL << "\n"                          \
+                << "\t\tExpected: " << EXPECTED << "\n"                        \
+                << "\t\t" << __FILE__ << ":" << __LINE__ << std::endl;         \
+      throw TestFailed();                                                      \
+    }                                                                          \
+  } while (0)
 
-#define PSY__internals__EXPECT_EQ(ACTUAL, EXPECTED, EQ) \
-    do { \
-        if (!(EQ(ACTUAL, EXPECTED))) { \
-            std::cout << "\n!\tFAIL\n" \
-                      << "\t\tActual  : " << ACTUAL << "\n" \
-                      << "\t\tExpected: " << EXPECTED << "\n" \
-                      << "\t\t" << __FILE__ << ":" << __LINE__ << std::endl; \
-            throw TestFailed(); \
-        } \
-    } while (0)
+#define PSY__internals__EXPECT_EQ_UNDER_TYPE(ACTUAL, EXPECTED, UNDER_TYPE)     \
+  do {                                                                         \
+    if (!(PSY__internals__EQ_OPTR(                                             \
+            std::underlying_type_t<UNDER_TYPE>(ACTUAL),                        \
+            std::underlying_type_t<UNDER_TYPE>(EXPECTED)))) {                  \
+      std::cout << "\n!\tFAIL\n"                                               \
+                << "\t\tActual  : " << to_string(ACTUAL) << "\n"               \
+                << "\t\tExpected: " << to_string(EXPECTED) << "\n"             \
+                << "\t\t" << __FILE__ << ":" << __LINE__ << std::endl;         \
+      throw TestFailed();                                                      \
+    }                                                                          \
+  } while (0)
 
-#define PSY__internals__EXPECT_EQ_UNDER_TYPE(ACTUAL, EXPECTED, UNDER_TYPE) \
-    do { \
-        if (!(PSY__internals__EQ_OPTR(std::underlying_type_t<UNDER_TYPE>(ACTUAL), \
-                                      std::underlying_type_t<UNDER_TYPE>(EXPECTED)))) { \
-            std::cout << "\n!\tFAIL\n" \
-                      << "\t\tActual  : " << to_string(ACTUAL) << "\n" \
-                      << "\t\tExpected: " << to_string(EXPECTED) << "\n" \
-                      << "\t\t" << __FILE__ << ":" << __LINE__ << std::endl; \
-            throw TestFailed(); \
-        } \
-    } while (0)
+#define PSY__internals__EXPECT_BOOL(EXPR, BOOLEAN)                             \
+  do {                                                                         \
+    if (bool(EXPR) != BOOLEAN) {                                               \
+      std::cout << "\n!\tFAIL\n"                                               \
+                << "\t\tExpression is NOT " << #BOOLEAN << "\n"                \
+                << "\t\t" << __FILE__ << ":" << __LINE__ << std::endl;         \
+      throw TestFailed();                                                      \
+    }                                                                          \
+  } while (0)
 
-#define PSY__internals__EXPECT_BOOL(EXPR, BOOLEAN) \
-    do { \
-        if (bool(EXPR) != BOOLEAN) { \
-            std::cout << "\n!\tFAIL\n" \
-                      << "\t\tExpression is NOT " << #BOOLEAN << "\n" \
-                      << "\t\t" << __FILE__ << ":" << __LINE__ << std::endl; \
-            throw TestFailed(); \
-        } \
-    } while (0)
-
-#define PSY_EXPECT_EQ_PTR(ACTUAL, EXPECTED) PSY__internals__EXPECT_EQ(ACTUAL, EXPECTED, PSY__internals__EQ_OPTR)
-#define PSY_EXPECT_EQ_STR(ACTUAL, EXPECTED) PSY__internals__EXPECT_EQ(ACTUAL, EXPECTED, PSY__internals__EQ_OPTR)
-#define PSY_EXPECT_EQ_INT(ACTUAL, EXPECTED) PSY__internals__EXPECT_EQ(ACTUAL, EXPECTED, PSY__internals__EQ_OPTR)
-#define PSY_EXPECT_EQ_ENU(ACTUAL, EXPECTED, ENUM_TYPE) PSY__internals__EXPECT_EQ_UNDER_TYPE(ACTUAL, EXPECTED, ENUM_TYPE)
-#define PSY_EXPECT_EQ_STD(ACTUAL, EXPECTED) PSY__internals__EXPECT_EQ(ACTUAL, EXPECTED, PSY__internals__EQ_STD)
+#define PSY_EXPECT_EQ_PTR(ACTUAL, EXPECTED)                                    \
+  PSY__internals__EXPECT_EQ(ACTUAL, EXPECTED, PSY__internals__EQ_OPTR)
+#define PSY_EXPECT_EQ_STR(ACTUAL, EXPECTED)                                    \
+  PSY__internals__EXPECT_EQ(ACTUAL, EXPECTED, PSY__internals__EQ_OPTR)
+#define PSY_EXPECT_EQ_INT(ACTUAL, EXPECTED)                                    \
+  PSY__internals__EXPECT_EQ(ACTUAL, EXPECTED, PSY__internals__EQ_OPTR)
+#define PSY_EXPECT_EQ_ENU(ACTUAL, EXPECTED, ENUM_TYPE)                         \
+  PSY__internals__EXPECT_EQ_UNDER_TYPE(ACTUAL, EXPECTED, ENUM_TYPE)
+#define PSY_EXPECT_EQ_STD(ACTUAL, EXPECTED)                                    \
+  PSY__internals__EXPECT_EQ(ACTUAL, EXPECTED, PSY__internals__EQ_STD)
 
 #define PSY_EXPECT_TRUE(EXPR) PSY__internals__EXPECT_BOOL(EXPR, true)
 #define PSY_EXPECT_FALSE(EXPR) PSY__internals__EXPECT_BOOL(EXPR, false)
@@ -85,56 +90,50 @@ struct TestFailed {};
 
 class TestSuite;
 
-class Tester
-{
+class Tester {
 public:
-    virtual ~Tester() {}
+  virtual ~Tester() {}
 
-    virtual std::string name() const = 0;
+  virtual std::string name() const = 0;
 
-    virtual void setUp() {}
-    virtual void tearDown() {}
+  virtual void setUp() {}
+  virtual void tearDown() {}
 
-    int totalPassed() const { return cntPassed_; }
-    int totalFailed() const { return cntFailed_; }
+  int totalPassed() const { return cntPassed_; }
+  int totalFailed() const { return cntFailed_; }
 
 protected:
-    Tester(TestSuite* suite)
-        : suite_(suite)
-        , cntPassed_(0)
-        , cntFailed_(0)
-    {}
+  Tester(TestSuite *suite) : suite_(suite), cntPassed_(0), cntFailed_(0) {}
 
-    TestSuite* suite_;
-    int cntPassed_;
-    int cntFailed_;
+  TestSuite *suite_;
+  int cntPassed_;
+  int cntFailed_;
 
-    template <class TesterT, class TestContT>
-    void run(const TestContT& tests)
-    {
-        for (auto testData : tests) {
-            setUp();
+  template <class TesterT, class TestContT> void run(const TestContT &tests) {
+    for (auto testData : tests) {
+      setUp();
 
-            curTestFunc_ = testData.second;
-            std::cout << "\t" << TesterT::Name << "-" << curTestFunc_ << "... ";
+      curTestFunc_ = testData.second;
+      std::cout << "\t" << TesterT::Name << "-" << curTestFunc_ << "... ";
 
-            try {
-                auto curTestFunc = testData.first;
-                curTestFunc(static_cast<TesterT*>(this));
-                std::cout << "OK";
-                ++cntPassed_;
-            } catch (const TestFailed&) {
-                ++cntFailed_;
-            }
-            std::cout << "\n\t-------------------------------------------------" << std::endl;
+      try {
+        auto curTestFunc = testData.first;
+        curTestFunc(static_cast<TesterT *>(this));
+        std::cout << "OK";
+        ++cntPassed_;
+      } catch (const TestFailed &) {
+        ++cntFailed_;
+      }
+      std::cout << "\n\t-------------------------------------------------"
+                << std::endl;
 
-            tearDown();
-        }
+      tearDown();
     }
+  }
 
-    std::string curTestFunc_;
+  std::string curTestFunc_;
 };
 
-} // psy
+} // namespace psy
 
 #endif

@@ -31,92 +31,90 @@ namespace psy {
  * \note
  * From https://github.com/ltcmelo/uaiso
  */
-class FileInfo final
-{
+class FileInfo final {
 public:
-    ~FileInfo();
+  ~FileInfo();
 
-    /*!
-     * \brief FileInfo
-     * \param fullFileName
-     *
-     * Within the docs, suppose an instance of this class is created as:
-     *
-     * \code
-     * FileInfo fileInfo("/home/user/project/code.cpp");
-     * \endcode
-     */
-    FileInfo(const std::string& fullFileName);
+  /*!
+   * \brief FileInfo
+   * \param fullFileName
+   *
+   * Within the docs, suppose an instance of this class is created as:
+   *
+   * \code
+   * FileInfo fileInfo("/home/user/project/code.cpp");
+   * \endcode
+   */
+  FileInfo(const std::string &fullFileName);
 
-    /*!
-     * \brief fileName
-     * \return
-     *
-     * According to constructor's assumption, return is:
-     * "code.cpp"
-     */
-    std::string fileName() const;
+  /*!
+   * \brief fileName
+   * \return
+   *
+   * According to constructor's assumption, return is:
+   * "code.cpp"
+   */
+  std::string fileName() const;
 
-    /*!
-     * \brief fileBaseName
-     * \return
-     *
-     * According to constructor's assumption, return is:
-     * "code"
-     */
-    std::string fileBaseName() const;
+  /*!
+   * \brief fileBaseName
+   * \return
+   *
+   * According to constructor's assumption, return is:
+   * "code"
+   */
+  std::string fileBaseName() const;
 
-    /*!
-     * \brief fullFileBaseName
-     * \return
-     *
-     * According to constructor's assumption, return is:
-     * "/home/user/project/code"
-     */
-    std::string fullFileBaseName() const;
+  /*!
+   * \brief fullFileBaseName
+   * \return
+   *
+   * According to constructor's assumption, return is:
+   * "/home/user/project/code"
+   */
+  std::string fullFileBaseName() const;
 
-    /*!
-     * \brief fullFileName
-     * \return
-     *
-     * According to constructor's assumption, return is:
-     * "/home/user/project/code.cpp"
-     */
-    std::string fullFileName() const;
+  /*!
+   * \brief fullFileName
+   * \return
+   *
+   * According to constructor's assumption, return is:
+   * "/home/user/project/code.cpp"
+   */
+  std::string fullFileName() const;
 
-    /*!
-     * \brief dir
-     * \return
-     *
-     * According to constructor's assumption, return is:
-     * "project"
-     */
-    std::string dir() const;
+  /*!
+   * \brief dir
+   * \return
+   *
+   * According to constructor's assumption, return is:
+   * "project"
+   */
+  std::string dir() const;
 
-    /*!
-     * \brief fullDir
-     * \return
-     *
-     * According to constructor's assumption, return is:
-     * "/home/user/project"
-     */
-    std::string fullDir() const;
+  /*!
+   * \brief fullDir
+   * \return
+   *
+   * According to constructor's assumption, return is:
+   * "/home/user/project"
+   */
+  std::string fullDir() const;
 
-    /*!
-     * \brief dirSeparator
-     * \return
-     */
-    static char dirSeparator();
+  /*!
+   * \brief dirSeparator
+   * \return
+   */
+  static char dirSeparator();
 
 private:
-    struct FileInfoImpl;
-    FileInfoImpl* impl_;
+  struct FileInfoImpl;
+  FileInfoImpl *impl_;
 };
 
-bool operator==(const FileInfo& a, const FileInfo& b);
-bool operator!=(const FileInfo& a, const FileInfo& b);
+bool operator==(const FileInfo &a, const FileInfo &b);
+bool operator!=(const FileInfo &a, const FileInfo &b);
 
-
-} // psy
+} // namespace psy
 
 #endif

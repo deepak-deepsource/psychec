@@ -32,51 +32,57 @@
 #include <memory>
 #include <vector>
 
-#define CROSS_REFERENCE_TEST(CASE) { auto x = &CASE; (void)x; } \
+#define CROSS_REFERENCE_TEST(CASE)                                             \
+  {                                                                            \
+    auto x = &CASE;                                                            \
+    (void)x;                                                                   \
+  }
 
 namespace psy {
 
 namespace C {
 
-class InternalsTestSuite : public TestSuite
-{
-    friend class ParserTester;
-    friend class ReparserTester;
-    friend class BinderTester;
+class InternalsTestSuite : public TestSuite {
+  friend class ParserTester;
+  friend class ReparserTester;
+  friend class BinderTester;
 
 public:
-    virtual ~InternalsTestSuite();
-    InternalsTestSuite();
+  virtual ~InternalsTestSuite();
+  InternalsTestSuite();
 
-    virtual std::tuple<int, int> testAll() override;
-    virtual std::string description() const override;
-    virtual void printSummary() const override;
+  virtual std::tuple<int, int> testAll() override;
+  virtual std::string description() const override;
+  virtual void printSummary() const override;
 
 private:
-    bool checkErrorAndWarn(Expectation X);
+  bool checkErrorAndWarn(Expectation X);
 
-    void parseDeclaration(std::string text, Expectation X = Expectation());
-    void parseExpression(std::string text, Expectation X = Expectation());
-    void parseStatement(std::string text, Expectation X = Expectation());
-    void parse(std::string text,
-               Expectation X = Expectation(),
-               SyntaxTree::SyntaxCategory synCat = SyntaxTree::SyntaxCategory::UNSPECIFIED);
+  void parseDeclaration(std::string text, Expectation X = Expectation());
+  void parseExpression(std::string text, Expectation X = Expectation());
+  void parseStatement(std::string text, Expectation X = Expectation());
+  void parse(std::string text, Expectation X = Expectation(),
+             SyntaxTree::SyntaxCategory synCat =
+                 SyntaxTree::SyntaxCategory::UNSPECIFIED);
 
-    void reparse_withSyntaxCorrelation(std::string text, Expectation X = Expectation());
-    void reparse_withTypeSynonymVerification(std::string text, Expectation X = Expectation());
-    void reparse_withGuidelineImposition(std::string text, Expectation X = Expectation());
-    void reparse(std::string text,
-                 Expectation X = Expectation(),
-                 Reparser::DisambiguationStrategy strategy = Reparser::DisambiguationStrategy::UNSPECIFIED);
+  void reparse_withSyntaxCorrelation(std::string text,
+                                     Expectation X = Expectation());
+  void reparse_withTypeSynonymVerification(std::string text,
+                                           Expectation X = Expectation());
+  void reparse_withGuidelineImposition(std::string text,
+                                       Expectation X = Expectation());
+  void reparse(std::string text, Expectation X = Expectation(),
+               Reparser::DisambiguationStrategy strategy =
+                   Reparser::DisambiguationStrategy::UNSPECIFIED);
 
-    void bind(std::string text, Expectation X = Expectation());
+  void bind(std::string text, Expectation X = Expectation());
 
-    std::unique_ptr<SyntaxTree> tree_;
-    std::unique_ptr<Compilation> compilation_;
-    std::vector<std::unique_ptr<Tester>> testers_;
+  std::unique_ptr<SyntaxTree> tree_;
+  std::unique_ptr<Compilation> compilation_;
+  std::vector<std::unique_ptr<Tester>> testers_;
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

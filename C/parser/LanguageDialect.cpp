@@ -28,57 +28,50 @@
 namespace psy {
 namespace C {
 
-bool operator==(LanguageDialect::Std a, LanguageDialect::Std b)
-{
-    return std::underlying_type<LanguageDialect::Std>::type(a)
-            == std::underlying_type<LanguageDialect::Std>::type(b);
+bool operator==(LanguageDialect::Std a, LanguageDialect::Std b) {
+  return std::underlying_type<LanguageDialect::Std>::type(a) ==
+         std::underlying_type<LanguageDialect::Std>::type(b);
 }
 
-bool operator!=(LanguageDialect::Std a, LanguageDialect::Std b)
-{
-    return !(a == b);
+bool operator!=(LanguageDialect::Std a, LanguageDialect::Std b) {
+  return !(a == b);
 }
 
-bool operator<(LanguageDialect::Std a, LanguageDialect::Std b)
-{
-    return std::underlying_type<LanguageDialect::Std>::type(a)
-            < std::underlying_type<LanguageDialect::Std>::type(b);
+bool operator<(LanguageDialect::Std a, LanguageDialect::Std b) {
+  return std::underlying_type<LanguageDialect::Std>::type(a) <
+         std::underlying_type<LanguageDialect::Std>::type(b);
 }
 
-bool operator<=(LanguageDialect::Std a, LanguageDialect::Std b)
-{
-    return a < b || a == b;
+bool operator<=(LanguageDialect::Std a, LanguageDialect::Std b) {
+  return a < b || a == b;
 }
 
-bool operator>(LanguageDialect::Std a, LanguageDialect::Std b)
-{
-    return !(a < b) && !(a == b);
+bool operator>(LanguageDialect::Std a, LanguageDialect::Std b) {
+  return !(a < b) && !(a == b);
 }
 
-bool operator>=(LanguageDialect::Std a, LanguageDialect::Std b)
-{
-    return !(a < b);
+bool operator>=(LanguageDialect::Std a, LanguageDialect::Std b) {
+  return !(a < b);
 }
 
-std::string to_string(LanguageDialect::Std std)
-{
-    switch (std) {
-        case LanguageDialect::Std::C89_90:
-            return "c89";
+std::string to_string(LanguageDialect::Std std) {
+  switch (std) {
+  case LanguageDialect::Std::C89_90:
+    return "c89";
 
-        case LanguageDialect::Std::C99:
-            return "c99";
+  case LanguageDialect::Std::C99:
+    return "c99";
 
-        case LanguageDialect::Std::C11:
-            return "c11";
+  case LanguageDialect::Std::C11:
+    return "c11";
 
-        case LanguageDialect::Std::C17_18:
-            return "c17";
+  case LanguageDialect::Std::C17_18:
+    return "c17";
 
-        default:
-            PSY_ASSERT_W_MSG(false, return "", "");
-    }
+  default:
+    PSY_ASSERT_W_MSG(false, return "", "");
+  }
 }
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy

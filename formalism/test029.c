@@ -1,7 +1,6 @@
-T f()
-{
-    const int* x;
-    int* y;
-    x = y;
-    return 0;
+T f() {
+  const int *x;
+  int *y;
+  x = y;
+  return 0;
 }

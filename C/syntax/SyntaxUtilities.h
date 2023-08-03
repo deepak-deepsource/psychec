@@ -30,36 +30,40 @@ namespace C {
 /**
  * \brief The SyntaxUtilities class.
  */
-class PSY_C_API SyntaxUtilities
-{
+class PSY_C_API SyntaxUtilities {
 public:
-    /**
-     * Return the \a innermost DeclaratorSyntax of the given \p decltor.
-     *
-     * \see innerDeclaratorOrSelf
-     */
-    static const DeclaratorSyntax* innermostDeclaratorOrSelf(const DeclaratorSyntax* decltor);
+  /**
+   * Return the \a innermost DeclaratorSyntax of the given \p decltor.
+   *
+   * \see innerDeclaratorOrSelf
+   */
+  static const DeclaratorSyntax *
+  innermostDeclaratorOrSelf(const DeclaratorSyntax *decltor);
 
-    /**
-     * Return the \a inner DeclaratorSyntax of the given \p decltor.
-     *
-     * A DeclaratorSyntax has an \a inner DeclaratorSyntax if it's one the following:
-     *   - a PointerDeclaratorSyntax;
-     *   - an ArrayDeclaratorSyntax;
-     *   - a FunctionDeclaratorSyntax;
-     *   - or a BitfieldDeclaratorSyntax.
-     */
-    static const DeclaratorSyntax* innerDeclaratorOrSelf(const DeclaratorSyntax* decltor);
+  /**
+   * Return the \a inner DeclaratorSyntax of the given \p decltor.
+   *
+   * A DeclaratorSyntax has an \a inner DeclaratorSyntax if it's one the
+   * following:
+   *   - a PointerDeclaratorSyntax;
+   *   - an ArrayDeclaratorSyntax;
+   *   - a FunctionDeclaratorSyntax;
+   *   - or a BitfieldDeclaratorSyntax.
+   */
+  static const DeclaratorSyntax *
+  innerDeclaratorOrSelf(const DeclaratorSyntax *decltor);
 
-    /**
-     * Return the \a stripped DeclaratorSyntax of the given \p decltor.
-     *
-     * A DeclaratorSyntax is \a stripped if it's not a ParenthesizedDeclaratorSyntax.
-     */
-    static const DeclaratorSyntax* strippedDeclaratorOrSelf(const DeclaratorSyntax* decltor);
+  /**
+   * Return the \a stripped DeclaratorSyntax of the given \p decltor.
+   *
+   * A DeclaratorSyntax is \a stripped if it's not a
+   * ParenthesizedDeclaratorSyntax.
+   */
+  static const DeclaratorSyntax *
+  strippedDeclaratorOrSelf(const DeclaratorSyntax *decltor);
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

@@ -34,17 +34,16 @@ namespace psy {
 /**
  * The SourceText class.
  */
-class PSY_API SourceText
-{
+class PSY_API SourceText {
 public:
-    SourceText(std::string rawText);
+  SourceText(std::string rawText);
 
-    const std::string& rawText() const;
+  const std::string &rawText() const;
 
 private:
-    std::string rawText_;
+  std::string rawText_;
 };
 
-} // psy
+} // namespace psy
 
 #endif

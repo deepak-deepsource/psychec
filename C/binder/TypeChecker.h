@@ -28,11 +28,9 @@
 namespace psy {
 namespace C {
 
-class TypeChecker final : protected SyntaxVisitor
-{
-};
+class TypeChecker final : protected SyntaxVisitor {};
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

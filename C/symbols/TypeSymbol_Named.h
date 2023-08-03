@@ -21,8 +21,8 @@
 #ifndef PSYCHE_C_SYMBOL_NAMED_TYPE_H__
 #define PSYCHE_C_SYMBOL_NAMED_TYPE_H__
 
-#include "Symbol_Type.h"
 #include "SymbolName_Tag.h"
+#include "Symbol_Type.h"
 #include "TypeKind_Builtin.h"
 #include "TypeKind_Named.h"
 
@@ -39,61 +39,53 @@ namespace C {
  * This API is inspired by that of \c Microsoft.CodeAnalysis.INamedTypeSymbol
  * from Roslyn, the .NET Compiler Platform.
  */
-class PSY_C_API NamedTypeSymbol final : public TypeSymbol
-{
+class PSY_C_API NamedTypeSymbol final : public TypeSymbol {
 public:
-    //!@{
-    /**
-     * Cast \c this TypeSymbol as a NamedTypeSymbol.
-     */
-    virtual NamedTypeSymbol* asNamedType() override { return this; }
-    virtual const NamedTypeSymbol* asNamedType() const override { return this; }
-    //!@}
+  //!@{
+  /**
+   * Cast \c this TypeSymbol as a NamedTypeSymbol.
+   */
+  virtual NamedTypeSymbol *asNamedType() override { return this; }
+  virtual const NamedTypeSymbol *asNamedType() const override { return this; }
+  //!@}
 
-    /**
-     * The type name kind of \c this NamedTypeSymbol.
-     */
-    NamedTypeKind namedTypeKind() const;
+  /**
+   * The type name kind of \c this NamedTypeSymbol.
+   */
+  NamedTypeKind namedTypeKind() const;
 
-    /**
-     * The BuiltinTypeKind of \c this type.
-     */
-    BuiltinTypeKind builtinTypeKind() const;
+  /**
+   * The BuiltinTypeKind of \c this type.
+   */
+  BuiltinTypeKind builtinTypeKind() const;
 
-    /**
-     * The SymbolName of \c this Symbol.
-     */
-    const SymbolName* name() const;
+  /**
+   * The SymbolName of \c this Symbol.
+   */
+  const SymbolName *name() const;
 
-PSY_INTERNAL_AND_RESTRICTED:
-    PSY_GRANT_ACCESS(Binder);
-    PSY_GRANT_ACCESS(ConstraintsInTypeSpecifiers);
+  PSY_INTERNAL_AND_RESTRICTED : PSY_GRANT_ACCESS(Binder);
+  PSY_GRANT_ACCESS(ConstraintsInTypeSpecifiers);
 
-    NamedTypeSymbol(const SyntaxTree* tree,
-                    const Scope* scope,
-                    const Symbol* containingSym,
-                    BuiltinTypeKind builtTyK);
+  NamedTypeSymbol(const SyntaxTree *tree, const Scope *scope,
+                  const Symbol *containingSym, BuiltinTypeKind builtTyK);
 
-    NamedTypeSymbol(const SyntaxTree* tree,
-                    const Scope* scope,
-                    const Symbol* containingSym,
-                    const std::string& name);
+  NamedTypeSymbol(const SyntaxTree *tree, const Scope *scope,
+                  const Symbol *containingSym, const std::string &name);
 
-    NamedTypeSymbol(const SyntaxTree* tree,
-                    const Scope* scope,
-                    const Symbol* containingSym,
-                    TagSymbolName::TagChoice tagChoice,
-                    const std::string& tag);
+  NamedTypeSymbol(const SyntaxTree *tree, const Scope *scope,
+                  const Symbol *containingSym,
+                  TagSymbolName::TagChoice tagChoice, const std::string &tag);
 
-    void patchBuiltinTypeKind(BuiltinTypeKind);
+  void patchBuiltinTypeKind(BuiltinTypeKind);
 
 private:
-    DECL_PIMPL_SUB(NamedTypeSymbol)
+  DECL_PIMPL_SUB(NamedTypeSymbol)
 };
 
-std::string PSY_C_API to_string(const NamedTypeSymbol& tySym);
+std::string PSY_C_API to_string(const NamedTypeSymbol &tySym);
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

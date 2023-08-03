@@ -23,28 +23,28 @@
 
 // From https://gcc.gnu.org/wiki/Visibility
 #if defined _WIN32 || defined __CYGWIN__
-  #ifdef EXPORT_C_API
-    #ifdef __GNUC__
-      #define PSY_C_API __attribute__ ((dllexport))
-    #else
-      #define PSY_C_API __declspec(dllexport)
-    #endif
-  #else
-    #ifdef __GNUC__
-      #define PSY_C_API __attribute__ ((dllimport))
-    #else
-      #define PSY_C_API __declspec(dllimport)
-    #endif
-  #endif
-  #define PSY_C_NON_API
+#ifdef EXPORT_C_API
+#ifdef __GNUC__
+#define PSY_C_API __attribute__((dllexport))
 #else
-  #if __GNUC__ >= 4
-    #define PSY_C_API __attribute__ ((visibility ("default")))
-    #define PSY_C_NON_API __attribute__ ((visibility ("hidden")))
-  #else
-    #define PSY_C_API
-    #define PSY_C_NON_API
-  #endif
+#define PSY_C_API __declspec(dllexport)
+#endif
+#else
+#ifdef __GNUC__
+#define PSY_C_API __attribute__((dllimport))
+#else
+#define PSY_C_API __declspec(dllimport)
+#endif
+#endif
+#define PSY_C_NON_API
+#else
+#if __GNUC__ >= 4
+#define PSY_C_API __attribute__((visibility("default")))
+#define PSY_C_NON_API __attribute__((visibility("hidden")))
+#else
+#define PSY_C_API
+#define PSY_C_NON_API
+#endif
 #endif
 
 #endif

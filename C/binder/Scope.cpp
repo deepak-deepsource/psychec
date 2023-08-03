@@ -25,26 +25,18 @@
 using namespace psy;
 using namespace C;
 
-Scope::Scope(ScopeKind kind)
-    : kind_(kind)
-{}
+Scope::Scope(ScopeKind kind) : kind_(kind) {}
 
-ScopeKind Scope::kind() const
-{
-    return kind_;
+ScopeKind Scope::kind() const { return kind_; }
+
+void Scope::enclose(std::unique_ptr<Scope> scope) {
+  enclosedScopes_.push_back(std::move(scope));
 }
 
-void Scope::enclose(std::unique_ptr<Scope> scope)
-{
-    enclosedScopes_.push_back(std::move(scope));
+void Scope::morphFrom_FunctionPrototype_to_Block() {
+  PSY_ASSERT(kind_ == ScopeKind::FunctionPrototype, return);
+
+  kind_ = ScopeKind::Block;
 }
 
-void Scope::morphFrom_FunctionPrototype_to_Block()
-{
-    PSY_ASSERT(kind_ == ScopeKind::FunctionPrototype, return);
-
-    kind_ = ScopeKind::Block;
-}
-
-Scope::~Scope()
-{}
+Scope::~Scope() {}

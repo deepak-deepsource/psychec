@@ -31,8 +31,8 @@
 #include "binder/NameSpace.h"
 #include "syntax/SyntaxReference.h"
 
-#include "../common/location/Location.h"
 #include "../common/infra/Pimpl.h"
+#include "../common/location/Location.h"
 
 #include <memory>
 #include <vector>
@@ -47,75 +47,74 @@ namespace C {
  * This API is inspired by that of \c Microsoft.CodeAnalysis.ISymbol
  * from Roslyn, the .NET Compiler Platform.
  */
-class PSY_C_API Symbol
-{
+class PSY_C_API Symbol {
 public:
-    virtual ~Symbol();
+  virtual ~Symbol();
 
-    /**
-     * The SymbolKind of \c this Symbol.
-     */
-    SymbolKind kind() const;
+  /**
+   * The SymbolKind of \c this Symbol.
+   */
+  SymbolKind kind() const;
 
-    virtual LibrarySymbol* asLibrary() { return nullptr; }
-    virtual const LibrarySymbol* asLibrary() const { return nullptr; }
-    virtual FunctionSymbol* asFunction() { return nullptr; }
-    virtual const FunctionSymbol* asFunction() const { return nullptr; }
-    virtual ValueSymbol* asValue() { return nullptr; }
-    virtual const ValueSymbol* asValue() const { return nullptr; }
-    virtual TypeSymbol* asType() { return nullptr; }
-    virtual const TypeSymbol* asType() const { return nullptr; }
+  virtual LibrarySymbol *asLibrary() { return nullptr; }
+  virtual const LibrarySymbol *asLibrary() const { return nullptr; }
+  virtual FunctionSymbol *asFunction() { return nullptr; }
+  virtual const FunctionSymbol *asFunction() const { return nullptr; }
+  virtual ValueSymbol *asValue() { return nullptr; }
+  virtual const ValueSymbol *asValue() const { return nullptr; }
+  virtual TypeSymbol *asType() { return nullptr; }
+  virtual const TypeSymbol *asType() const { return nullptr; }
 
-    /**
-     * The Assembly that owns \c this Symbol.
-     */
-    const Assembly* owningAssembly() const;
+  /**
+   * The Assembly that owns \c this Symbol.
+   */
+  const Assembly *owningAssembly() const;
 
-    /**
-     * The Symbol that contains \c this Symbol.
-     */
-    const Symbol* containingSymbol() const;
+  /**
+   * The Symbol that contains \c this Symbol.
+   */
+  const Symbol *containingSymbol() const;
 
-    /**
-     * The Scope of \c this Symbol.
-     *
-     * \remark 6.2.1-4
-     */
-    const Scope* scope() const;
+  /**
+   * The Scope of \c this Symbol.
+   *
+   * \remark 6.2.1-4
+   */
+  const Scope *scope() const;
 
-    /**
-     * The NameSpace of \c this Symbol.
-     */
-    const NameSpace* nameSpace() const;
+  /**
+   * The NameSpace of \c this Symbol.
+   */
+  const NameSpace *nameSpace() const;
 
-    /**
-     * The Location of \c this Symbol.
-     */
-    Location location() const;
+  /**
+   * The Location of \c this Symbol.
+   */
+  Location location() const;
 
-    /**
-     * The Accessibility \c this Symbol declares.
-     */
-    Accessibility declaredAccessibility() const;
+  /**
+   * The Accessibility \c this Symbol declares.
+   */
+  Accessibility declaredAccessibility() const;
 
-    /**
-     * References to the SyntaxNodes that \a declare \c this Symbol.
-     */
-    std::vector<SyntaxReference> declaringSyntaxReferences() const;
+  /**
+   * References to the SyntaxNodes that \a declare \c this Symbol.
+   */
+  std::vector<SyntaxReference> declaringSyntaxReferences() const;
 
 protected:
-    DECL_PIMPL(Symbol);
+  DECL_PIMPL(Symbol);
 
-    Symbol(SymbolImpl* p);
+  Symbol(SymbolImpl *p);
 
-    // Unavailable
-    Symbol(const Symbol&) = delete;
-    Symbol& operator=(const Symbol&) = delete;
+  // Unavailable
+  Symbol(const Symbol &) = delete;
+  Symbol &operator=(const Symbol &) = delete;
 };
 
-std::string PSY_C_API to_string(const Symbol& sym);
+std::string PSY_C_API to_string(const Symbol &sym);
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

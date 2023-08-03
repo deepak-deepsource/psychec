@@ -20,8 +20,8 @@
 
 #include "BinderTester.h"
 
-#include "symbols/Symbol.h"
 #include "parser/Unparser.h"
+#include "symbols/Symbol.h"
 #include "symbols/Symbol_ALL.h"
 #include "syntax/SyntaxLexeme_ALL.h"
 #include "syntax/SyntaxNamePrinter.h"
@@ -32,30 +32,26 @@ using namespace C;
 
 const std::string BinderTester::Name = "BINDER";
 
-void BinderTester::testBinder()
-{
-    // TEMPORARY
-    std::vector<TestFunction> active;
-    for (auto testData : tests_) {
-        auto n = std::string(testData.second);
-        auto p = n.find("case09");
-        if (p != std::string::npos) {
-            std::cout << "\t\tskip (TEMP) " << n << std::endl;
-            continue;
-        }
-        active.push_back(testData);
+void BinderTester::testBinder() {
+  // TEMPORARY
+  std::vector<TestFunction> active;
+  for (auto testData : tests_) {
+    auto n = std::string(testData.second);
+    auto p = n.find("case09");
+    if (p != std::string::npos) {
+      std::cout << "\t\tskip (TEMP) " << n << std::endl;
+      continue;
     }
+    active.push_back(testData);
+  }
 
-    return run<BinderTester>(active);
+  return run<BinderTester>(active);
 }
 
-void BinderTester::bind(std::string text, Expectation X)
-{
-    (static_cast<InternalsTestSuite*>(suite_)->bind(text, X));
+void BinderTester::bind(std::string text, Expectation X) {
+  (static_cast<InternalsTestSuite *>(suite_)->bind(text, X));
 }
 
-void BinderTester::setUp()
-{}
+void BinderTester::setUp() {}
 
-void BinderTester::tearDown()
-{}
+void BinderTester::tearDown() {}

@@ -25,36 +25,33 @@
 
 #include <utility>
 
-#define DEFINE_ENABLE_ISENABLED(FLAG) \
-    LanguageExtensions& LanguageExtensions::enable_##FLAG(bool enable) \
-        { BF_.FLAG##_ = enable; return *this; } \
-    bool LanguageExtensions::isEnabled_##FLAG() const \
-        { return BF_.FLAG##_; }
+#define DEFINE_ENABLE_ISENABLED(FLAG)                                          \
+  LanguageExtensions &LanguageExtensions::enable_##FLAG(bool enable) {         \
+    BF_.FLAG##_ = enable;                                                      \
+    return *this;                                                              \
+  }                                                                            \
+  bool LanguageExtensions::isEnabled_##FLAG() const { return BF_.FLAG##_; }
 
 using namespace psy;
 using namespace C;
 
 LanguageExtensions::LanguageExtensions()
-    : LanguageExtensions(MacroTranslations())
-{}
+    : LanguageExtensions(MacroTranslations()) {}
 
 LanguageExtensions::LanguageExtensions(MacroTranslations translations)
-    : translations_(std::move(translations))
-    , BF_all_(~0)
-{
-    /* Psyche */
-    BF_.ExtPSY_Generics_ = false;
+    : translations_(std::move(translations)), BF_all_(~0) {
+  /* Psyche */
+  BF_.ExtPSY_Generics_ = false;
 
-    /* C++ */
-    BF_.CPP_nullptr_ = false;
+  /* C++ */
+  BF_.CPP_nullptr_ = false;
 
-    /* Custom */
-    BF_.NativeBooleans_ = false;
+  /* Custom */
+  BF_.NativeBooleans_ = false;
 }
 
-const MacroTranslations& LanguageExtensions::translations() const
-{
-    return translations_;
+const MacroTranslations &LanguageExtensions::translations() const {
+  return translations_;
 }
 
 DEFINE_ENABLE_ISENABLED(ExtGNU_AlternateKeywords)
@@ -82,65 +79,64 @@ DEFINE_ENABLE_ISENABLED(NULLAsBuiltin)
 namespace psy {
 namespace C {
 
-std::string PSY_C_API to_string(LanguageExtensions::Ext ext)
-{
-    switch (ext) {
-        /* GNU */
-    case LanguageExtensions::Ext::GNU_AlternateKeywords:
-        return "GNU Alternate Keywords";
+std::string PSY_C_API to_string(LanguageExtensions::Ext ext) {
+  switch (ext) {
+    /* GNU */
+  case LanguageExtensions::Ext::GNU_AlternateKeywords:
+    return "GNU Alternate Keywords";
 
-    case LanguageExtensions::Ext::GNU_AttributeSpecifiers:
-        return "GNU Attribute Specifiers";
+  case LanguageExtensions::Ext::GNU_AttributeSpecifiers:
+    return "GNU Attribute Specifiers";
 
-    case LanguageExtensions::Ext::GNU_Alignment:
-        return "GNU Alignment";
+  case LanguageExtensions::Ext::GNU_Alignment:
+    return "GNU Alignment";
 
-    case LanguageExtensions::Ext::GNU_CompoundLiterals:
-        return "GNU Compound Literals";
+  case LanguageExtensions::Ext::GNU_CompoundLiterals:
+    return "GNU Compound Literals";
 
-    case LanguageExtensions::Ext::GNU_Conditionals:
-        return "GNU Conditionals";
+  case LanguageExtensions::Ext::GNU_Conditionals:
+    return "GNU Conditionals";
 
-    case LanguageExtensions::Ext::GNU_DesignatedInitializers:
-        return "GNU Designated Initializers";
+  case LanguageExtensions::Ext::GNU_DesignatedInitializers:
+    return "GNU Designated Initializers";
 
-    case LanguageExtensions::Ext::GNU_FunctionNames:
-        return "GNU Function Names";
+  case LanguageExtensions::Ext::GNU_FunctionNames:
+    return "GNU Function Names";
 
-    case LanguageExtensions::Ext::GNU_Complex:
-        return "GNU Complex";
+  case LanguageExtensions::Ext::GNU_Complex:
+    return "GNU Complex";
 
-    case LanguageExtensions::Ext::GNU_StatementExpressions:
-        return "GNU Statement Expressions";
+  case LanguageExtensions::Ext::GNU_StatementExpressions:
+    return "GNU Statement Expressions";
 
-    case LanguageExtensions::Ext::GNU_Asm:
-        return "GNU Asm";
+  case LanguageExtensions::Ext::GNU_Asm:
+    return "GNU Asm";
 
-    case LanguageExtensions::Ext::GNU_InternalBuiltins:
-        return "GNU Internal Builtins";
+  case LanguageExtensions::Ext::GNU_InternalBuiltins:
+    return "GNU Internal Builtins";
 
-    case LanguageExtensions::Ext::GNU_AttributeSpecifiersLLVM:
-        return "GNU Attribute Specifiers LLVM";
+  case LanguageExtensions::Ext::GNU_AttributeSpecifiersLLVM:
+    return "GNU Attribute Specifiers LLVM";
 
-        /* Psyche */
-    case LanguageExtensions::Ext::PSY_Generics:
-        return "PSY Generics";
+    /* Psyche */
+  case LanguageExtensions::Ext::PSY_Generics:
+    return "PSY Generics";
 
-        /* C++ */
-    case LanguageExtensions::Ext::CPP_nullptr:
-        return "CPP nullptr";
+    /* C++ */
+  case LanguageExtensions::Ext::CPP_nullptr:
+    return "CPP nullptr";
 
-        /* Custom */
-    case LanguageExtensions::Ext::NativeBooleans:
-        return "Native Booleans";
+    /* Custom */
+  case LanguageExtensions::Ext::NativeBooleans:
+    return "Native Booleans";
 
-    case LanguageExtensions::Ext::NULLAsBuiltin:
-        return "NULL As Builtin";
+  case LanguageExtensions::Ext::NULLAsBuiltin:
+    return "NULL As Builtin";
 
-    default:
-        PSY_ASSERT_W_MSG(false, return "", "");
-    }
+  default:
+    PSY_ASSERT_W_MSG(false, return "", "");
+  }
 }
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy

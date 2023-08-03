@@ -28,33 +28,31 @@
 namespace psy {
 namespace C {
 
-class MIXIN_LeftExpressionInfixOperatorRightExpression
-{
+class MIXIN_LeftExpressionInfixOperatorRightExpression {
 protected:
-    friend class Parser;
-    friend class Disambiguator;
+  friend class Parser;
+  friend class Disambiguator;
 
-    virtual const ExpressionSyntax* left() const = 0;
-    virtual SyntaxToken operatorToken() const = 0;
-    virtual const ExpressionSyntax* right() const = 0;
+  virtual const ExpressionSyntax *left() const = 0;
+  virtual SyntaxToken operatorToken() const = 0;
+  virtual const ExpressionSyntax *right() const = 0;
 
-    ExpressionSyntax* leftExpr_ = nullptr;
-    LexedTokens::IndexType oprtrTkIdx_ = LexedTokens::invalidIndex();
-    ExpressionSyntax* rightExpr_ = nullptr;
+  ExpressionSyntax *leftExpr_ = nullptr;
+  LexedTokens::IndexType oprtrTkIdx_ = LexedTokens::invalidIndex();
+  ExpressionSyntax *rightExpr_ = nullptr;
 };
 
-class MIXIN_GNUExtensionFlag
-{
+class MIXIN_GNUExtensionFlag {
 protected:
-    friend class Parser;
-    friend class Disambiguator;
+  friend class Parser;
+  friend class Disambiguator;
 
-    virtual SyntaxToken extensionKeyword() const = 0;
+  virtual SyntaxToken extensionKeyword() const = 0;
 
-    LexedTokens::IndexType extKwTkIdx_ = LexedTokens::invalidIndex();
+  LexedTokens::IndexType extKwTkIdx_ = LexedTokens::invalidIndex();
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

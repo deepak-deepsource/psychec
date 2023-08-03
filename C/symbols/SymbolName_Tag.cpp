@@ -26,52 +26,41 @@ using namespace psy;
 using namespace C;
 
 TagSymbolName::TagSymbolName(TagChoice tagChoice, std::string tag)
-    : tagChoice_(tagChoice)
-    , tag_(std::move(tag))
-{}
+    : tagChoice_(tagChoice), tag_(std::move(tag)) {}
 
-TagSymbolName::TagChoice TagSymbolName::tagChoice() const
-{
-    return tagChoice_;
-}
+TagSymbolName::TagChoice TagSymbolName::tagChoice() const { return tagChoice_; }
 
-std::string TagSymbolName::text() const
-{
-    std::string prefix;
-    switch (tagChoice_) {
-        case TagChoice::Struct:
-            prefix = "struct ";
-            break;
-        case TagChoice::Union:
-            prefix = "union ";
-            break;
-        case TagChoice::Enum:
-            prefix = "enum ";
-            break;
-        default:
-            PSY_ESCAPE_VIA_RETURN("");
-            return "<INVALID or UNSPECIFIED TagChoice>";
-    }
-    return prefix + tag_;
+std::string TagSymbolName::text() const {
+  std::string prefix;
+  switch (tagChoice_) {
+  case TagChoice::Struct:
+    prefix = "struct ";
+    break;
+  case TagChoice::Union:
+    prefix = "union ";
+    break;
+  case TagChoice::Enum:
+    prefix = "enum ";
+    break;
+  default:
+    PSY_ESCAPE_VIA_RETURN("");
+    return "<INVALID or UNSPECIFIED TagChoice>";
+  }
+  return prefix + tag_;
 }
 
 namespace psy {
 namespace C {
 
-std::string to_string(const TagSymbolName& name)
-{
-    return name.text();
+std::string to_string(const TagSymbolName &name) { return name.text(); }
+
+bool operator==(const TagSymbolName &a, const TagSymbolName &b) {
+  return a.kind() == b.kind() && a.tag_ == b.tag_;
 }
 
-bool operator==(const TagSymbolName& a, const TagSymbolName& b)
-{
-    return a.kind() == b.kind() && a.tag_ == b.tag_;
+bool operator!=(const TagSymbolName &a, const TagSymbolName &b) {
+  return !(a == b);
 }
 
-bool operator!=(const TagSymbolName& a, const TagSymbolName& b)
-{
-    return !(a == b);
-}
-
-} // C
-} // psy
+} // namespace C
+} // namespace psy

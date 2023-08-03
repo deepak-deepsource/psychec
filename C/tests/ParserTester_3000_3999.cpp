@@ -28,417 +28,204 @@
 using namespace psy;
 using namespace C;
 
-void ParserTester::case3000()
-{
-    parseExpression("va_arg ( x , int )",
-                    Expectation().AST( { VAArgumentExpression,
-                                         IdentifierName,
-                                         TypeName,
-                                         BuiltinTypeSpecifier,
-                                         AbstractDeclarator }));
-
-}
-
-void ParserTester::case3001()
-{
-    parseExpression("va_arg ( x , y )",
-                    Expectation().AST( { VAArgumentExpression,
-                                         IdentifierName,
-                                         TypeName,
-                                         TypedefName,
-                                         AbstractDeclarator }));
-}
-
-void ParserTester::case3002()
-{
-
-}
-
-void ParserTester::case3003()
-{
-
-}
-
-void ParserTester::case3004()
-{
-
-}
-
-void ParserTester::case3005()
-{
-
-}
-
-void ParserTester::case3006()
-{
-
-}
-
-void ParserTester::case3007()
-{
-
-}
-
-void ParserTester::case3008()
-{
-
-}
-
-void ParserTester::case3009()
-{
-
-}
-
-void ParserTester::case3010()
-{
-    parseExpression("offsetof ( struct x , y )",
-                    Expectation().AST( { OffsetOfExpression,
-                                         TypeName,
-                                         StructTypeSpecifier,
-                                         AbstractDeclarator,
-                                         OffsetOfDesignator }));
-}
-
-void ParserTester::case3011()
-{
-    parseExpression("offsetof ( struct x , y . z )",
-                    Expectation().AST( { OffsetOfExpression,
-                                         TypeName,
-                                         StructTypeSpecifier,
-                                         AbstractDeclarator,
-                                         OffsetOfDesignator,
-                                         FieldDesignator }));
-}
-
-void ParserTester::case3012()
-{
-    parseExpression("offsetof ( struct x , y [ 0 ] )",
-                    Expectation().AST( { OffsetOfExpression,
-                                         TypeName,
-                                         StructTypeSpecifier,
-                                         AbstractDeclarator,
-                                         OffsetOfDesignator,
-                                         ArrayDesignator,
-                                         IntegerConstantExpression }));
-}
-
-void ParserTester::case3013()
-{
-    parseExpression("offsetof ( struct x , y  [ 0 ] . z )",
-                    Expectation().AST( { OffsetOfExpression,
-                                         TypeName,
-                                         StructTypeSpecifier,
-                                         AbstractDeclarator,
-                                         OffsetOfDesignator,
-                                         ArrayDesignator,
-                                         IntegerConstantExpression,
-                                         FieldDesignator }));
-}
-
-void ParserTester::case3014()
-{
-
-}
-
-void ParserTester::case3015()
-{
-
-}
-
-void ParserTester::case3016()
-{
-
-}
-
-void ParserTester::case3017()
-{
-
-}
-
-void ParserTester::case3018()
-{
-
-}
-
-void ParserTester::case3019()
-{
-
-}
-
-void ParserTester::case3020()
-{
-    parseExpression("__func__",
-                    Expectation().AST( { PredefinedName }));
-}
-
-void ParserTester::case3021()
-{
-    parseExpression("(__func__)",
-                    Expectation().AST( { ParenthesizedExpression,
-                                         PredefinedName }));
-}
-
-void ParserTester::case3022()
-{
-    parseExpression("sizeof( __func__ )",
-                    Expectation().AST( { SizeofExpression,
-                                         ExpressionAsTypeReference,
-                                         ParenthesizedExpression,
-                                         PredefinedName }));
+void ParserTester::case3000() {
+  parseExpression(
+      "va_arg ( x , int )",
+      Expectation().AST({VAArgumentExpression, IdentifierName, TypeName,
+                         BuiltinTypeSpecifier, AbstractDeclarator}));
 }
 
-void ParserTester::case3023()
-{
-    parseExpression("sizeof __func__",
-                    Expectation().AST( { SizeofExpression,
-                                         ExpressionAsTypeReference,
-                                         PredefinedName }));
+void ParserTester::case3001() {
+  parseExpression(
+      "va_arg ( x , y )",
+      Expectation().AST({VAArgumentExpression, IdentifierName, TypeName,
+                         TypedefName, AbstractDeclarator}));
 }
 
-void ParserTester::case3024()
-{
-    parseExpression("x = __func__",
-                    Expectation().AST( { BasicAssignmentExpression,
-                                         IdentifierName,
-                                         PredefinedName }));
-}
-
-void ParserTester::case3025()
-{
-
-}
-
-void ParserTester::case3026()
-{
-
-}
-
-void ParserTester::case3027()
-{
-
-}
-
-void ParserTester::case3028()
-{
-
-}
-
-void ParserTester::case3029()
-{
-
-}
+void ParserTester::case3002() {}
 
-void ParserTester::case3030()
-{
+void ParserTester::case3003() {}
 
-}
+void ParserTester::case3004() {}
 
-void ParserTester::case3031()
-{
+void ParserTester::case3005() {}
 
-}
+void ParserTester::case3006() {}
 
-void ParserTester::case3032()
-{
+void ParserTester::case3007() {}
 
-}
+void ParserTester::case3008() {}
 
-void ParserTester::case3033()
-{
+void ParserTester::case3009() {}
 
+void ParserTester::case3010() {
+  parseExpression(
+      "offsetof ( struct x , y )",
+      Expectation().AST({OffsetOfExpression, TypeName, StructTypeSpecifier,
+                         AbstractDeclarator, OffsetOfDesignator}));
 }
-
-void ParserTester::case3034()
-{
 
+void ParserTester::case3011() {
+  parseExpression("offsetof ( struct x , y . z )",
+                  Expectation().AST({OffsetOfExpression, TypeName,
+                                     StructTypeSpecifier, AbstractDeclarator,
+                                     OffsetOfDesignator, FieldDesignator}));
 }
 
-void ParserTester::case3035()
-{
-
+void ParserTester::case3012() {
+  parseExpression(
+      "offsetof ( struct x , y [ 0 ] )",
+      Expectation().AST({OffsetOfExpression, TypeName, StructTypeSpecifier,
+                         AbstractDeclarator, OffsetOfDesignator,
+                         ArrayDesignator, IntegerConstantExpression}));
 }
-
-void ParserTester::case3036()
-{
 
+void ParserTester::case3013() {
+  parseExpression("offsetof ( struct x , y  [ 0 ] . z )",
+                  Expectation().AST(
+                      {OffsetOfExpression, TypeName, StructTypeSpecifier,
+                       AbstractDeclarator, OffsetOfDesignator, ArrayDesignator,
+                       IntegerConstantExpression, FieldDesignator}));
 }
 
-void ParserTester::case3037()
-{
+void ParserTester::case3014() {}
 
-}
-
-void ParserTester::case3038()
-{
+void ParserTester::case3015() {}
 
-}
+void ParserTester::case3016() {}
 
-void ParserTester::case3039()
-{
+void ParserTester::case3017() {}
 
-}
+void ParserTester::case3018() {}
 
-void ParserTester::case3040()
-{
+void ParserTester::case3019() {}
 
+void ParserTester::case3020() {
+  parseExpression("__func__", Expectation().AST({PredefinedName}));
 }
 
-void ParserTester::case3041()
-{
-
+void ParserTester::case3021() {
+  parseExpression("(__func__)",
+                  Expectation().AST({ParenthesizedExpression, PredefinedName}));
 }
-
-void ParserTester::case3042()
-{
 
+void ParserTester::case3022() {
+  parseExpression(
+      "sizeof( __func__ )",
+      Expectation().AST({SizeofExpression, ExpressionAsTypeReference,
+                         ParenthesizedExpression, PredefinedName}));
 }
 
-void ParserTester::case3043()
-{
-
+void ParserTester::case3023() {
+  parseExpression(
+      "sizeof __func__",
+      Expectation().AST(
+          {SizeofExpression, ExpressionAsTypeReference, PredefinedName}));
 }
-
-void ParserTester::case3044()
-{
 
+void ParserTester::case3024() {
+  parseExpression("x = __func__",
+                  Expectation().AST({BasicAssignmentExpression, IdentifierName,
+                                     PredefinedName}));
 }
 
-void ParserTester::case3045()
-{
+void ParserTester::case3025() {}
 
-}
+void ParserTester::case3026() {}
 
-void ParserTester::case3046()
-{
-
-}
+void ParserTester::case3027() {}
 
-void ParserTester::case3047()
-{
+void ParserTester::case3028() {}
 
-}
+void ParserTester::case3029() {}
 
-void ParserTester::case3048()
-{
+void ParserTester::case3030() {}
 
-}
+void ParserTester::case3031() {}
 
-void ParserTester::case3049()
-{
+void ParserTester::case3032() {}
 
-}
+void ParserTester::case3033() {}
 
-void ParserTester::case3050()
-{
+void ParserTester::case3034() {}
 
-}
+void ParserTester::case3035() {}
 
-void ParserTester::case3051()
-{
+void ParserTester::case3036() {}
 
-}
+void ParserTester::case3037() {}
 
-void ParserTester::case3052()
-{
+void ParserTester::case3038() {}
 
-}
+void ParserTester::case3039() {}
 
-void ParserTester::case3053()
-{
+void ParserTester::case3040() {}
 
-}
+void ParserTester::case3041() {}
 
-void ParserTester::case3054()
-{
+void ParserTester::case3042() {}
 
-}
+void ParserTester::case3043() {}
 
-void ParserTester::case3055()
-{
+void ParserTester::case3044() {}
 
-}
+void ParserTester::case3045() {}
 
-void ParserTester::case3056()
-{
+void ParserTester::case3046() {}
 
-}
+void ParserTester::case3047() {}
 
-void ParserTester::case3057()
-{
+void ParserTester::case3048() {}
 
-}
+void ParserTester::case3049() {}
 
-void ParserTester::case3058()
-{
+void ParserTester::case3050() {}
 
-}
+void ParserTester::case3051() {}
 
-void ParserTester::case3059()
-{
+void ParserTester::case3052() {}
 
-}
+void ParserTester::case3053() {}
 
-void ParserTester::case3060()
-{
+void ParserTester::case3054() {}
 
-}
+void ParserTester::case3055() {}
 
-void ParserTester::case3061()
-{
+void ParserTester::case3056() {}
 
-}
+void ParserTester::case3057() {}
 
-void ParserTester::case3062()
-{
+void ParserTester::case3058() {}
 
-}
+void ParserTester::case3059() {}
 
-void ParserTester::case3063()
-{
-}
+void ParserTester::case3060() {}
 
-void ParserTester::case3064()
-{
-}
+void ParserTester::case3061() {}
 
-void ParserTester::case3065()
-{
+void ParserTester::case3062() {}
 
-}
+void ParserTester::case3063() {}
 
-void ParserTester::case3066()
-{
+void ParserTester::case3064() {}
 
-}
+void ParserTester::case3065() {}
 
-void ParserTester::case3067()
-{
+void ParserTester::case3066() {}
 
-}
+void ParserTester::case3067() {}
 
-void ParserTester::case3068()
-{
-}
+void ParserTester::case3068() {}
 
-void ParserTester::case3069()
-{
-}
+void ParserTester::case3069() {}
 
-void ParserTester::case3070()
-{
-}
+void ParserTester::case3070() {}
 
-void ParserTester::case3071()
-{
-}
+void ParserTester::case3071() {}
 
-void ParserTester::case3072()
-{
-}
+void ParserTester::case3072() {}
 
-void ParserTester::case3073()
-{
-}
+void ParserTester::case3073() {}
 
 void ParserTester::case3074() {}
 void ParserTester::case3075() {}
@@ -467,41 +254,21 @@ void ParserTester::case3097() {}
 void ParserTester::case3098() {}
 void ParserTester::case3099() {}
 
-void ParserTester::case3100()
-{
+void ParserTester::case3100() {}
 
-}
+void ParserTester::case3101() {}
 
-void ParserTester::case3101()
-{
+void ParserTester::case3102() {}
 
-}
+void ParserTester::case3103() {}
 
-void ParserTester::case3102()
-{
+void ParserTester::case3104() {}
 
-}
+void ParserTester::case3105() {}
 
-void ParserTester::case3103()
-{
+void ParserTester::case3106() {}
 
-}
-
-void ParserTester::case3104()
-{
-}
-
-void ParserTester::case3105()
-{
-}
-
-void ParserTester::case3106()
-{
-}
-
-void ParserTester::case3107()
-{
-}
+void ParserTester::case3107() {}
 
 void ParserTester::case3108() {}
 void ParserTester::case3109() {}
@@ -596,37 +363,21 @@ void ParserTester::case3197() {}
 void ParserTester::case3198() {}
 void ParserTester::case3199() {}
 
-void ParserTester::case3200()
-{
-}
+void ParserTester::case3200() {}
 
-void ParserTester::case3201()
-{
-}
+void ParserTester::case3201() {}
 
-void ParserTester::case3202()
-{
-}
+void ParserTester::case3202() {}
 
-void ParserTester::case3203()
-{
-}
+void ParserTester::case3203() {}
 
-void ParserTester::case3204()
-{
-}
+void ParserTester::case3204() {}
 
-void ParserTester::case3205()
-{
-}
+void ParserTester::case3205() {}
 
-void ParserTester::case3206()
-{
-}
+void ParserTester::case3206() {}
 
-void ParserTester::case3207()
-{
-}
+void ParserTester::case3207() {}
 void ParserTester::case3208() {}
 void ParserTester::case3209() {}
 void ParserTester::case3210() {}
@@ -720,37 +471,21 @@ void ParserTester::case3297() {}
 void ParserTester::case3298() {}
 void ParserTester::case3299() {}
 
-void ParserTester::case3300()
-{
-}
+void ParserTester::case3300() {}
 
-void ParserTester::case3301()
-{
-}
+void ParserTester::case3301() {}
 
-void ParserTester::case3302()
-{
-}
+void ParserTester::case3302() {}
 
-void ParserTester::case3303()
-{
-}
+void ParserTester::case3303() {}
 
-void ParserTester::case3304()
-{
-}
+void ParserTester::case3304() {}
 
-void ParserTester::case3305()
-{
-}
+void ParserTester::case3305() {}
 
-void ParserTester::case3306()
-{
-}
+void ParserTester::case3306() {}
 
-void ParserTester::case3307()
-{
-}
+void ParserTester::case3307() {}
 
 void ParserTester::case3308() {}
 void ParserTester::case3309() {}
@@ -845,25 +580,15 @@ void ParserTester::case3397() {}
 void ParserTester::case3398() {}
 void ParserTester::case3399() {}
 
-void ParserTester::case3400()
-{
-}
+void ParserTester::case3400() {}
 
-void ParserTester::case3401()
-{
-}
+void ParserTester::case3401() {}
 
-void ParserTester::case3402()
-{
-}
+void ParserTester::case3402() {}
 
-void ParserTester::case3403()
-{
-}
+void ParserTester::case3403() {}
 
-void ParserTester::case3404()
-{
-}
+void ParserTester::case3404() {}
 void ParserTester::case3405() {}
 void ParserTester::case3406() {}
 void ParserTester::case3407() {}

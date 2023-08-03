@@ -25,16 +25,15 @@
 
 namespace psy {
 
-enum class DiagnosticSeverity : char
-{
-    UNSPECIFIED = 0,
+enum class DiagnosticSeverity : char {
+  UNSPECIFIED = 0,
 
-    Warning,
-    Error
+  Warning,
+  Error
 };
 
-std::ostream& operator<<(std::ostream& os, DiagnosticSeverity severity);
+std::ostream &operator<<(std::ostream &os, DiagnosticSeverity severity);
 
-} // psy
+} // namespace psy
 
 #endif

@@ -33,37 +33,35 @@ namespace C {
 /**
  * \brief The StringLiteral class.
  */
-class PSY_C_API StringLiteral final : public SyntaxLexeme
-{
+class PSY_C_API StringLiteral final : public SyntaxLexeme {
 public:
-    //!@{
-    /**
-     * Cast \c this SyntaxLexeme as an StringLiteral.
-     */
-    virtual StringLiteral* asStringLiteralExpression() { return nullptr; }
+  //!@{
+  /**
+   * Cast \c this SyntaxLexeme as an StringLiteral.
+   */
+  virtual StringLiteral *asStringLiteralExpression() { return nullptr; }
 
-    /**
-     * \brief The StringLiteral::Variant enumeration.
-     */
-    enum class Variant : std::uint8_t
-    {
-        Plain_char,
-        L_wchar_t,
-        u8_char,
-        u_char16_t,
-        U_char32_t
-    };
+  /**
+   * \brief The StringLiteral::Variant enumeration.
+   */
+  enum class Variant : std::uint8_t {
+    Plain_char,
+    L_wchar_t,
+    u8_char,
+    u_char16_t,
+    U_char32_t
+  };
 
-    /**
-     * The Variant of \c this StringLiteral.
-     */
-    Variant variant() const;
+  /**
+   * The Variant of \c this StringLiteral.
+   */
+  Variant variant() const;
 
-    // TODO: Make internal.
-    StringLiteral(const char* chars, unsigned int size);
+  // TODO: Make internal.
+  StringLiteral(const char *chars, unsigned int size);
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

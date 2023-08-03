@@ -24,159 +24,117 @@
 using namespace psy;
 using namespace C;
 
-SyntaxLexeme::SyntaxLexeme(const char* chars, unsigned int size, Kind kind)
-    : TextElement(chars, size)
-    , BF_all_(0)
-{
-    BF_.kind_ = static_cast<std::uint16_t>(kind);
+SyntaxLexeme::SyntaxLexeme(const char *chars, unsigned int size, Kind kind)
+    : TextElement(chars, size), BF_all_(0) {
+  BF_.kind_ = static_cast<std::uint16_t>(kind);
 }
 
-SyntaxLexeme::~SyntaxLexeme()
-{}
+SyntaxLexeme::~SyntaxLexeme() {}
 
-SyntaxLexeme::Kind SyntaxLexeme::kind() const
-{
-    return Kind(BF_.kind_);
+SyntaxLexeme::Kind SyntaxLexeme::kind() const { return Kind(BF_.kind_); }
+
+void SyntaxLexeme::checkHexPrefix() {
+  const char *chars = begin();
+  if (size() > 1 && chars[0] == '0' && (chars[1] == 'x' || chars[1] == 'X')) {
+    BF_.hex_ = 1;
+  }
 }
 
-void SyntaxLexeme::checkHexPrefix()
-{
-    const char* chars = begin();
-    if (size() > 1
-            && chars[0] == '0'
-            && (chars[1] == 'x' || chars[1] == 'X')) {
-        BF_.hex_ = 1;
+void SyntaxLexeme::checkVariousPrefixesAndSuffixes() {
+  const char *kEnd = end();
+  for (const char *cur = begin(); cur != kEnd; ++cur) {
+    switch (*cur) {
+    case 'l':
+      if (cur + 1 != kEnd && *(cur + 1) == 'l') {
+        BF_.llOrLL_ = 1;
+        ++cur;
+      } else
+        BF_.l_ = 1;
+      break;
+
+    case 'L':
+      if (cur + 1 != kEnd && *(cur + 1) == 'L') {
+        BF_.llOrLL_ = 1;
+        ++cur;
+      } else
+        BF_.L_ = 1;
+      break;
+
+    case 'u':
+      if (cur + 1 != kEnd && *(cur + 1) == '8') {
+        BF_.u8_ = 1;
+        ++cur;
+      } else
+        BF_.u_ = 1;
+      break;
+
+    case 'U':
+      BF_.U_ = 1;
+      break;
+
+    case 'f':
+    case 'F':
+      BF_.fOrF_ = 1;
+      break;
     }
+  }
 }
 
-void SyntaxLexeme::checkVariousPrefixesAndSuffixes()
-{
-    const char* kEnd = end();
-    for (const char* cur = begin(); cur != kEnd; ++cur) {
-        switch (*cur) {
-            case 'l':
-                if (cur + 1 != kEnd && *(cur + 1 ) == 'l') {
-                    BF_.llOrLL_ = 1;
-                    ++cur;
-                }
-                else
-                    BF_.l_ = 1;
-                break;
+std::string SyntaxLexeme::valueText() const { return c_str(); }
 
-            case 'L':
-                if (cur + 1 != kEnd && *(cur + 1) == 'L') {
-                    BF_.llOrLL_ = 1;
-                    ++cur;
-                }
-                else
-                    BF_.L_ = 1;
-                break;
-
-            case 'u':
-                if (cur + 1 != kEnd && *(cur + 1 ) == '8') {
-                    BF_.u8_ = 1;
-                    ++cur;
-                }
-                else
-                    BF_.u_ = 1;
-                break;
-
-            case 'U':
-                BF_.U_ = 1;
-                break;
-
-            case 'f':
-            case 'F':
-                BF_.fOrF_ = 1;
-                break;
-        }
-    }
+template <> int SyntaxLexeme::value<int>() const {
+  return std::stoi(valueText());
 }
 
-std::string SyntaxLexeme::valueText() const
-{
-    return c_str();
+template <> long SyntaxLexeme::value<long>() const {
+  return std::stol(valueText());
 }
 
-template <>
-int SyntaxLexeme::value<int>() const
-{
-    return std::stoi(valueText());
+template <> long long SyntaxLexeme::value<long long>() const {
+  return std::stoll(valueText());
 }
 
-template <>
-long SyntaxLexeme::value<long>() const
-{
-    return std::stol(valueText());
+template <> unsigned long SyntaxLexeme::value<unsigned long>() const {
+  return std::stoul(valueText());
 }
 
-template <>
-long long SyntaxLexeme::value<long long>() const
-{
-    return std::stoll(valueText());
+template <> unsigned long long SyntaxLexeme::value<unsigned long long>() const {
+  return std::stoull(valueText());
 }
 
-template <>
-unsigned long SyntaxLexeme::value<unsigned long>() const
-{
-    return std::stoul(valueText());
+template <> float SyntaxLexeme::value<float>() const {
+  return std::stof(valueText());
 }
 
-template <>
-unsigned long long SyntaxLexeme::value<unsigned long long>() const
-{
-    return std::stoull(valueText());
+template <> double SyntaxLexeme::value<double>() const {
+  return std::stod(valueText());
 }
 
-template <>
-float SyntaxLexeme::value<float>() const
-{
-    return std::stof(valueText());
+template <> long double SyntaxLexeme::value<long double>() const {
+  return std::stold(valueText());
 }
 
-template <>
-double SyntaxLexeme::value<double>() const
-{
-    return std::stod(valueText());
+template <> unsigned char SyntaxLexeme::value<unsigned char>() const {
+  // Lexeme is: 'c'
+  return c_str()[1];
 }
 
-template <>
-long double SyntaxLexeme::value<long double>() const
-{
-    return std::stold(valueText());
+template <> wchar_t SyntaxLexeme::value<wchar_t>() const {
+  // Lexeme is: L'c'
+  return c_str()[2];
 }
 
-template <>
-unsigned char SyntaxLexeme::value<unsigned char>() const
-{
-    // Lexeme is: 'c'
-    return c_str()[1];
+template <> char16_t SyntaxLexeme::value<char16_t>() const {
+  // Lexeme is: u'c'
+  return c_str()[2];
 }
 
-template <>
-wchar_t SyntaxLexeme::value<wchar_t>() const
-{
-    // Lexeme is: L'c'
-    return c_str()[2];
+template <> char32_t SyntaxLexeme::value<char32_t>() const {
+  // Lexeme is: U'c'
+  return c_str()[2];
 }
 
-template <>
-char16_t SyntaxLexeme::value<char16_t>() const
-{
-    // Lexeme is: u'c'
-    return c_str()[2];
-}
-
-template <>
-char32_t SyntaxLexeme::value<char32_t>() const
-{
-    // Lexeme is: U'c'
-    return c_str()[2];
-}
-
-template <>
-std::string SyntaxLexeme::value<std::string>() const
-{
-    auto p = valueText();
-    return std::string(p.c_str() + 1, p.size() - 2);
+template <> std::string SyntaxLexeme::value<std::string>() const {
+  auto p = valueText();
+  return std::string(p.c_str() + 1, p.size() - 2);
 }

@@ -23,8 +23,8 @@
 #define PSYCHE_C_SYNTAX_NODES_EXPRESSIONS_H__
 
 #include "SyntaxNode.h"
-#include "SyntaxNodes_Statements.h"
 #include "SyntaxNodes_MIXIN.h"
+#include "SyntaxNodes_Statements.h"
 #include "SyntaxToken.h"
 #include "SyntaxTree.h"
 
@@ -67,23 +67,23 @@ namespace C {
  * \see LanguageExtensions::enable_NativeBooleans
  *
  * \note Similar to:
- * - \c clang::IntegerLiteral, \c clang::FloatingLiteral, \c clang::CharacterLiteral, and
- *   \c clang::CXXBoolLiteralExpr of LLVM/Clang.
- * - \c clang::syntax::IntegerLiteralExpression, \c clang::syntax::FloatingLiteralExpression,
- *   \c clang::syntax::CharacterLiteralExpression, and \c clang::syntax::BoolLiteralExpression
- *   of Clang's Libtooling.
+ * - \c clang::IntegerLiteral, \c clang::FloatingLiteral, \c
+ * clang::CharacterLiteral, and \c clang::CXXBoolLiteralExpr of LLVM/Clang.
+ * - \c clang::syntax::IntegerLiteralExpression, \c
+ * clang::syntax::FloatingLiteralExpression, \c
+ * clang::syntax::CharacterLiteralExpression, and \c
+ * clang::syntax::BoolLiteralExpression of Clang's Libtooling.
  * - \c Microsoft.CodeAnalysis.CSharp.Syntax.LiteralExpressionSyntax of Roslyn.
  */
-class PSY_C_API ConstantExpressionSyntax final : public ExpressionSyntax
-{
-    AST_NODE_NK(ConstantExpression, Expression)
+class PSY_C_API ConstantExpressionSyntax final : public ExpressionSyntax {
+  AST_NODE_NK(ConstantExpression, Expression)
 
 public:
-    SyntaxToken constantToken() const { return tokenAtIndex(constantTkIdx_); }
+  SyntaxToken constantToken() const { return tokenAtIndex(constantTkIdx_); }
 
 private:
-    LexedTokens::IndexType constantTkIdx_ = LexedTokens::invalidIndex();
-    AST_CHILD_LST1(constantTkIdx_)
+  LexedTokens::IndexType constantTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST1(constantTkIdx_)
 };
 
 /**
@@ -103,19 +103,18 @@ private:
  * - \c clang::syntax::StringLiteralExpression of Clang's Libtooling.
  * - \c Microsoft.CodeAnalysis.CSharp.Syntax.LiteralExpressionSyntax of Roslyn.
  */
-class PSY_C_API StringLiteralExpressionSyntax final : public ExpressionSyntax
-{
-    AST_NODE_1K(StringLiteralExpression, Expression)
+class PSY_C_API StringLiteralExpressionSyntax final : public ExpressionSyntax {
+  AST_NODE_1K(StringLiteralExpression, Expression)
 
 public:
-    SyntaxToken literalToken() const { return tokenAtIndex(litTkIdx_); }
-    StringLiteralExpressionSyntax* adjacent() const { return adjacent_; }
+  SyntaxToken literalToken() const { return tokenAtIndex(litTkIdx_); }
+  StringLiteralExpressionSyntax *adjacent() const { return adjacent_; }
 
 private:
-    LexedTokens::IndexType litTkIdx_ = LexedTokens::invalidIndex();
-    AST_CHILD_LST1(litTkIdx_)
+  LexedTokens::IndexType litTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST1(litTkIdx_)
 
-    StringLiteralExpressionSyntax* adjacent_ = nullptr;
+  StringLiteralExpressionSyntax *adjacent_ = nullptr;
 };
 
 /**
@@ -126,9 +125,8 @@ private:
  * \note Similar to:
  * - \c Microsoft.CodeAnalysis.CSharp.Syntax.NameSyntax of Roslyn.
  */
-class PSY_C_API NameSyntax : public ExpressionSyntax
-{
-    AST_NODE(Name, Expression)
+class PSY_C_API NameSyntax : public ExpressionSyntax {
+  AST_NODE(Name, Expression)
 };
 
 /**
@@ -145,16 +143,15 @@ class PSY_C_API NameSyntax : public ExpressionSyntax
  * - \c clang::syntax::IdExpression of Clang's Libtooling.
  * - \c Microsoft.CodeAnalysis.CSharp.Syntax.IdentifierNameSyntax of Roslyn.
  */
-class PSY_C_API IdentifierNameSyntax final : public NameSyntax
-{
-    AST_NODE_1K(IdentifierName, Name)
+class PSY_C_API IdentifierNameSyntax final : public NameSyntax {
+  AST_NODE_1K(IdentifierName, Name)
 
 public:
-    SyntaxToken identifierToken() const { return tokenAtIndex(identTkIdx_); }
+  SyntaxToken identifierToken() const { return tokenAtIndex(identTkIdx_); }
 
 private:
-    LexedTokens::IndexType identTkIdx_ = LexedTokens::invalidIndex();
-    AST_CHILD_LST1(identTkIdx_)
+  LexedTokens::IndexType identTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST1(identTkIdx_)
 };
 
 /**
@@ -166,16 +163,15 @@ private:
  * __PRETTY_FUNCTION__
  * \endcode
  */
-class PSY_C_API PredefinedNameSyntax final : public NameSyntax
-{
-    AST_NODE_1K(PredefinedName, Name)
+class PSY_C_API PredefinedNameSyntax final : public NameSyntax {
+  AST_NODE_1K(PredefinedName, Name)
 
 public:
-    SyntaxToken predefinedToken() const { return tokenAtIndex(predefTkIdx_); }
+  SyntaxToken predefinedToken() const { return tokenAtIndex(predefTkIdx_); }
 
 private:
-    LexedTokens::IndexType predefTkIdx_ = LexedTokens::invalidIndex();
-    AST_CHILD_LST1(predefTkIdx_)
+  LexedTokens::IndexType predefTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST1(predefTkIdx_)
 };
 
 /**
@@ -192,24 +188,26 @@ private:
  * \note Similar to:
  * - \c clang::ParenExpr of LLVM/Clang.
  * - \c clang::syntax::ParenExpression of Clang's Libtooling.
- * - \c Microsoft.CodeAnalysis.CSharp.Syntax.ParenthesizedExpressionSyntax of Roslyn.
+ * - \c Microsoft.CodeAnalysis.CSharp.Syntax.ParenthesizedExpressionSyntax of
+ * Roslyn.
  */
-class PSY_C_API ParenthesizedExpressionSyntax final : public ExpressionSyntax
-{
-    AST_NODE_1K(ParenthesizedExpression, Expression)
+class PSY_C_API ParenthesizedExpressionSyntax final : public ExpressionSyntax {
+  AST_NODE_1K(ParenthesizedExpression, Expression)
 
 public:
-    SyntaxToken openParenthesisToken() const { return tokenAtIndex(openParenTkIdx_); }
-    const ExpressionSyntax* expression() const { return expr_; }
-    SyntaxToken closeParenthesisToken() const { return tokenAtIndex(closeParenTkIdx_); }
+  SyntaxToken openParenthesisToken() const {
+    return tokenAtIndex(openParenTkIdx_);
+  }
+  const ExpressionSyntax *expression() const { return expr_; }
+  SyntaxToken closeParenthesisToken() const {
+    return tokenAtIndex(closeParenTkIdx_);
+  }
 
 private:
-    LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
-    ExpressionSyntax* expr_ = nullptr;
-    LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
-    AST_CHILD_LST3(openParenTkIdx_,
-                   expr_,
-                   closeParenTkIdx_)
+  LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
+  ExpressionSyntax *expr_ = nullptr;
+  LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST3(openParenTkIdx_, expr_, closeParenTkIdx_)
 };
 
 /**
@@ -220,31 +218,31 @@ private:
  * \note Similar to:
  * - \c clang:GenericSelectionExpr of LLVM/Clang.
  */
-class PSY_C_API GenericSelectionExpressionSyntax final : public ExpressionSyntax
-{
-    AST_NODE_1K(GenericSelectionExpression, Expression)
+class PSY_C_API GenericSelectionExpressionSyntax final
+    : public ExpressionSyntax {
+  AST_NODE_1K(GenericSelectionExpression, Expression)
 
 public:
-    SyntaxToken genericKeyword() const { return tokenAtIndex(genericKwTkIdx_); }
-    SyntaxToken openParenthesisToken() const { return tokenAtIndex(openParenTkIdx_); }
-    const ExpressionSyntax* expression() const { return expr_; }
-    SyntaxToken commaToken() const { return tokenAtIndex(commaTkIdx_); }
-    const GenericAssociationListSyntax* associations() const { return assocs_; }
-    SyntaxToken closeParenthesisToken() const { return tokenAtIndex(closeParenTkIdx_); }
+  SyntaxToken genericKeyword() const { return tokenAtIndex(genericKwTkIdx_); }
+  SyntaxToken openParenthesisToken() const {
+    return tokenAtIndex(openParenTkIdx_);
+  }
+  const ExpressionSyntax *expression() const { return expr_; }
+  SyntaxToken commaToken() const { return tokenAtIndex(commaTkIdx_); }
+  const GenericAssociationListSyntax *associations() const { return assocs_; }
+  SyntaxToken closeParenthesisToken() const {
+    return tokenAtIndex(closeParenTkIdx_);
+  }
 
 private:
-    LexedTokens::IndexType genericKwTkIdx_ = LexedTokens::invalidIndex();
-    LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
-    ExpressionSyntax* expr_ = nullptr;
-    LexedTokens::IndexType commaTkIdx_ = LexedTokens::invalidIndex();
-    GenericAssociationListSyntax* assocs_ = nullptr;
-    LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
-    AST_CHILD_LST6(genericKwTkIdx_,
-                   openParenTkIdx_,
-                   expr_,
-                   commaTkIdx_,
-                   assocs_,
-                   closeParenTkIdx_)
+  LexedTokens::IndexType genericKwTkIdx_ = LexedTokens::invalidIndex();
+  LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
+  ExpressionSyntax *expr_ = nullptr;
+  LexedTokens::IndexType commaTkIdx_ = LexedTokens::invalidIndex();
+  GenericAssociationListSyntax *assocs_ = nullptr;
+  LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST6(genericKwTkIdx_, openParenTkIdx_, expr_, commaTkIdx_, assocs_,
+                 closeParenTkIdx_)
 };
 
 /**
@@ -252,20 +250,19 @@ private:
  *
  * \remark 6.5.1.1
  */
-class PSY_C_API GenericAssociationSyntax final : public SyntaxNode
-{
-    AST_G_NODE_NK(GenericAssociation)
+class PSY_C_API GenericAssociationSyntax final : public SyntaxNode {
+  AST_G_NODE_NK(GenericAssociation)
 
 public:
-    const SyntaxNode* typeName_or_default() const { return typeName_or_default_; }
-    SyntaxToken colonToken() const { return tokenAtIndex(colonTkIdx_); }
-    const ExpressionSyntax * expression() const { return expr_; }
+  const SyntaxNode *typeName_or_default() const { return typeName_or_default_; }
+  SyntaxToken colonToken() const { return tokenAtIndex(colonTkIdx_); }
+  const ExpressionSyntax *expression() const { return expr_; }
 
 private:
-    SyntaxNode* typeName_or_default_ = nullptr;
-    LexedTokens::IndexType colonTkIdx_ = LexedTokens::invalidIndex();
-    ExpressionSyntax* expr_ = nullptr;
-    AST_CHILD_LST3(typeName_or_default_, colonTkIdx_, expr_)
+  SyntaxNode *typeName_or_default_ = nullptr;
+  LexedTokens::IndexType colonTkIdx_ = LexedTokens::invalidIndex();
+  ExpressionSyntax *expr_ = nullptr;
+  AST_CHILD_LST3(typeName_or_default_, colonTkIdx_, expr_)
 };
 
 /**
@@ -274,20 +271,24 @@ private:
  * \attention This is a GNU extension:
  * https://gcc.gnu.org/onlinedocs/gcc/Statement-Exprs.html#Statement-Exprs
  */
-class PSY_C_API ExtGNU_EnclosedCompoundStatementExpressionSyntax final : public ExpressionSyntax
-{
-    AST_NODE_1K(ExtGNU_EnclosedCompoundStatementExpression, Expression)
+class PSY_C_API ExtGNU_EnclosedCompoundStatementExpressionSyntax final
+    : public ExpressionSyntax {
+  AST_NODE_1K(ExtGNU_EnclosedCompoundStatementExpression, Expression)
 
 public:
-    SyntaxToken openParenthesisToken() const { return tokenAtIndex(openParenTkIdx_); }
-    const CompoundStatementSyntax* statement() const { return stmt_; }
-    SyntaxToken closeParenthesisToken() const { return tokenAtIndex(closeParenTkIdx_); }
+  SyntaxToken openParenthesisToken() const {
+    return tokenAtIndex(openParenTkIdx_);
+  }
+  const CompoundStatementSyntax *statement() const { return stmt_; }
+  SyntaxToken closeParenthesisToken() const {
+    return tokenAtIndex(closeParenTkIdx_);
+  }
 
 private:
-    LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
-    CompoundStatementSyntax* stmt_ = nullptr;
-    LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
-    AST_CHILD_LST3(openParenTkIdx_, stmt_, closeParenTkIdx_)
+  LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
+  CompoundStatementSyntax *stmt_ = nullptr;
+  LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST3(openParenTkIdx_, stmt_, closeParenTkIdx_)
 };
 
 /* Operations */
@@ -308,9 +309,8 @@ private:
  * - \c clang::UnaryOperator of LLVM/Clang.
  * - \c clang::syntax::UnaryOperatorExpression of Clang's Libtooling.
  */
-class PSY_C_API UnaryExpressionSyntax : public ExpressionSyntax
-{
-    AST_NODE(UnaryExpression, Expression)
+class PSY_C_API UnaryExpressionSyntax : public ExpressionSyntax {
+  AST_NODE(UnaryExpression, Expression)
 };
 
 /**
@@ -325,22 +325,23 @@ class PSY_C_API UnaryExpressionSyntax : public ExpressionSyntax
  * \note Similar to:
  * - \c clang::UnaryOperator of LLVM/Clang.
  * - \c clang::syntax::PostfixUnaryOperatorExpression of Clang's Libtooling.
- * - \c Microsoft.CodeAnalysis.CSharp.Syntax.PostfixUnaryExpressionSyntax of Roslyn.
+ * - \c Microsoft.CodeAnalysis.CSharp.Syntax.PostfixUnaryExpressionSyntax of
+ * Roslyn.
  *
  * \remark 6.5.2.4
  */
-class PSY_C_API PostfixUnaryExpressionSyntax final : public UnaryExpressionSyntax
-{
-    AST_NODE_NK(PostfixUnaryExpression, UnaryExpression)
+class PSY_C_API PostfixUnaryExpressionSyntax final
+    : public UnaryExpressionSyntax {
+  AST_NODE_NK(PostfixUnaryExpression, UnaryExpression)
 
 public:
-    const ExpressionSyntax* expression() const { return expr_; }
-    SyntaxToken operatorToken() const { return tokenAtIndex(oprtrTkIdx_); }
+  const ExpressionSyntax *expression() const { return expr_; }
+  SyntaxToken operatorToken() const { return tokenAtIndex(oprtrTkIdx_); }
 
 private:
-    ExpressionSyntax* expr_ = nullptr;
-    LexedTokens::IndexType oprtrTkIdx_ = LexedTokens::invalidIndex();
-    AST_CHILD_LST2(expr_, oprtrTkIdx_)
+  ExpressionSyntax *expr_ = nullptr;
+  LexedTokens::IndexType oprtrTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST2(expr_, oprtrTkIdx_)
 };
 
 /**
@@ -359,20 +360,21 @@ private:
  * \note Similar to:
  * - \c clang::UnaryOperator of LLVM/Clang.
  * - \c clang::syntax::PrefixUnaryOperatorExpression of Clang's Libtooling.
- * - \c Microsoft.CodeAnalysis.CSharp.Syntax.PrefixUnaryExpressionSyntax of Roslyn.
+ * - \c Microsoft.CodeAnalysis.CSharp.Syntax.PrefixUnaryExpressionSyntax of
+ * Roslyn.
  */
-class PSY_C_API PrefixUnaryExpressionSyntax final : public UnaryExpressionSyntax
-{
-    AST_NODE_NK(PrefixUnaryExpression, UnaryExpression)
+class PSY_C_API PrefixUnaryExpressionSyntax final
+    : public UnaryExpressionSyntax {
+  AST_NODE_NK(PrefixUnaryExpression, UnaryExpression)
 
 public:
-    SyntaxToken operatorToken() const { return tokenAtIndex(oprtrTkIdx_); }
-    const ExpressionSyntax* expression() const { return expr_; }
+  SyntaxToken operatorToken() const { return tokenAtIndex(oprtrTkIdx_); }
+  const ExpressionSyntax *expression() const { return expr_; }
 
 private:
-    LexedTokens::IndexType oprtrTkIdx_ = LexedTokens::invalidIndex();
-    ExpressionSyntax* expr_ = nullptr;
-    AST_CHILD_LST2(oprtrTkIdx_, expr_)
+  LexedTokens::IndexType oprtrTkIdx_ = LexedTokens::invalidIndex();
+  ExpressionSyntax *expr_ = nullptr;
+  AST_CHILD_LST2(oprtrTkIdx_, expr_)
 };
 
 /**
@@ -387,24 +389,28 @@ private:
  * \note Similar to:
  * - \c clang::ArraySubscriptExpr of LLVM/Clang.
  * - \c clang::syntax::ArraySubscript of Clang's Libtooling.
- * - \c Microsoft.CodeAnalysis.CSharp.Syntax.ElementAccessExpressionSyntax of Roslyn.
+ * - \c Microsoft.CodeAnalysis.CSharp.Syntax.ElementAccessExpressionSyntax of
+ * Roslyn.
  */
-class PSY_C_API ArraySubscriptExpressionSyntax final : public ExpressionSyntax
-{
-    AST_NODE_NK(ArraySubscriptExpression, Expression)
+class PSY_C_API ArraySubscriptExpressionSyntax final : public ExpressionSyntax {
+  AST_NODE_NK(ArraySubscriptExpression, Expression)
 
 public:
-    const ExpressionSyntax* expression() const { return expr_; }
-    SyntaxToken openBracketToken() const { return tokenAtIndex(openBracketTkIdx_); }
-    const ExpressionSyntax* argument() const { return arg_; }
-    SyntaxToken closeBracketToken() const { return tokenAtIndex(closeBracketTkIdx_); }
+  const ExpressionSyntax *expression() const { return expr_; }
+  SyntaxToken openBracketToken() const {
+    return tokenAtIndex(openBracketTkIdx_);
+  }
+  const ExpressionSyntax *argument() const { return arg_; }
+  SyntaxToken closeBracketToken() const {
+    return tokenAtIndex(closeBracketTkIdx_);
+  }
 
 private:
-    ExpressionSyntax* expr_ = nullptr;
-    LexedTokens::IndexType openBracketTkIdx_ = LexedTokens::invalidIndex();
-    ExpressionSyntax* arg_ = nullptr;
-    LexedTokens::IndexType closeBracketTkIdx_ = LexedTokens::invalidIndex();
-    AST_CHILD_LST4(expr_, openBracketTkIdx_, arg_, closeBracketTkIdx_)
+  ExpressionSyntax *expr_ = nullptr;
+  LexedTokens::IndexType openBracketTkIdx_ = LexedTokens::invalidIndex();
+  ExpressionSyntax *arg_ = nullptr;
+  LexedTokens::IndexType closeBracketTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST4(expr_, openBracketTkIdx_, arg_, closeBracketTkIdx_)
 };
 
 /**
@@ -420,24 +426,28 @@ private:
  * \note Similar to:
  * - \c clang::CallExpr in LLVM/Clang.
  * - \c clang::syntax::CallExpression in Clang's Libtooling.
- * - \c Microsoft.CodeAnalysis.CSharp.Syntax.InvocationExpressionSyntax of Roslyn.
+ * - \c Microsoft.CodeAnalysis.CSharp.Syntax.InvocationExpressionSyntax of
+ * Roslyn.
  */
-class PSY_C_API CallExpressionSyntax final : public ExpressionSyntax
-{
-    AST_NODE_NK(CallExpression, Expression)
+class PSY_C_API CallExpressionSyntax final : public ExpressionSyntax {
+  AST_NODE_NK(CallExpression, Expression)
 
 public:
-    const ExpressionSyntax* expression() const { return expr_; }
-    SyntaxToken openParenthesisToken() const { return tokenAtIndex(openParenTkIdx_); }
-    const ExpressionListSyntax* arguments() const { return args_; }
-    SyntaxToken closeParenthesisToken() const { return tokenAtIndex(closeParenTkIdx_); }
+  const ExpressionSyntax *expression() const { return expr_; }
+  SyntaxToken openParenthesisToken() const {
+    return tokenAtIndex(openParenTkIdx_);
+  }
+  const ExpressionListSyntax *arguments() const { return args_; }
+  SyntaxToken closeParenthesisToken() const {
+    return tokenAtIndex(closeParenTkIdx_);
+  }
 
 private:
-    ExpressionSyntax* expr_ = nullptr;
-    LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
-    ExpressionListSyntax* args_ = nullptr;
-    LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
-    AST_CHILD_LST4(expr_, openParenTkIdx_, args_, closeParenTkIdx_)
+  ExpressionSyntax *expr_ = nullptr;
+  LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
+  ExpressionListSyntax *args_ = nullptr;
+  LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST4(expr_, openParenTkIdx_, args_, closeParenTkIdx_)
 };
 
 /**
@@ -453,22 +463,22 @@ private:
  * \note Similar to:
  * - \c clang::MemberExpr of LLVM/Clang.
  * - \c clang::syntax::MemberExpression of Clang's Libtooling.
- * - \c Microsoft.CodeAnalysis.CSharp.Syntax.MemberAccessExpressionSyntax of Roslyn.
+ * - \c Microsoft.CodeAnalysis.CSharp.Syntax.MemberAccessExpressionSyntax of
+ * Roslyn.
  */
-class PSY_C_API MemberAccessExpressionSyntax final : public ExpressionSyntax
-{
-    AST_NODE_NK(MemberAccessExpression, Expression)
+class PSY_C_API MemberAccessExpressionSyntax final : public ExpressionSyntax {
+  AST_NODE_NK(MemberAccessExpression, Expression)
 
 public:
-    const ExpressionSyntax* expression() const { return expr_; }
-    SyntaxToken operatorToken() const { return tokenAtIndex(oprtrTkIdx_); }
-    const IdentifierNameSyntax* identifier() const { return identExpr_; }
+  const ExpressionSyntax *expression() const { return expr_; }
+  SyntaxToken operatorToken() const { return tokenAtIndex(oprtrTkIdx_); }
+  const IdentifierNameSyntax *identifier() const { return identExpr_; }
 
 private:
-    ExpressionSyntax* expr_ = nullptr;
-    LexedTokens::IndexType oprtrTkIdx_ = LexedTokens::invalidIndex();
-    IdentifierNameSyntax* identExpr_ = nullptr;
-    AST_CHILD_LST3(expr_, oprtrTkIdx_, identExpr_)
+  ExpressionSyntax *expr_ = nullptr;
+  LexedTokens::IndexType oprtrTkIdx_ = LexedTokens::invalidIndex();
+  IdentifierNameSyntax *identExpr_ = nullptr;
+  AST_CHILD_LST3(expr_, oprtrTkIdx_, identExpr_)
 };
 
 /**
@@ -479,22 +489,26 @@ private:
  * \note Similar to:
  * - \c clang::CompoundLiteralExpr of LLVM/Clang.
  */
-class PSY_C_API CompoundLiteralExpressionSyntax final : public ExpressionSyntax
-{
-    AST_NODE_1K(CompoundLiteralExpression, Expression)
+class PSY_C_API CompoundLiteralExpressionSyntax final
+    : public ExpressionSyntax {
+  AST_NODE_1K(CompoundLiteralExpression, Expression)
 
 public:
-    SyntaxToken openParenthesisToken() const { return tokenAtIndex(openParenTkIdx_); }
-    const TypeNameSyntax* typeName() const { return typeName_; }
-    SyntaxToken closeParenthesisToken() const { return tokenAtIndex(closeParenTkIdx_); }
-    const InitializerSyntax* initializer() const { return init_; }
+  SyntaxToken openParenthesisToken() const {
+    return tokenAtIndex(openParenTkIdx_);
+  }
+  const TypeNameSyntax *typeName() const { return typeName_; }
+  SyntaxToken closeParenthesisToken() const {
+    return tokenAtIndex(closeParenTkIdx_);
+  }
+  const InitializerSyntax *initializer() const { return init_; }
 
 private:
-    LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
-    TypeNameSyntax* typeName_ = nullptr;
-    LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
-    InitializerSyntax* init_ = nullptr;
-    AST_CHILD_LST4(openParenTkIdx_, typeName_, closeParenTkIdx_, init_)
+  LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
+  TypeNameSyntax *typeName_ = nullptr;
+  LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
+  InitializerSyntax *init_ = nullptr;
+  AST_CHILD_LST4(openParenTkIdx_, typeName_, closeParenTkIdx_, init_)
 };
 
 /**
@@ -518,18 +532,17 @@ private:
  * - \c clang::syntax::PrefixUnaryOperatorExpression of Clang's Libtooling.
  * - \c Microsoft.CodeAnalysis.CSharp.Syntax.SizeOfExpressionSyntax of Roslyn.
  */
-class PSY_C_API TypeTraitExpressionSyntax final : public ExpressionSyntax
-{
-    AST_NODE_NK(TypeTraitExpression, Expression)
+class PSY_C_API TypeTraitExpressionSyntax final : public ExpressionSyntax {
+  AST_NODE_NK(TypeTraitExpression, Expression)
 
 public:
-    SyntaxToken operatorToken() const { return tokenAtIndex(oprtrTkIdx_); }
-    const TypeReferenceSyntax* tyReference() const { return tyRef_; }
+  SyntaxToken operatorToken() const { return tokenAtIndex(oprtrTkIdx_); }
+  const TypeReferenceSyntax *tyReference() const { return tyRef_; }
 
 private:
-    LexedTokens::IndexType oprtrTkIdx_ = LexedTokens::invalidIndex();
-    TypeReferenceSyntax* tyRef_ = nullptr;
-    AST_CHILD_LST2(oprtrTkIdx_, tyRef_);
+  LexedTokens::IndexType oprtrTkIdx_ = LexedTokens::invalidIndex();
+  TypeReferenceSyntax *tyRef_ = nullptr;
+  AST_CHILD_LST2(oprtrTkIdx_, tyRef_);
 };
 
 /**
@@ -546,21 +559,25 @@ private:
  * - \c clang::CStyleCastExpr of LLVM/Clang.
  * - \c Microsoft.CodeAnalysis.CSharp.Syntax.CastExpressionSyntax of Roslyn.
  */
-class PSY_C_API CastExpressionSyntax final : public ExpressionSyntax
-{
-    AST_NODE_1K(CastExpression, Expression)
+class PSY_C_API CastExpressionSyntax final : public ExpressionSyntax {
+  AST_NODE_1K(CastExpression, Expression)
 
 public:
-    SyntaxToken openParenthesisToken() const { return tokenAtIndex(openParenTkIdx_); }
-    const TypeNameSyntax* typeName() const { return typeName_; }
-    SyntaxToken closeParenthesisToken() const { return tokenAtIndex(closeParenTkIdx_); }
-    const ExpressionSyntax* expression() const { return expr_; }
+  SyntaxToken openParenthesisToken() const {
+    return tokenAtIndex(openParenTkIdx_);
+  }
+  const TypeNameSyntax *typeName() const { return typeName_; }
+  SyntaxToken closeParenthesisToken() const {
+    return tokenAtIndex(closeParenTkIdx_);
+  }
+  const ExpressionSyntax *expression() const { return expr_; }
 
 private:
-    LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
-    TypeNameSyntax* typeName_ = nullptr;
-    LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();;
-    ExpressionSyntax* expr_ = nullptr;
+  LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
+  TypeNameSyntax *typeName_ = nullptr;
+  LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
+  ;
+  ExpressionSyntax *expr_ = nullptr;
 };
 
 /**
@@ -581,18 +598,19 @@ private:
  * - \c Microsoft.CodeAnalysis.CSharp.Syntax.BinaryExpressionSyntax of Roslyn.
  */
 class PSY_C_API BinaryExpressionSyntax
-        : public ExpressionSyntax
-        , public MIXIN_LeftExpressionInfixOperatorRightExpression
-{
-    AST_NODE_NK(BinaryExpression, Expression)
+    : public ExpressionSyntax,
+      public MIXIN_LeftExpressionInfixOperatorRightExpression {
+  AST_NODE_NK(BinaryExpression, Expression)
 
 public:
-    const ExpressionSyntax* left() const override { return leftExpr_; }
-    SyntaxToken operatorToken() const override { return tokenAtIndex(oprtrTkIdx_); }
-    const ExpressionSyntax* right() const override { return rightExpr_; }
+  const ExpressionSyntax *left() const override { return leftExpr_; }
+  SyntaxToken operatorToken() const override {
+    return tokenAtIndex(oprtrTkIdx_);
+  }
+  const ExpressionSyntax *right() const override { return rightExpr_; }
 
 private:
-    AST_CHILD_LST3(leftExpr_, oprtrTkIdx_, rightExpr_)
+  AST_CHILD_LST3(leftExpr_, oprtrTkIdx_, rightExpr_)
 };
 
 /**
@@ -606,25 +624,25 @@ private:
  *
  * \note Similar to:
  * - \c clang::ConditionalOperator of LLVM/Clang.
- * - \c Microsoft.CodeAnalysis.CSharp.Syntax.ConditionalExpressionSyntax of Roslyn.
+ * - \c Microsoft.CodeAnalysis.CSharp.Syntax.ConditionalExpressionSyntax of
+ * Roslyn.
  */
-class PSY_C_API ConditionalExpressionSyntax : public ExpressionSyntax
-{
-    AST_NODE_1K(ConditionalExpression, Expression)
+class PSY_C_API ConditionalExpressionSyntax : public ExpressionSyntax {
+  AST_NODE_1K(ConditionalExpression, Expression)
 
 public:
-    const ExpressionSyntax* condition() const { return condExpr_; }
-    SyntaxToken questionToken() const { return tokenAtIndex(questionTkIdx_); }
-    const ExpressionSyntax* whenTrue() const { return whenTrueExpr_; }
-    SyntaxToken colonToken() const { return tokenAtIndex(colonTkIdx_); }
-    const ExpressionSyntax* whenFalse() const { return whenFalseExpr_; }
+  const ExpressionSyntax *condition() const { return condExpr_; }
+  SyntaxToken questionToken() const { return tokenAtIndex(questionTkIdx_); }
+  const ExpressionSyntax *whenTrue() const { return whenTrueExpr_; }
+  SyntaxToken colonToken() const { return tokenAtIndex(colonTkIdx_); }
+  const ExpressionSyntax *whenFalse() const { return whenFalseExpr_; }
 
 private:
-    ExpressionSyntax* condExpr_ = nullptr;
-    LexedTokens::IndexType questionTkIdx_ = LexedTokens::invalidIndex();
-    ExpressionSyntax* whenTrueExpr_ = nullptr;
-    LexedTokens::IndexType colonTkIdx_ = LexedTokens::invalidIndex();
-    ExpressionSyntax* whenFalseExpr_ = nullptr;
+  ExpressionSyntax *condExpr_ = nullptr;
+  LexedTokens::IndexType questionTkIdx_ = LexedTokens::invalidIndex();
+  ExpressionSyntax *whenTrueExpr_ = nullptr;
+  LexedTokens::IndexType colonTkIdx_ = LexedTokens::invalidIndex();
+  ExpressionSyntax *whenFalseExpr_ = nullptr;
 };
 
 /**
@@ -641,21 +659,23 @@ private:
  * \note Similar to:
  * - \c clang::BinaryOperator of LLVM/Clang.
  * - \c clang::syntax::BinaryOperatorExpression of Clang's Libtooling.
- * - \c Microsoft.CodeAnalysis.CSharp.Syntax.AssignmentExpressionSyntax of Roslyn.
+ * - \c Microsoft.CodeAnalysis.CSharp.Syntax.AssignmentExpressionSyntax of
+ * Roslyn.
  */
 class PSY_C_API AssignmentExpressionSyntax final
-        : public ExpressionSyntax
-        , public MIXIN_LeftExpressionInfixOperatorRightExpression
-{
-    AST_NODE_NK(AssignmentExpression, Expression)
+    : public ExpressionSyntax,
+      public MIXIN_LeftExpressionInfixOperatorRightExpression {
+  AST_NODE_NK(AssignmentExpression, Expression)
 
 public:
-    const ExpressionSyntax* left() const override { return leftExpr_; }
-    SyntaxToken operatorToken() const override { return tokenAtIndex(oprtrTkIdx_); }
-    const ExpressionSyntax* right() const override { return rightExpr_; }
+  const ExpressionSyntax *left() const override { return leftExpr_; }
+  SyntaxToken operatorToken() const override {
+    return tokenAtIndex(oprtrTkIdx_);
+  }
+  const ExpressionSyntax *right() const override { return rightExpr_; }
 
 private:
-    AST_CHILD_LST3(leftExpr_, oprtrTkIdx_, rightExpr_)
+  AST_CHILD_LST3(leftExpr_, oprtrTkIdx_, rightExpr_)
 };
 
 /**
@@ -673,41 +693,43 @@ private:
  * - \c clang::syntax::BinaryOperatorExpression of Clang's Libtooling.
  */
 class PSY_C_API SequencingExpressionSyntax
-        : public ExpressionSyntax
-        , public MIXIN_LeftExpressionInfixOperatorRightExpression
-{
-    AST_NODE_1K(SequencingExpression, Expression)
+    : public ExpressionSyntax,
+      public MIXIN_LeftExpressionInfixOperatorRightExpression {
+  AST_NODE_1K(SequencingExpression, Expression)
 
 public:
-    const ExpressionSyntax* left() const override { return leftExpr_; }
-    SyntaxToken operatorToken() const override { return tokenAtIndex(oprtrTkIdx_); }
-    const ExpressionSyntax* right() const override { return rightExpr_; }
+  const ExpressionSyntax *left() const override { return leftExpr_; }
+  SyntaxToken operatorToken() const override {
+    return tokenAtIndex(oprtrTkIdx_);
+  }
+  const ExpressionSyntax *right() const override { return rightExpr_; }
 
 private:
-    AST_CHILD_LST3(leftExpr_, oprtrTkIdx_, rightExpr_)
+  AST_CHILD_LST3(leftExpr_, oprtrTkIdx_, rightExpr_)
 };
 
 /**
  * \brief The AmbiguousCastOrBinaryExpressionSyntax class.
  *
- * Represents the ambiguous syntaxes \a cast-expression and \a binary-expression.
+ * Represents the ambiguous syntaxes \a cast-expression and \a
+ * binary-expression.
  *
  * \code
  * (x) + y
  * (x) * y
  * \endcode
  */
-class PSY_C_API AmbiguousCastOrBinaryExpressionSyntax final : public ExpressionSyntax
-{
-    AST_NODE_NK(AmbiguousCastOrBinaryExpression, Expression)
+class PSY_C_API AmbiguousCastOrBinaryExpressionSyntax final
+    : public ExpressionSyntax {
+  AST_NODE_NK(AmbiguousCastOrBinaryExpression, Expression)
 
 public:
-    const CastExpressionSyntax* castExpression() const { return castExpr_; }
-    const BinaryExpressionSyntax* binaryExpression() const { return binExpr_; }
+  const CastExpressionSyntax *castExpression() const { return castExpr_; }
+  const BinaryExpressionSyntax *binaryExpression() const { return binExpr_; }
 
 private:
-    CastExpressionSyntax* castExpr_ = nullptr;
-    BinaryExpressionSyntax* binExpr_ = nullptr;
+  CastExpressionSyntax *castExpr_ = nullptr;
+  BinaryExpressionSyntax *binExpr_ = nullptr;
 };
 
 /**
@@ -718,27 +740,30 @@ private:
  * \note Similar to:
  * - \c clang:VAArgExpr of LLVM/Clang.
  */
-class PSY_C_API VAArgumentExpressionSyntax final : public ExpressionSyntax
-{
-    AST_NODE_1K(VAArgumentExpression, Expression)
+class PSY_C_API VAArgumentExpressionSyntax final : public ExpressionSyntax {
+  AST_NODE_1K(VAArgumentExpression, Expression)
 
 public:
-    SyntaxToken keyword() const { return tokenAtIndex(kwTkIdx_); }
-    SyntaxToken openParenthesisToken() const { return tokenAtIndex(openParenTkIdx_); }
-    const ExpressionSyntax* expression() const { return expr_; }
-    SyntaxToken commaToken() const { return tokenAtIndex(commaTkIdx_); }
-    const TypeNameSyntax* typeName() const { return typeName_; }
-    SyntaxToken closeParenthesisToken() const { return tokenAtIndex(closeParenTkIdx_); }
+  SyntaxToken keyword() const { return tokenAtIndex(kwTkIdx_); }
+  SyntaxToken openParenthesisToken() const {
+    return tokenAtIndex(openParenTkIdx_);
+  }
+  const ExpressionSyntax *expression() const { return expr_; }
+  SyntaxToken commaToken() const { return tokenAtIndex(commaTkIdx_); }
+  const TypeNameSyntax *typeName() const { return typeName_; }
+  SyntaxToken closeParenthesisToken() const {
+    return tokenAtIndex(closeParenTkIdx_);
+  }
 
 private:
-    LexedTokens::IndexType kwTkIdx_ = LexedTokens::invalidIndex();
-    LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
-    ExpressionSyntax* expr_ = nullptr;
-    LexedTokens::IndexType commaTkIdx_ = LexedTokens::invalidIndex();
-    TypeNameSyntax* typeName_ = nullptr;
-    LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
+  LexedTokens::IndexType kwTkIdx_ = LexedTokens::invalidIndex();
+  LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
+  ExpressionSyntax *expr_ = nullptr;
+  LexedTokens::IndexType commaTkIdx_ = LexedTokens::invalidIndex();
+  TypeNameSyntax *typeName_ = nullptr;
+  LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
 
-    AST_CHILD_LST2(expr_, typeName_)
+  AST_CHILD_LST2(expr_, typeName_)
 };
 
 /**
@@ -754,32 +779,33 @@ private:
  * \note Similar to:
  * - \c clang::OffsetOfExpr of LLVM/Clang.
  */
-class PSY_C_API OffsetOfExpressionSyntax final : public ExpressionSyntax
-{
-    AST_NODE_1K(OffsetOfExpression, Expression)
+class PSY_C_API OffsetOfExpressionSyntax final : public ExpressionSyntax {
+  AST_NODE_1K(OffsetOfExpression, Expression)
 
 public:
-    SyntaxToken keyword() const { return tokenAtIndex(kwTkIdx_); }
-    SyntaxToken openParenthesisToken() const { return tokenAtIndex(openParenTkIdx_); }
-    const TypeNameSyntax* typeName() const { return typeName_; }
-    SyntaxToken commaToken() const { return tokenAtIndex(commaTkIdx_); }
-    const DesignatorSyntax* offsetOfDesignator() const { return offsetOfDesignator_; }
-    SyntaxToken closeParenthesisToken() const { return tokenAtIndex(closeParenTkIdx_); }
+  SyntaxToken keyword() const { return tokenAtIndex(kwTkIdx_); }
+  SyntaxToken openParenthesisToken() const {
+    return tokenAtIndex(openParenTkIdx_);
+  }
+  const TypeNameSyntax *typeName() const { return typeName_; }
+  SyntaxToken commaToken() const { return tokenAtIndex(commaTkIdx_); }
+  const DesignatorSyntax *offsetOfDesignator() const {
+    return offsetOfDesignator_;
+  }
+  SyntaxToken closeParenthesisToken() const {
+    return tokenAtIndex(closeParenTkIdx_);
+  }
 
 private:
-    LexedTokens::IndexType kwTkIdx_ = LexedTokens::invalidIndex();
-    LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
-    TypeNameSyntax* typeName_ = nullptr;
-    LexedTokens::IndexType commaTkIdx_ = LexedTokens::invalidIndex();
-    DesignatorSyntax* offsetOfDesignator_ = nullptr;
-    LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
+  LexedTokens::IndexType kwTkIdx_ = LexedTokens::invalidIndex();
+  LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
+  TypeNameSyntax *typeName_ = nullptr;
+  LexedTokens::IndexType commaTkIdx_ = LexedTokens::invalidIndex();
+  DesignatorSyntax *offsetOfDesignator_ = nullptr;
+  LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
 
-    AST_CHILD_LST6(kwTkIdx_,
-                   openParenTkIdx_,
-                   typeName_,
-                   commaTkIdx_,
-                   offsetOfDesignator_,
-                   closeParenTkIdx_)
+  AST_CHILD_LST6(kwTkIdx_, openParenTkIdx_, typeName_, commaTkIdx_,
+                 offsetOfDesignator_, closeParenTkIdx_)
 };
 
 /**
@@ -794,38 +820,35 @@ private:
  * \note Similar to:
  * - \c clang::ChooseExpr of LLVM/Clang.
  */
-class PSY_C_API ExtGNU_ChooseExpressionSyntax final : public ExpressionSyntax
-{
-    AST_NODE_1K(ExtGNU_ChooseExpression, Expression)
+class PSY_C_API ExtGNU_ChooseExpressionSyntax final : public ExpressionSyntax {
+  AST_NODE_1K(ExtGNU_ChooseExpression, Expression)
 
 public:
-    SyntaxToken keyword() const { return tokenAtIndex(kwTkIdx_); }
-    SyntaxToken openParenthesisToken() const { return tokenAtIndex(openParenTkIdx_); }
-    const ExpressionSyntax* constantExpression() const { return constExpr_; }
-    SyntaxToken commaToken1() const { return tokenAtIndex(commaTkIdx1_); }
-    const ExpressionSyntax* expression1() const { return expr1_; }
-    SyntaxToken commaToken2() const { return tokenAtIndex(commaTkIdx2_); }
-    const ExpressionSyntax* expression2() const { return expr2_; }
-    SyntaxToken closeParenthesisToken() const { return tokenAtIndex(closeParenTkIdx_); }
+  SyntaxToken keyword() const { return tokenAtIndex(kwTkIdx_); }
+  SyntaxToken openParenthesisToken() const {
+    return tokenAtIndex(openParenTkIdx_);
+  }
+  const ExpressionSyntax *constantExpression() const { return constExpr_; }
+  SyntaxToken commaToken1() const { return tokenAtIndex(commaTkIdx1_); }
+  const ExpressionSyntax *expression1() const { return expr1_; }
+  SyntaxToken commaToken2() const { return tokenAtIndex(commaTkIdx2_); }
+  const ExpressionSyntax *expression2() const { return expr2_; }
+  SyntaxToken closeParenthesisToken() const {
+    return tokenAtIndex(closeParenTkIdx_);
+  }
 
 private:
-    LexedTokens::IndexType kwTkIdx_ = LexedTokens::invalidIndex();
-    LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
-    ExpressionSyntax* constExpr_ = nullptr;
-    LexedTokens::IndexType commaTkIdx1_ = LexedTokens::invalidIndex();
-    ExpressionSyntax* expr1_ = nullptr;
-    LexedTokens::IndexType commaTkIdx2_ = LexedTokens::invalidIndex();
-    ExpressionSyntax* expr2_ = nullptr;
-    LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
+  LexedTokens::IndexType kwTkIdx_ = LexedTokens::invalidIndex();
+  LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
+  ExpressionSyntax *constExpr_ = nullptr;
+  LexedTokens::IndexType commaTkIdx1_ = LexedTokens::invalidIndex();
+  ExpressionSyntax *expr1_ = nullptr;
+  LexedTokens::IndexType commaTkIdx2_ = LexedTokens::invalidIndex();
+  ExpressionSyntax *expr2_ = nullptr;
+  LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
 
-    AST_CHILD_LST8(kwTkIdx_,
-                   openParenTkIdx_,
-                   constExpr_,
-                   commaTkIdx1_,
-                   expr1_,
-                   commaTkIdx2_,
-                   expr2_,
-                   closeParenTkIdx_)
+  AST_CHILD_LST8(kwTkIdx_, openParenTkIdx_, constExpr_, commaTkIdx1_, expr1_,
+                 commaTkIdx2_, expr2_, closeParenTkIdx_)
 };
 
 /**
@@ -836,22 +859,22 @@ private:
  * __imag__ expr
  * \endcode
  */
-class PSY_C_API ExtGNU_ComplexValuedExpressionSyntax final : public ExpressionSyntax
-{
-    AST_NODE_NK(ExtGNU_ComplexValuedExpression, Expression)
+class PSY_C_API ExtGNU_ComplexValuedExpressionSyntax final
+    : public ExpressionSyntax {
+  AST_NODE_NK(ExtGNU_ComplexValuedExpression, Expression)
 
 public:
-    SyntaxToken operatorToken() const { return tokenAtIndex(oprtrTkIdx_); }
-    const ExpressionSyntax* expression() const { return expr_; }
+  SyntaxToken operatorToken() const { return tokenAtIndex(oprtrTkIdx_); }
+  const ExpressionSyntax *expression() const { return expr_; }
 
 private:
-    LexedTokens::IndexType oprtrTkIdx_ = LexedTokens::invalidIndex();
-    ExpressionSyntax* expr_ = nullptr;
+  LexedTokens::IndexType oprtrTkIdx_ = LexedTokens::invalidIndex();
+  ExpressionSyntax *expr_ = nullptr;
 
-    AST_CHILD_LST2(oprtrTkIdx_, expr_)
+  AST_CHILD_LST2(oprtrTkIdx_, expr_)
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

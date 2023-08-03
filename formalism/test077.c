@@ -1,5 +1,4 @@
-int f()
-{
-  const int* p;
+int f() {
+  const int *p;
   return *p;
 }

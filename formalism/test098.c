@@ -1,17 +1,16 @@
-int fff()
-{
-    int iii;
-    SSS www;
-    iii = www;
-    www = iii;
+int fff() {
+  int iii;
+  SSS www;
+  iii = www;
+  www = iii;
 
-    double ddd;
-    QQQ uuu;
-    uuu = ddd;
+  double ddd;
+  QQQ uuu;
+  uuu = ddd;
 
-    TTT* aaa;
-    aaa = &www;
-    aaa = &uuu;
+  TTT *aaa;
+  aaa = &www;
+  aaa = &uuu;
 
-    return iii;
+  return iii;
 }

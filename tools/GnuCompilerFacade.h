@@ -27,26 +27,25 @@
 
 namespace psy {
 
-class GnuCompilerFacade
-{
+class GnuCompilerFacade {
 public:
-    GnuCompilerFacade(const std::string& compilerName,
-                   const std::string& std,
-                   const std::vector<std::string>& D,
-                   const std::vector<std::string>& U);
+  GnuCompilerFacade(const std::string &compilerName, const std::string &std,
+                    const std::vector<std::string> &D,
+                    const std::vector<std::string> &U);
 
-    std::pair<int, std::string> preprocess(const std::string& srcText);
-    std::pair<int, std::string> preprocess_IgnoreIncludes(const std::string& srcText);
+  std::pair<int, std::string> preprocess(const std::string &srcText);
+  std::pair<int, std::string>
+  preprocess_IgnoreIncludes(const std::string &srcText);
 
 private:
-    std::string assembleMacroCmd() const;
+  std::string assembleMacroCmd() const;
 
-    std::string compilerName_;
-    std::string std_;
-    std::vector<std::string> D_;
-    std::vector<std::string> U_;
+  std::string compilerName_;
+  std::string std_;
+  std::vector<std::string> D_;
+  std::vector<std::string> U_;
 };
 
-} // psy
+} // namespace psy
 
 #endif

@@ -39,33 +39,31 @@ namespace C {
  * This API is inspired by that of \c Microsoft.CodeAnalysis.TypeKind
  * from Roslyn, the .NET Compiler Platform.
  */
-enum class PSY_C_API TypeKind : std::uint8_t
-{
-    UNSPECIFIED = 0,
+enum class PSY_C_API TypeKind : std::uint8_t {
+  UNSPECIFIED = 0,
 
-    Array,
-    Function,
-    Named,
-    Pointer,
+  Array,
+  Function,
+  Named,
+  Pointer,
 };
 
-inline std::string PSY_C_API to_string(TypeKind tyKind)
-{
-    switch (tyKind) {
-        case TypeKind::Array:
-            return "Array";
-        case TypeKind::Function:
-            return "Function";
-        case TypeKind::Named:
-            return "Named";
-        case TypeKind::Pointer:
-            return "Pointer";
-        default:
-            PSY_ESCAPE_VIA_RETURN("<INVALID or UNSPECIFIED TypeKind>");
-    }
+inline std::string PSY_C_API to_string(TypeKind tyKind) {
+  switch (tyKind) {
+  case TypeKind::Array:
+    return "Array";
+  case TypeKind::Function:
+    return "Function";
+  case TypeKind::Named:
+    return "Named";
+  case TypeKind::Pointer:
+    return "Pointer";
+  default:
+    PSY_ESCAPE_VIA_RETURN("<INVALID or UNSPECIFIED TypeKind>");
+  }
 }
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

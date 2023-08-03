@@ -26,60 +26,47 @@
 using namespace psy;
 using namespace C;
 
-struct FunctionTypeSymbol::FunctionTypeSymbolImpl : TypeSymbolImpl
-{
-    FunctionTypeSymbolImpl(const SyntaxTree* tree,
-                           const Scope* scope,
-                           const Symbol* containingSym,
-                           const TypeSymbol* retTySym)
-        : TypeSymbolImpl(tree,
-                         scope,
-                         containingSym,
-                         TypeKind::Function)
-        , retTySym_(retTySym)
-    {}
+struct FunctionTypeSymbol::FunctionTypeSymbolImpl : TypeSymbolImpl {
+  FunctionTypeSymbolImpl(const SyntaxTree *tree, const Scope *scope,
+                         const Symbol *containingSym,
+                         const TypeSymbol *retTySym)
+      : TypeSymbolImpl(tree, scope, containingSym, TypeKind::Function),
+        retTySym_(retTySym) {}
 
-    const TypeSymbol* retTySym_;
-    std::vector<const TypeSymbol*> parmTySyms_;
+  const TypeSymbol *retTySym_;
+  std::vector<const TypeSymbol *> parmTySyms_;
 };
 
-FunctionTypeSymbol::FunctionTypeSymbol(const SyntaxTree* tree,
-                                       const Scope* scope,
-                                       const Symbol* containingSym,
-                                       const TypeSymbol* retTySym)
-    : TypeSymbol(new FunctionTypeSymbolImpl(tree,
-                                            scope,
-                                            containingSym,
-                                            retTySym))
-{}
+FunctionTypeSymbol::FunctionTypeSymbol(const SyntaxTree *tree,
+                                       const Scope *scope,
+                                       const Symbol *containingSym,
+                                       const TypeSymbol *retTySym)
+    : TypeSymbol(
+          new FunctionTypeSymbolImpl(tree, scope, containingSym, retTySym)) {}
 
-const TypeSymbol* FunctionTypeSymbol::returnType() const
-{
-    return P_CAST->retTySym_;
+const TypeSymbol *FunctionTypeSymbol::returnType() const {
+  return P_CAST->retTySym_;
 }
 
-std::vector<const TypeSymbol*> FunctionTypeSymbol::parameterTypes() const
-{
-    return P_CAST->parmTySyms_;
+std::vector<const TypeSymbol *> FunctionTypeSymbol::parameterTypes() const {
+  return P_CAST->parmTySyms_;
 }
 
-void FunctionTypeSymbol::addParameter(const TypeSymbol* parmTySym)
-{
-    P_CAST->parmTySyms_.push_back(parmTySym);
+void FunctionTypeSymbol::addParameter(const TypeSymbol *parmTySym) {
+  P_CAST->parmTySyms_.push_back(parmTySym);
 }
 
 namespace psy {
 namespace C {
 
-std::string to_string(const FunctionTypeSymbol& tySym)
-{
-    std::ostringstream oss;
-    oss << "<@function type |";
-    oss << " return:" << to_string(*tySym.returnType());
-    oss << " @>";
+std::string to_string(const FunctionTypeSymbol &tySym) {
+  std::ostringstream oss;
+  oss << "<@function type |";
+  oss << " return:" << to_string(*tySym.returnType());
+  oss << " @>";
 
-    return oss.str();
+  return oss.str();
 }
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy

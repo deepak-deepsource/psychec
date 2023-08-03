@@ -38,33 +38,25 @@ namespace C {
  * The C dialectd, based on the Standard version: C89/90, C99, C11, or C17/18.
  *
  * \note
- * Additional information at https://gcc.gnu.org/onlinedocs/gcc/C-Dialect-Options.html.
+ * Additional information at
+ * https://gcc.gnu.org/onlinedocs/gcc/C-Dialect-Options.html.
  */
-class PSY_C_API LanguageDialect
-{
+class PSY_C_API LanguageDialect {
 public:
-    /**
-     * \brief The C Standard enumeration.
-     */
-    enum class Std : std::uint8_t
-    {
-        C89_90,
-        C99,
-        C11,
-        C17_18
-    };
+  /**
+   * \brief The C Standard enumeration.
+   */
+  enum class Std : std::uint8_t { C89_90, C99, C11, C17_18 };
 
-    LanguageDialect(Std std = Std::C11)
-        : std_(std)
-    {}
+  LanguageDialect(Std std = Std::C11) : std_(std) {}
 
-    /**
-     * The C Standard of \c this LanguageDialect.
-     */
-    Std std() const { return std_; }
+  /**
+   * The C Standard of \c this LanguageDialect.
+   */
+  Std std() const { return std_; }
 
 private:
-    Std std_;
+  Std std_;
 };
 
 bool PSY_C_API operator==(LanguageDialect::Std a, LanguageDialect::Std b);
@@ -76,7 +68,7 @@ bool PSY_C_API operator>=(LanguageDialect::Std a, LanguageDialect::Std b);
 
 std::string PSY_C_API to_string(LanguageDialect::Std std);
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

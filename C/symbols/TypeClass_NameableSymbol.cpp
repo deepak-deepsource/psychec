@@ -25,7 +25,6 @@
 using namespace psy;
 using namespace C;
 
-TypeClass_NameableSymbol* TypeClass_NameableSymbol::asInstance(Symbol* sym)
-{
-    return dynamic_cast<TypeClass_NameableSymbol*>(sym);
+TypeClass_NameableSymbol *TypeClass_NameableSymbol::asInstance(Symbol *sym) {
+  return dynamic_cast<TypeClass_NameableSymbol *>(sym);
 }

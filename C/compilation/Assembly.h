@@ -40,27 +40,26 @@ namespace C {
  *
  * An assembly is the result produced by a Compilation.
  */
-class PSY_C_API Assembly
-{
-    friend class InternalsTestSuite;
+class PSY_C_API Assembly {
+  friend class InternalsTestSuite;
 
 public:
-    /**
-     * The Symbols defined in \c this Assembly.
-     */
-    std::vector<const Symbol*> symbols() const;
+  /**
+   * The Symbols defined in \c this Assembly.
+   */
+  std::vector<const Symbol *> symbols() const;
 
-PSY_INTERNAL_AND_RESTRICTED:
-    PSY_GRANT_ACCESS(SemanticModel);
+  PSY_INTERNAL_AND_RESTRICTED : PSY_GRANT_ACCESS(SemanticModel);
 
-    Symbol* findSymDEF(std::function<bool (const std::unique_ptr<Symbol>&)> pred) const;
+  Symbol *
+  findSymDEF(std::function<bool(const std::unique_ptr<Symbol> &)> pred) const;
 
 private:
-    std::unordered_set<std::unique_ptr<Symbol>> symDEFs_;
-    std::vector<std::unique_ptr<Symbol>> symUSEs_;
+  std::unordered_set<std::unique_ptr<Symbol>> symDEFs_;
+  std::vector<std::unique_ptr<Symbol>> symUSEs_;
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

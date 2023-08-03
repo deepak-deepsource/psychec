@@ -25,7 +25,8 @@
 ** requirements will be met: https://www.gnu.org/licenses/lgpl.html and
 ** http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
 **
-** In addition, as a special exception, The Qt Company gives you certain additional
+** In addition, as a special exception, The Qt Company gives you certain
+*additional
 ** rights.  These rights are described in The Qt Company LGPL Exception
 ** version 1.1, included in the file LGPL_EXCEPTION.txt in this package.
 **
@@ -57,37 +58,37 @@
 namespace psy {
 namespace C {
 
-class PSY_C_API SyntaxWriterDOTFormat final : public SyntaxDumper
-{
+class PSY_C_API SyntaxWriterDOTFormat final : public SyntaxDumper {
 public:
-    using SyntaxDumper::SyntaxDumper;
+  using SyntaxDumper::SyntaxDumper;
 
-    void write(const SyntaxNode* node, const std::string& fileSuffix);
-    void write(const SyntaxNode* node, const std::string& fileSuffix, std::ostream& os);
+  void write(const SyntaxNode *node, const std::string &fileSuffix);
+  void write(const SyntaxNode *node, const std::string &fileSuffix,
+             std::ostream &os);
 
 private:
-    static std::string name(const SyntaxNode* node);
+  static std::string name(const SyntaxNode *node);
 
-    void terminal(const SyntaxToken& tk, const SyntaxNode* node) override;
-    std::string terminalId(unsigned token);
-    std::string terminalId(const SyntaxToken& tk);
+  void terminal(const SyntaxToken &tk, const SyntaxNode *node) override;
+  std::string terminalId(unsigned token);
+  std::string terminalId(const SyntaxToken &tk);
 
-    void generateTokens();
-    void alignTerminals();
-    void nodeLabel(const SyntaxNode* node);
+  void generateTokens();
+  void alignTerminals();
+  void nodeLabel(const SyntaxNode *node);
 
-    bool preVisit(const SyntaxNode* node) override;
-    void postVisit(const SyntaxNode*) override;
+  bool preVisit(const SyntaxNode *node) override;
+  void postVisit(const SyntaxNode *) override;
 
-    std::unordered_map<const SyntaxNode*, std::string> id_;
-    std::vector<std::pair<std::string, std::string>> connections_;
-    std::stack<const SyntaxNode*> nodes_;
-    std::vector<std::string> terminalShapes_;
-    std::ostream* os_;
-    int count_;
+  std::unordered_map<const SyntaxNode *, std::string> id_;
+  std::vector<std::pair<std::string, std::string>> connections_;
+  std::stack<const SyntaxNode *> nodes_;
+  std::vector<std::string> terminalShapes_;
+  std::ostream *os_;
+  int count_;
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

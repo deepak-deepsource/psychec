@@ -36,28 +36,27 @@ namespace cnip {
 /*!
  * \brief The ConfigurationForC class.
  */
-class ConfigurationForC : public Configuration
-{
+class ConfigurationForC : public Configuration {
 public:
-    ConfigurationForC(const cxxopts::ParseResult& parsedCmdLine);
+  ConfigurationForC(const cxxopts::ParseResult &parsedCmdLine);
 
-    static void extend(cxxopts::Options& cmdLineOpts);
+  static void extend(cxxopts::Options &cmdLineOpts);
 
-    // TODO: API
-    LanguageDialect::Std langStd;
+  // TODO: API
+  LanguageDialect::Std langStd;
 
-    std::string hostCompiler;
-    std::vector<std::string> macrosToDefine;
-    std::vector<std::string> macrosToUndef;
-    std::vector<std::string> headerSearchPaths;
+  std::string hostCompiler;
+  std::vector<std::string> macrosToDefine;
+  std::vector<std::string> macrosToUndef;
+  std::vector<std::string> headerSearchPaths;
 
-    std::string ParseOptions_TreatmentOfAmbiguities;
+  std::string ParseOptions_TreatmentOfAmbiguities;
 
-    // TODO: Bit fields.
-    bool expandIncludes;
-    bool inferMissingTypes;
+  // TODO: Bit fields.
+  bool expandIncludes;
+  bool inferMissingTypes;
 };
 
-} // cnip
+} // namespace cnip
 
 #endif

@@ -1,7 +1,6 @@
-T f()
-{
-    const int* cip;
-    int* ip;
-    ip = cip;
-    return 42;
+T f() {
+  const int *cip;
+  int *ip;
+  ip = cip;
+  return 42;
 }

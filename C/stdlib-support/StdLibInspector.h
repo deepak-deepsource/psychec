@@ -26,13 +26,12 @@
 namespace psy {
 namespace C {
 
-class StdLibInspector final : SourceInspector
-{
+class StdLibInspector final : SourceInspector {
 public:
-    std::vector<std::string> detectRequiredHeaders(const std::string&) override;
+  std::vector<std::string> detectRequiredHeaders(const std::string &) override;
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

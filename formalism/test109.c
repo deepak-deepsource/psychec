@@ -1,6 +1,5 @@
-int f()
-{
-    const int* ppp;
-    int* const qqq;
-    return 1;
+int f() {
+  const int *ppp;
+  int *const qqq;
+  return 1;
 }

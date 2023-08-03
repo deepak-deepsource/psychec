@@ -26,49 +26,36 @@
 using namespace psy;
 using namespace C;
 
-struct ArrayTypeSymbol::ArrayTypeSymbolImpl : TypeSymbolImpl
-{
-    ArrayTypeSymbolImpl(const SyntaxTree* tree,
-                          const Scope* scope,
-                          const Symbol* containingSym,
-                          const TypeSymbol* elemTySym)
-        : TypeSymbolImpl(tree,
-                         scope,
-                         containingSym,
-                         TypeKind::Array)
-        , elemTySym_(elemTySym)
-    {}
+struct ArrayTypeSymbol::ArrayTypeSymbolImpl : TypeSymbolImpl {
+  ArrayTypeSymbolImpl(const SyntaxTree *tree, const Scope *scope,
+                      const Symbol *containingSym, const TypeSymbol *elemTySym)
+      : TypeSymbolImpl(tree, scope, containingSym, TypeKind::Array),
+        elemTySym_(elemTySym) {}
 
-    const TypeSymbol* elemTySym_;
+  const TypeSymbol *elemTySym_;
 };
 
-ArrayTypeSymbol::ArrayTypeSymbol(const SyntaxTree* tree,
-                                 const Scope* scope,
-                                 const Symbol* containingSym,
-                                 const TypeSymbol* elemTySym)
-    : TypeSymbol(new ArrayTypeSymbolImpl(tree,
-                                         scope,
-                                         containingSym,
-                                         elemTySym))
-{}
+ArrayTypeSymbol::ArrayTypeSymbol(const SyntaxTree *tree, const Scope *scope,
+                                 const Symbol *containingSym,
+                                 const TypeSymbol *elemTySym)
+    : TypeSymbol(
+          new ArrayTypeSymbolImpl(tree, scope, containingSym, elemTySym)) {}
 
-const TypeSymbol* ArrayTypeSymbol::elementType() const
-{
-    return P_CAST->elemTySym_;
+const TypeSymbol *ArrayTypeSymbol::elementType() const {
+  return P_CAST->elemTySym_;
 }
 
 namespace psy {
 namespace C {
 
-std::string to_string(const ArrayTypeSymbol& tySym)
-{
-    std::ostringstream oss;
-    oss << "<#array type |";
-    oss << " " << to_string(*tySym.elementType());
-    oss << " #>";
+std::string to_string(const ArrayTypeSymbol &tySym) {
+  std::ostringstream oss;
+  oss << "<#array type |";
+  oss << " " << to_string(*tySym.elementType());
+  oss << " #>";
 
-    return oss.str();
+  return oss.str();
 }
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy

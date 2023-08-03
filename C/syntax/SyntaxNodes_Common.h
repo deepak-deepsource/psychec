@@ -41,54 +41,55 @@ namespace C {
  *
  * \remark 6.7.7
  */
-class PSY_C_API TypeNameSyntax final : public SyntaxNode
-{
-    AST_G_NODE_1K(TypeName)
+class PSY_C_API TypeNameSyntax final : public SyntaxNode {
+  AST_G_NODE_1K(TypeName)
 
 public:
-    const SpecifierListSyntax* specifiers() const { return specs_; }
-    const DeclaratorSyntax* declarator() const { return decltor_; }
+  const SpecifierListSyntax *specifiers() const { return specs_; }
+  const DeclaratorSyntax *declarator() const { return decltor_; }
 
 private:
-    SpecifierListSyntax* specs_ = nullptr;
-    DeclaratorSyntax* decltor_ = nullptr;
-    AST_CHILD_LST2(specs_, decltor_);
+  SpecifierListSyntax *specs_ = nullptr;
+  DeclaratorSyntax *decltor_ = nullptr;
+  AST_CHILD_LST2(specs_, decltor_);
 };
 
 /**
  * \brief The ExpressionAsTypeReferenceSyntax class.
  */
-class PSY_C_API ExpressionAsTypeReferenceSyntax final : public TypeReferenceSyntax
-{
-    AST_NODE_1K(ExpressionAsTypeReference, TypeReference)
+class PSY_C_API ExpressionAsTypeReferenceSyntax final
+    : public TypeReferenceSyntax {
+  AST_NODE_1K(ExpressionAsTypeReference, TypeReference)
 
 public:
-    const ExpressionSyntax* expression() const { return expr_; }
+  const ExpressionSyntax *expression() const { return expr_; }
 
 private:
-    ExpressionSyntax* expr_ = nullptr;
-    AST_CHILD_LST1(expr_)
+  ExpressionSyntax *expr_ = nullptr;
+  AST_CHILD_LST1(expr_)
 };
 
 /**
  * \brief The TypeNameAsTypeReferenceSyntax class.
  */
-class PSY_C_API TypeNameAsTypeReferenceSyntax final : public TypeReferenceSyntax
-{
-    AST_NODE_1K(TypeNameAsTypeReference, TypeReference)
+class PSY_C_API TypeNameAsTypeReferenceSyntax final
+    : public TypeReferenceSyntax {
+  AST_NODE_1K(TypeNameAsTypeReference, TypeReference)
 
 public:
-    SyntaxToken openParenthesisToken() const { return tokenAtIndex(openParenTkIdx_); }
-    const TypeNameSyntax* typeName() const { return typeName_; }
-    SyntaxToken closeParenthesisToken() const { return tokenAtIndex(closeParenTkIdx_); }
+  SyntaxToken openParenthesisToken() const {
+    return tokenAtIndex(openParenTkIdx_);
+  }
+  const TypeNameSyntax *typeName() const { return typeName_; }
+  SyntaxToken closeParenthesisToken() const {
+    return tokenAtIndex(closeParenTkIdx_);
+  }
 
 private:
-    LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
-    TypeNameSyntax* typeName_ = nullptr;
-    LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
-    AST_CHILD_LST3(openParenTkIdx_,
-                   typeName_,
-                   closeParenTkIdx_)
+  LexedTokens::IndexType openParenTkIdx_ = LexedTokens::invalidIndex();
+  TypeNameSyntax *typeName_ = nullptr;
+  LexedTokens::IndexType closeParenTkIdx_ = LexedTokens::invalidIndex();
+  AST_CHILD_LST3(openParenTkIdx_, typeName_, closeParenTkIdx_)
 };
 
 /**
@@ -106,21 +107,25 @@ private:
  * sizeof (x)
  * \endcode
  */
-class PSY_C_API AmbiguousTypeNameOrExpressionAsTypeReferenceSyntax final : public TypeReferenceSyntax
-{
-    AST_NODE_1K(AmbiguousTypeNameOrExpressionAsTypeReference, TypeReference)
+class PSY_C_API AmbiguousTypeNameOrExpressionAsTypeReferenceSyntax final
+    : public TypeReferenceSyntax {
+  AST_NODE_1K(AmbiguousTypeNameOrExpressionAsTypeReference, TypeReference)
 
 public:
-    const ExpressionAsTypeReferenceSyntax* expressionAsTypeReference() const { return exprAsTyRef_; }
-    const TypeNameAsTypeReferenceSyntax* typeNameAsTypeReference() const { return tyNameAsTyRef_; }
+  const ExpressionAsTypeReferenceSyntax *expressionAsTypeReference() const {
+    return exprAsTyRef_;
+  }
+  const TypeNameAsTypeReferenceSyntax *typeNameAsTypeReference() const {
+    return tyNameAsTyRef_;
+  }
 
 private:
-    ExpressionAsTypeReferenceSyntax* exprAsTyRef_ = nullptr;
-    TypeNameAsTypeReferenceSyntax* tyNameAsTyRef_ = nullptr;
-    AST_CHILD_LST2(exprAsTyRef_, tyNameAsTyRef_);
+  ExpressionAsTypeReferenceSyntax *exprAsTyRef_ = nullptr;
+  TypeNameAsTypeReferenceSyntax *tyNameAsTyRef_ = nullptr;
+  AST_CHILD_LST2(exprAsTyRef_, tyNameAsTyRef_);
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

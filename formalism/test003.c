@@ -1,7 +1,5 @@
-T1 f()
-{
-    T2 a;
-    a = 10;
-    return a;
+T1 f() {
+  T2 a;
+  a = 10;
+  return a;
 }
-

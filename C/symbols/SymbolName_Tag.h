@@ -34,57 +34,54 @@ namespace C {
 /**
  * \brief The TagSymbolName class.
  */
-class PSY_C_API TagSymbolName final : public SymbolName
-{
-    friend std::string to_string(const TagSymbolName& name);
-    friend bool operator==(const TagSymbolName& a, const TagSymbolName& b);
+class PSY_C_API TagSymbolName final : public SymbolName {
+  friend std::string to_string(const TagSymbolName &name);
+  friend bool operator==(const TagSymbolName &a, const TagSymbolName &b);
 
 public:
-    //!@{
-    /**
-     * Cast \c this SymbolNanem as a TagSymbolName.
-     */
-    virtual TagSymbolName* asTagSymbolName() override { return this; }
-    virtual const TagSymbolName* asTagSymbolName() const override { return this; }
-    //!@}
+  //!@{
+  /**
+   * Cast \c this SymbolNanem as a TagSymbolName.
+   */
+  virtual TagSymbolName *asTagSymbolName() override { return this; }
+  virtual const TagSymbolName *asTagSymbolName() const override { return this; }
+  //!@}
 
-    /**
-     * The choice of a tag.
-     *
-     * \remark \remark 6.7.2.3-2
-     */
-    enum class TagChoice : std::uint8_t
-    {
-        UNSPECIFIED = 0,
+  /**
+   * The choice of a tag.
+   *
+   * \remark \remark 6.7.2.3-2
+   */
+  enum class TagChoice : std::uint8_t {
+    UNSPECIFIED = 0,
 
-        Struct,
-        Union,
-        Enum
-    };
+    Struct,
+    Union,
+    Enum
+  };
 
-    /**
-     * The TagChoice of \c this TagSymbolName.
-     */
-    TagChoice tagChoice() const;
+  /**
+   * The TagChoice of \c this TagSymbolName.
+   */
+  TagChoice tagChoice() const;
 
-    /**
-     * The text of \c this TagSymbolName.
-     */
-    virtual std::string text() const override;
+  /**
+   * The text of \c this TagSymbolName.
+   */
+  virtual std::string text() const override;
 
-PSY_INTERNAL_AND_RESTRICTED:
-    PSY_GRANT_ACCESS(NamedTypeSymbol);
+  PSY_INTERNAL_AND_RESTRICTED : PSY_GRANT_ACCESS(NamedTypeSymbol);
 
-    TagSymbolName(TagChoice tagK, std::string tag);
+  TagSymbolName(TagChoice tagK, std::string tag);
 
 private:
-    TagChoice tagChoice_;
-    std::string tag_;
+  TagChoice tagChoice_;
+  std::string tag_;
 };
 
-bool operator!=(const TagSymbolName& a, const TagSymbolName& b);
+bool operator!=(const TagSymbolName &a, const TagSymbolName &b);
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif

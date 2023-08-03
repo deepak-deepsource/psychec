@@ -27,9 +27,9 @@
 #include "tests/Tester.h"
 
 #include "C/SyntaxTree.h"
-#include "C/syntax/SyntaxNodes.h"
 #include "C/compilation/Compilation.h"
 #include "C/compilation/SemanticModel.h"
+#include "C/syntax/SyntaxNodes.h"
 
 #include <memory>
 #include <tuple>
@@ -38,22 +38,21 @@
 namespace psy {
 namespace C {
 
-class APITestSuite : public TestSuite
-{
-    friend class SemanticModelTester;
+class APITestSuite : public TestSuite {
+  friend class SemanticModelTester;
 
 public:
-    virtual ~APITestSuite();
+  virtual ~APITestSuite();
 
-    virtual std::tuple<int, int> testAll() override;
-    virtual std::string description() const override;
-    virtual void printSummary() const override;
+  virtual std::tuple<int, int> testAll() override;
+  virtual std::string description() const override;
+  virtual void printSummary() const override;
 
 private:
-    std::vector<std::unique_ptr<Tester>> testers_;
+  std::vector<std::unique_ptr<Tester>> testers_;
 };
 
-} // C
-} // psy
+} // namespace C
+} // namespace psy
 
 #endif
